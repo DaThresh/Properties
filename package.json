@@ -5,7 +5,8 @@
    "scripts": {
       "test": "echo \"Error: no test specified\" && exit 1",
       "build": "webpack",
-      "start": "node ./server/expressServer.js"
+      "start": "node ./server/expressServer.js",
+      "debug": "node --inspect ./server/expressServer.js"
    },
    "keywords": [],
    "author": "Andrew Thresher",
@@ -23,7 +24,6 @@
       "express": "^4.17.1",
       "file-loader": "^6.0.0",
       "image-webpack-loader": "^6.0.0",
-      "open": "^7.0.4",
       "prettier": "2.0.5",
       "style-loader": "^1.2.1",
       "webpack": "^4.43.0",
@@ -33,6 +33,7 @@
    },
    "dependencies": {
       "@hot-loader/react-dom": "^16.13.0",
+      "bcrypt": "^5.0.0",
       "chalk": "^4.1.0",
       "core-js": "^3.6.5",
       "js-yaml": "^3.14.0",

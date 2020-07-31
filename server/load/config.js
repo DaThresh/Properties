@@ -8,6 +8,12 @@ try {
     global.PORT = data.port;
     global.ENVIRONMENT = data.enviornment;
 
+    let token = data.token;
+    global.TOKEN = {
+        EXPIRE: token.expire,
+        KEY: token.key,
+    }
+
     let database = data.database;
     global.DATABASE = {
         NAME: database.name,
@@ -18,7 +24,6 @@ try {
         SRV: database.srv,
         OPTIONS: database.options ? database.options : {},
     }
-    
 } catch (err) {
     Errors.fatal(err, 'Failed to load configuration in config.yml');
 }

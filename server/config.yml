@@ -1,6 +1,10 @@
 port: 8000
 environment: dev
 
+token:
+  expire: '4h'
+  key: 'abc123'
+
 database:
   name: 'properties'
   host: 'localhost'

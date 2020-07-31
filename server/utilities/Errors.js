@@ -1,7 +1,8 @@
 class Errors {
-    response(response, error){
+    response(response, error, code = 400){
         if(error instanceof Error) error = error.message;
-        response.status(400).json({
+        if(error instanceof Object && error.authorization) return this.responseAuth(response);
+        response.status(code).json({
             message: 'error',
             error: error
         });
@@ -20,7 +21,7 @@ class Errors {
     }
 
     fatal(error, message){
-        Errors.error(error, message);
+        this.error(error, message);
         process.exit(0);
     }
 }
