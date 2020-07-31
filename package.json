@@ -1,0 +1,44 @@
+{
+   "name": "customboiler",
+   "version": "1.0.0",
+   "description": "A Custom Boilerplate. Featuring HMR, React, Redux, Express",
+   "scripts": {
+      "test": "echo \"Error: no test specified\" && exit 1",
+      "build": "webpack",
+      "start": "node ./server/expressServer.js"
+   },
+   "keywords": [],
+   "author": "Matt DeLong",
+   "license": "ISC",
+   "devDependencies": {
+      "@babel/core": "^7.10.5",
+      "@babel/preset-env": "^7.10.4",
+      "@babel/preset-react": "^7.10.4",
+      "babel-loader": "^8.1.0",
+      "css-loader": "^3.6.0",
+      "eslint": "^7.4.0",
+      "eslint-loader": "^4.0.2",
+      "eslint-plugin-react": "^7.20.3",
+      "eslint-plugin-react-hooks": "^4.0.8",
+      "express": "^4.17.1",
+      "file-loader": "^6.0.0",
+      "image-webpack-loader": "^6.0.0",
+      "open": "^7.0.4",
+      "prettier": "2.0.5",
+      "style-loader": "^1.2.1",
+      "webpack": "^4.43.0",
+      "webpack-cli": "^3.3.12",
+      "webpack-dev-middleware": "^3.7.2",
+      "webpack-hot-middleware": "^2.25.0"
+   },
+   "dependencies": {
+      "@hot-loader/react-dom": "^16.13.0",
+      "core-js": "^3.6.5",
+      "normalize.css": "^8.0.1",
+      "react": "^16.13.1",
+      "react-dom": "^16.13.1",
+      "react-hot-loader": "^4.12.21",
+      "react-redux": "^7.2.0",
+      "redux": "^4.0.5"
+   }
+}
