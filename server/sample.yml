@@ -1,0 +1,12 @@
+port: 8000
+environment: dev
+
+database:
+  name: 'properties'
+  host: 'localhost'
+  port: 27017
+  # leave blank if no credentials
+  username: ''
+  password: ''
+  srv: false
+  options:

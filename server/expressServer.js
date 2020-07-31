@@ -4,26 +4,35 @@ const webpackDevMiddleware = require('webpack-dev-middleware');
 const webpackHotMiddleware = require('webpack-hot-middleware');
 const webpackConfig = require('../webpack.config.js');
 const webpackCompiler = webpack(webpackConfig);
-const open = require('open');
-
-const port = 3005;
-const sPort = 8443;
+const Logger = require('./utilities/Logger.js');
 const app = express();
 
+global.DIR = __dirname;
+global.Errors = require(DIR + '/utilities/Errors');
+global.Logger = require(DIR + '/utilities/Logger');
+Logger.log('Loaded universal utilities');
 
+require(DIR + '/load/config');
+require(DIR + '/load/mongoose');
+Logger.log('Loaded configuration');
+
+// Webpack middleware
 app.use(webpackDevMiddleware(webpackCompiler, {
   publicPath: webpackConfig.output.publicPath,
   stats: { ...webpackConfig.stats }
 }));
-
 app.use(webpackHotMiddleware(webpackCompiler, {
   log: console.log,
   path: '/__webpack_hmr'
 }));
 
+app.use(express.json());
 app.use(express.static(`${__dirname}/../public/`));
+app.use(require(DIR + '/middleware/logRequest'));
+Logger.log('Loaded universal middleware');
 
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}.\n`);
-  open(`http://localhost:${port}`);
-});
+require(DIR + '/routes/accounts')(app);
+require(DIR + '/routes/properties')(app);
+Logger.log('Loaded routes');
+
+app.listen(PORT, () => Logger.log('Server now listening on port ' + PORT));

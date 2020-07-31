@@ -1,14 +1,14 @@
 {
-   "name": "customboiler",
-   "version": "1.0.0",
-   "description": "A Custom Boilerplate. Featuring HMR, React, Redux, Express",
+   "name": "properties",
+   "version": "0.0.1",
+   "description": "A web application using MERN for managing properties",
    "scripts": {
       "test": "echo \"Error: no test specified\" && exit 1",
       "build": "webpack",
       "start": "node ./server/expressServer.js"
    },
    "keywords": [],
-   "author": "Matt DeLong",
+   "author": "Andrew Thresher",
    "license": "ISC",
    "devDependencies": {
       "@babel/core": "^7.10.5",
@@ -33,7 +33,11 @@
    },
    "dependencies": {
       "@hot-loader/react-dom": "^16.13.0",
+      "chalk": "^4.1.0",
       "core-js": "^3.6.5",
+      "js-yaml": "^3.14.0",
+      "jsonwebtoken": "^8.5.1",
+      "mongoose": "^5.9.26",
       "normalize.css": "^8.0.1",
       "react": "^16.13.1",
       "react-dom": "^16.13.1",
