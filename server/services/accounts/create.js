@@ -10,7 +10,7 @@ module.exports = (req, res) => {
         if(count === 0){
             var newAccount = buildAccount(req.body, true);
         } else {
-            //if(!req.account) return Promise.reject({authorization: true})
+            if(!req.account) return Promise.reject({authorization: true})
             if(!req.body.confirmPassword) return Promise.reject({required: 'confirmPassword is required'})
             if(req.body.password != req.body.confirmPassword) return Promise.reject({invalid: "Passwords don't match"})
             var newAccount = buildAccount(req.body);
