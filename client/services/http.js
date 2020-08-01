@@ -1,0 +1,31 @@
+import { hostName } from './constants';
+import { getToken } from './account';
+
+import axios from 'axios';
+
+function addAuth(){
+    return {headers: {
+        Authorization: getToken(),
+    }}
+}
+
+function postLogin(email, password){
+    return axios.post(hostName + '/api/accounts/login', {email, password});
+}
+
+function getProperties(){
+    return axios.get(hostName + '/api/properties', addAuth());
+}
+
+function postProperty(address, zipcode, lotWidth, lotDepth, purchaseDate){
+    return axios.post(hostName = '/api/properties', {
+        address, zipcode, lotWidth, lotDepth, purchaseDate,
+        headers: { Authorization: getToken() },
+    })
+}
+
+export {
+    postLogin,
+    getProperties,
+    postProperty,
+}
