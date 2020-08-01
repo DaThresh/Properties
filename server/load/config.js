@@ -24,6 +24,11 @@ try {
         SRV: database.srv,
         OPTIONS: database.options ? database.options : {},
     }
+
+    let logging = data.logging;
+    global.LOGGING = {
+        SKIP: logging.skip ? logging.skip : [],
+    }
 } catch (err) {
     Errors.fatal(err, 'Failed to load configuration in config.yml');
 }

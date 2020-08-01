@@ -21,6 +21,7 @@ module.exports = (req, res) => {
     .catch(error => Errors.response(res, error));
 }
 
+// First account will always have role 900 (root account)
 function buildAccount(body, first = false){
     var account = new Account();
     let rawPassword = String(body.password);
