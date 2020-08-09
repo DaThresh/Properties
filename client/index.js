@@ -3,6 +3,8 @@ import React from 'react';
 import { render } from 'react-dom';
 
 import './sass/App.sass';
+import './sass/Sidebar.scss';
+import './sass/Content.scss';
 
 import App from './App';
 

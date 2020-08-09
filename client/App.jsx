@@ -1,14 +1,16 @@
-import { hot } from 'react-hot-loader/root';
 import React from 'react';
+import { hot } from 'react-hot-loader/root';
 
 import Navbar from './Navbar';
-import Menu from './Menu';
+import Sidebar from './Sidebar';
 
 function App() {
     return (
         <span>
-            <Menu />
-            <Navbar />
+            <Sidebar />
+            <span id="content">
+                <Navbar />
+            </span>
         </span>
     )
 }
