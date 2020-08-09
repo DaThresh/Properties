@@ -1,11 +1,14 @@
 @import 'sizes';
+@import '../../node_modules//bulma/sass/utilities/initial-variables.sass';
 
-#content{
-    margin-left: $sidebar-closed;
-    transition: 1.5s margin ease;
-    display: block;
-}
-
-#sidebar.expanded + #content{
-    margin-left: $sidebar-expanded;
+@media (min-width: $tablet){
+    #content{
+        margin-left: $sidebar-closed;
+        transition: 1.5s margin ease;
+        display: block;
+    }
+    
+    #sidebar.expanded + #content{
+        margin-left: $sidebar-expanded;
+    }
 }
