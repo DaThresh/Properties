@@ -1,15 +1,17 @@
 import React from 'react';
 import { hot } from 'react-hot-loader/root';
 import { Switch, Route, BrowserRouter as Router } from 'react-router-dom';
+import { getToken } from './services/account';
 
 import Navbar from './Navbar';
 import Sidebar from './Sidebar';
 import Dashboard from './Dashboard';
 import Properties from './Properties';
 import Settings from './Settings';
+import Lock from './Lock';
 
 function App() {
-    return (
+    var application = 
         <Router>
             <Sidebar />
             <span id="content">
@@ -28,8 +30,9 @@ function App() {
                     </Switch>
                 </section>
             </span>
-        </Router>
-    )
+        </Router>;
+
+    return getToken() ? application : <Lock />;
 }
 
 export default hot(App);

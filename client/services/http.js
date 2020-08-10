@@ -13,8 +13,8 @@ function postLogin(email, password){
     return axios.post(hostName + '/api/accounts/login', {email, password});
 }
 
-function getProperties(){
-    return axios.get(hostName + '/api/properties', addAuth());
+function getProperties(offset, count){
+    return axios.get(hostName + '/api/properties?offset=' + offset + '&count=' + count, addAuth());
 }
 
 function postProperty(address, zipcode, lotWidth, lotDepth, purchaseDate){
