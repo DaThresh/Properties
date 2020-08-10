@@ -9,8 +9,8 @@ function addAuth(){
     }}
 }
 
-function postLogin(email, password){
-    return axios.post(hostName + '/api/accounts/login', {email, password});
+function postLogin(email, password, remember){
+    return axios.post(hostName + '/api/accounts/login', {email, password, remember});
 }
 
 function getProperties(offset, count){

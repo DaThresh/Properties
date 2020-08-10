@@ -1,7 +1,20 @@
+import { postLogin } from './http';
+
 let subscriptions = {
     status: []
 }
 let cache = {};
+
+function login(email, password, remember){
+    return new Promise((resolve, reject) => {
+        postLogin(email, password, remember)
+        .then(response => {
+            if(response.status === 200) resolve(response.data.token);
+            else reject(response);
+        })
+        .catch(error => reject(error));
+    });
+}
 
 function setToken(token){
     localStorage.setItem('token', token);
@@ -38,6 +51,7 @@ function unsubscribeStatus(callback){
 export {
     setToken,
     getToken,
+    login,
     logout,
     subscribeStatus,
     unsubscribeStatus,

@@ -41,6 +41,7 @@
       "axios": "^0.19.2",
       "bcrypt": "^5.0.0",
       "bulma": "^0.9.0",
+      "bulma-checkradio": "^1.1.1",
       "chalk": "^4.1.0",
       "core-js": "^3.6.5",
       "js-yaml": "^3.14.0",

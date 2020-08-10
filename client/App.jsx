@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { hot } from 'react-hot-loader/root';
 import { Switch, Route, BrowserRouter as Router } from 'react-router-dom';
-import { getToken } from './services/account';
 
+// Components
 import Navbar from './Navbar';
 import Sidebar from './Sidebar';
 import Dashboard from './Dashboard';
@@ -10,7 +10,22 @@ import Properties from './Properties';
 import Settings from './Settings';
 import Lock from './Lock';
 
+// Services
+import { getToken, subscribeStatus, unsubscribeStatus } from './services/account';
+
 function App() {
+    const [loggedIn, setLoggedIn] = useState(getToken());
+
+    var handleAccountStatus = (data) => {
+        if(data.event === 'login') setLoggedIn(true);
+        if(data.event === 'logout') setLoggedIn(false);
+    }
+
+    useEffect(() => {
+        subscribeStatus(handleAccountStatus);
+        return () => unsubscribeStatus(handleAccountStatus);
+    })
+
     var application = 
         <Router>
             <Sidebar />
@@ -32,7 +47,7 @@ function App() {
             </span>
         </Router>;
 
-    return getToken() ? application : <Lock />;
+    return loggedIn ? application : <Lock />;
 }
 
 export default hot(App);

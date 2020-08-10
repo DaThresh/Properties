@@ -6,6 +6,7 @@ import './sass/App.sass';
 import './sass/Sidebar.scss';
 import './sass/Content.scss';
 import './sass/Navbar.scss';
+import './sass/Lock.scss';
 
 import App from './App';
 
