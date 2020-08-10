@@ -32,8 +32,8 @@ function Navbar(props) {
                 <div className="navbar-start">
                     <div className="navbar-item">
                         {sidebarOpen ? 
-                            <FontAwesomeIcon icon={faAngleDoubleLeft} onClick={closeSidebar} /> :
-                            <FontAwesomeIcon icon={faAngleDoubleRight} onClick={openSidebar} />
+                            <FontAwesomeIcon icon={faAngleDoubleLeft} onClick={closeSidebar} size="lg" /> :
+                            <FontAwesomeIcon icon={faAngleDoubleRight} onClick={openSidebar} size="lg" />
                         }
                     </div>
                 </div>

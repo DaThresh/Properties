@@ -5,6 +5,7 @@ import { render } from 'react-dom';
 import './sass/App.sass';
 import './sass/Sidebar.scss';
 import './sass/Content.scss';
+import './sass/Navbar.scss';
 
 import App from './App';
 

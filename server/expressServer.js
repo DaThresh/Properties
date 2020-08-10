@@ -33,6 +33,7 @@ Logger.log('Loaded universal middleware');
 
 require(DIR + '/routes/accounts')(app);
 require(DIR + '/routes/properties')(app);
+require(DIR + '/services/serve')(app);
 Logger.log('Loaded routes');
 
 app.listen(PORT, () => Logger.log('Server now listening on port ' + PORT));

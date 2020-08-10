@@ -1,4 +1,5 @@
 @import 'sizes';
+@import 'colors';
 @import '../../node_modules//bulma/sass/utilities/initial-variables.sass';
 
 @media (min-width: $tablet){
@@ -13,16 +14,33 @@
         z-index: 100;
         line-height: 0;
         transition: 1.5s width ease;
+
+        .sidebar-text{
+            position: relative;
+            color: white;
+            vertical-align: middle;
+            display: inline-block;
+            opacity: 0%;
+            margin-left: 10px;
+        }
+
+        .sidebar-text-introduce{
+            transition-delay: 1s;
+            transition-property: opacity;
+            transition-duration: 1s;
+        }
+
+        .sidebar-text-exit{
+            transition-property: opacity;
+            transition-duration: 500ms;
+        }
     
         #sidebar-top{
             display: inline-block;
             width: 100%;
             height: 52px;
             background-color: black;
-            padding-left: 15px;
-            padding-right: 15px;
-            padding-top: 10px;
-            padding-bottom: 10px;
+            padding: 10px 15px;
     
             #sidebar-brand-logo{
                 display: inline-block;
@@ -31,25 +49,27 @@
                 max-width: 100%;
                 vertical-align: middle;
             }
-    
-            #sidebar-brand-text{
-                display: none;
-                transition: 2s;
-                color: white;
+        }
+
+        .sidebar-item{
+            display: block;
+            padding: 8px 15px;
+
+            .sidebar-logo{
                 vertical-align: middle;
+                display: inline-block;
+                margin: 3px auto;
+                height: 38px;
+                color: $grey-light;
             }
         }
     }
     
     #sidebar.expanded{
         width: $sidebar-expanded;
-    
-        #sidebar-top{
-    
-            #sidebar-brand-text{
-                display: inline-block;
-                margin-left: 10px;
-            }
+
+        .sidebar-text{
+            opacity: 100%;
         }
     }
 }
