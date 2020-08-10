@@ -14,17 +14,19 @@ function App() {
             <Sidebar />
             <span id="content">
                 <Navbar />
-                <Switch>
-                    <Route path="/settings">
-                        <Settings />
-                    </Route>
-                    <Route path="/properties">
-                        <Properties />
-                    </Route>
-                    <Route path="/">
-                        <Dashboard />
-                    </Route>
-                </Switch>
+                <section className="section">
+                    <Switch>
+                        <Route path="/settings">
+                            <Settings />
+                        </Route>
+                        <Route path="/properties">
+                            <Properties />
+                        </Route>
+                        <Route path="/">
+                            <Dashboard />
+                        </Route>
+                    </Switch>
+                </section>
             </span>
         </Router>
     )

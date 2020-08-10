@@ -4,7 +4,6 @@ const webpackDevMiddleware = require('webpack-dev-middleware');
 const webpackHotMiddleware = require('webpack-hot-middleware');
 const webpackConfig = require('../webpack.config.js');
 const webpackCompiler = webpack(webpackConfig);
-const Logger = require('./utilities/Logger.js');
 const app = express();
 
 global.DIR = __dirname;

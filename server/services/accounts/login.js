@@ -4,15 +4,15 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const success = require('../success');
 
-var rejectionMessage = Promise.reject({invalid: 'Invalid login credentials'});
+var rejection = {invalid: 'Invalid login credentials'};
 
 module.exports = (req, res) => {
     var accountId;
     fields(req.body, ['email', 'password'])
     .then(() => Account.findOne({email: String(req.body.email)}))
     .then(account => {
-        if(!account) return rejectionMessage;
-        if(!bcrypt.compareSync(String(req.body.password), account.password)) return rejectionMessage;
+        if(!account) return Promise.reject(rejection);
+        if(!bcrypt.compareSync(String(req.body.password), account.password)) return Promise.reject(rejection);
         accountId = account._id;
         return account.updateOne({lastLogin: new Date()})
     })
