@@ -16,6 +16,11 @@ In order to install, you must have the prerequisites listed above.  After you ha
 4. Edit `server/config.yml` to your use case
 5. `npm start`
 
+## Root Account Creation
+
+In order to access many features of the program and API, you will need an account, and one with high access levels.
+The first account can be created by using the account creation endpoint in the API, and it will recognize you as the root (first) user. Simply POST to `host:PORT/api/accounts` with `email` and `password` keys in the JSON body, and it will return to you a status code of 201 (created). After this, you can login as normal.
+
 ## Available Scripts
 
 `npm start`
