@@ -30,15 +30,17 @@ function Lock(props){
     var handleSubmit = (event) => {
         event.preventDefault();
         if(loggingIn) return;
+        let token = null;
         setBadCredentials(false);
         setLoggingIn(true);
         login(email, password, remember)
-        .then(token => setToken(token))
+        .then(data => token = data.token)
         .catch(error => apiError(error, {
             400: badCredentials,
         }))
         .finally(() => {
             setLoggingIn(false)
+            if(token) setTimeout(() => setToken(token, remember), 0);
         });
 
         var badCredentials = (error) => {

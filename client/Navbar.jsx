@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { hot } from 'react-hot-loader/root';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faAngleDoubleRight, faAngleDoubleLeft } from '@fortawesome/free-solid-svg-icons';
+import { faAngleDoubleRight, faAngleDoubleLeft, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 
 // Services
 import { subscribe, unsubscribe, isOpen, openSidebar, closeSidebar } from './services/sidebar';
+import { logout } from './services/account';
 
 function Navbar(props) {
     const [sidebarOpen, setSidebarOpen] = useState(isOpen());
@@ -21,7 +22,7 @@ function Navbar(props) {
     return (
         <nav className="navbar" role="navigation" aria-label="main navigation">
             <div className="navbar-brand">
-                <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" dataTarget="navbar-menu">
+                <a role="button" className="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbar-menu">
                     <span aria-hidden="true"></span>
                     <span aria-hidden="true"></span>
                     <span aria-hidden="true"></span>
@@ -40,6 +41,9 @@ function Navbar(props) {
                 <div className="navbar-end">
                     <div className="navbar-item">
                         <p>Andrew Thresher</p>
+                    </div>
+                    <div className="navbar-item">
+                        <FontAwesomeIcon icon={faSignOutAlt} onClick={logout} size="lg" />
                     </div>
                 </div>
             </div>

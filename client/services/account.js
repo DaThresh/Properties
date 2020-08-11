@@ -1,5 +1,9 @@
 import { postLogin } from './http';
 
+// Milliseconds until expire for new tokens
+const expire = 4 * 60 * 60 * 1000; // 4 Hours
+const rememberExpire = 7 * 24 * 60 * 60 * 1000; // 7 Days
+
 let subscriptions = {
     status: []
 }
@@ -9,14 +13,16 @@ function login(email, password, remember){
     return new Promise((resolve, reject) => {
         postLogin(email, password, remember)
         .then(response => {
-            if(response.status === 200) resolve(response.data.token);
+            if(response.status === 200) resolve(response.data);
             else reject(response);
         })
         .catch(error => reject(error));
     });
 }
 
-function setToken(token){
+function setToken(token, remember){
+    let expireDatetime = new Date().getTime() - 5000 + (remember ? rememberExpire : expire);
+    localStorage.setItem('expire', String(expireDatetime));
     localStorage.setItem('token', token);
     subscriptions.status.forEach(callback => {
         callback({
@@ -26,11 +32,17 @@ function setToken(token){
 }
 
 function getToken(){
+    let expireDatetime = localStorage.getItem('expire');
+    if(expireDatetime != null){
+        let date = new Date(Number(expireDatetime));
+        if(date <= new Date()) logout();
+    }
     return localStorage.getItem('token');
 }
 
 function logout(){
     localStorage.removeItem('token');
+    localStorage.removeItem('expire');
     subscriptions.status.forEach(callback => {
         callback({
             event: 'logout',

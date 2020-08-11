@@ -6,7 +6,7 @@ try {
     let data = yaml.safeLoad(doc);
 
     global.PORT = data.port;
-    global.ENVIRONMENT = data.enviornment;
+    global.ENVIRONMENT = data.environment;
 
     let token = data.token;
     global.TOKEN = {
