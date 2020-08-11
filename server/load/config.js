@@ -11,6 +11,7 @@ try {
     let token = data.token;
     global.TOKEN = {
         EXPIRE: token.expire,
+        REMEMBER: token.expireRemember,
         KEY: token.key,
     }
 

@@ -8,7 +8,7 @@ var rejection = {invalid: 'Invalid login credentials'};
 
 module.exports = (req, res) => {
     var accountId;
-    fields(req.body, ['email', 'password'])
+    fields(req.body, ['email', 'password', 'remember'])
     .then(() => Account.findOne({email: String(req.body.email)}))
     .then(account => {
         if(!account) return Promise.reject(rejection);
@@ -16,6 +16,11 @@ module.exports = (req, res) => {
         accountId = account._id;
         return account.updateOne({lastLogin: new Date()})
     })
-    .then(() => success(res, {token: jwt.sign({accountId}, TOKEN['KEY'], {expiresIn: TOKEN['EXPIRE']})}))
+    .then(() => success(res, {token: jwt.sign({accountId}, TOKEN['KEY'], {expiresIn: calculateExpiry(req)})}))
     .catch(error => Errors.response(res, error));
+}
+
+function calculateExpiry(request){
+    let remember = Boolean(request.body.remember);
+    return remember ? TOKEN['REMEMBER'] : TOKEN['EXPIRE'];
 }

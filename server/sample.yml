@@ -3,6 +3,7 @@ environment: dev
 
 tokens:
   expire: '4h'
+  expireRemember: '7d'
   key: 'abc123'
 
 database:

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { hot } from 'react-hot-loader/root';
 
 // Services
@@ -14,7 +14,7 @@ function Properties(props){
         getProperties()
         .then(properties => setProperties(properties))
         .catch(error => apiError(error));
-    });
+    }, []);
 
     return (
         <div>
