@@ -1,7 +1,7 @@
 port: 8000
 environment: dev
 
-tokens:
+token:
   expire: '4h'
   expireRemember: '7d'
   key: 'abc123'
