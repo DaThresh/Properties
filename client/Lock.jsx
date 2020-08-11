@@ -59,6 +59,10 @@ function Lock(props){
                     </header>
                     <div className="card-content" style={{paddingTop: '10px'}}>
                         <h2 className="is-size-3 has-text-weight-semibold has-text-centered">Sign in</h2>
+                        {badCredentials ?
+                            <h4 className="is-size-6 has-text-centered has-text-danger">Invalid login credentials</h4> :
+                            ""
+                        }
                         <form onSubmit={handleSubmit}>
                             <div className="field">
                                 <div className="control has-icons-left">
