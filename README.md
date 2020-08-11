@@ -21,6 +21,14 @@ In order to install, you must have the prerequisites listed above.  After you ha
 In order to access many features of the program and API, you will need an account, and one with high access levels.
 The first account can be created by using the account creation endpoint in the API, and it will recognize you as the root (first) user. Simply POST to `host:PORT/api/accounts` with `email` and `password` keys in the JSON body, and it will return to you a status code of 201 (created). After this, you can login as normal.
 
+## Pulling config changes
+
+If you pull a change in `server/sample.yml`, you will need to compare that to you `server/config.yml` file in order to make sure that there are no configuration values you must now add. Defaults will be provided in the new sample.yml.
+
+## Reference Data
+
+If you add a reference data model to the server, you must add a default value set. Set an array constant to `defaults` and insert them to the DB using a Schema static method available to the Model. Then, add this chain static method to the mongoose load file alongisde others.
+
 ## Available Scripts
 
 `npm start`

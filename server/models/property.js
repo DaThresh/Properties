@@ -4,6 +4,7 @@ const zipcodes = require('zipcodes');
 var propertySchema = Schema({
     address: {
         type: String,
+        required: true,
         validate: isAddressUnique,
     },
     zipcode: Number,
@@ -36,6 +37,10 @@ propertySchema.pre('save', function(next){
     this.address = this.address.toLowerCase();
     next();
 });
+
+// Apply default query
+propertySchema.pre('find', function(next){ defaultQuery(this, next) });
+propertySchema.pre('findOne', function(next){ defaultQuery(this, next) });
 
 propertySchema.virtual('city').get(function(){
     let location = zipcodes.lookup(this.zipcode);

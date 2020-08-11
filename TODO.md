@@ -1,2 +1,2 @@
 * Test to see if updating an object is a problem or not
-* Add in bad credentials GUI indicator on Lock.jsx
+* Try to auto add all virtuals any time you query from DB

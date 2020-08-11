@@ -1,7 +1,8 @@
-import { hostName } from './constants';
+import axios from 'axios';
+
 import { getToken } from './account';
 
-import axios from 'axios';
+const hostName = 'http://' + window.location.host;
 
 function addAuth(){
     return {headers: {

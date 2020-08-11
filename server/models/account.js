@@ -10,6 +10,10 @@ var accountSchema = Schema({
     role: Number,
 }, { timestamps: true });
 
+// Apply default query
+accountSchema.pre('find', function(next){ defaultQuery(this, next) });
+accountSchema.pre('findOne', function(next){ defaultQuery(this, next) });
+
 function isEmailUnique(param){
     return new Promise((resolve, reject) => {
         Account.find({email: param})

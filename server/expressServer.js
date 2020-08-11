@@ -34,6 +34,7 @@ Logger.log('Loaded universal middleware');
 
 require(DIR + '/routes/accounts')(app);
 require(DIR + '/routes/properties')(app);
+require(DIR + '/routes/contacts')(app);
 require(DIR + '/services/serve')(app);
 Logger.log('Loaded routes');
 

@@ -2,12 +2,9 @@ const Account = require("../models/account");
 
 const AccountServices = {
     fetch: require(DIR + '/services/accounts/fetch'),
-
     create: require(DIR + '/services/accounts/create'),
     login: require(DIR + '/services/accounts/login'),
-
     changePassword: require(DIR + '/services/accounts/changePassword'),
-
     delete: require(DIR + '/services/accounts/delete'),
 }
 

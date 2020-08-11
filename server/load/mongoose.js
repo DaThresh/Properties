@@ -1,4 +1,5 @@
 global.mongoose = require('mongoose');
+const BusinessType = require(DIR + '/models/contacts/businessType');
 
 let mongostring;
 let name = DATABASE['NAME'];
@@ -32,7 +33,13 @@ if(optKeys.length > 0){
 mongoose.connect(mongostring, {useNewUrlParser: true, useUnifiedTopology: true})
         .then(() => {
             Logger.info('Connected to MongoDB');
+            insertDefaults();
         })
         .catch(err => {
             Errors.fatal(err, 'Error connecting to mongoose database');
         });
+
+function insertDefaults(){
+    BusinessType.insertDefaults()
+    .catch(error => Errors.error(error, 'Failed to insert all of the default reference data'));
+}
