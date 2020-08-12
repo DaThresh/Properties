@@ -1,4 +1,5 @@
 const Schema = mongoose.Schema;
+const defaultQuery = require('./utilities/defaultQuery');
 
 var accountSchema = Schema({
     email: {
