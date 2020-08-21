@@ -8,6 +8,7 @@ import Sidebar from './Sidebar';
 import Dashboard from './Dashboard';
 import Properties from './Properties';
 import Settings from './Settings';
+import Contacts from './Contacts';
 import Lock from './Lock';
 
 // Services
@@ -38,6 +39,9 @@ function App() {
                         </Route>
                         <Route path="/properties">
                             <Properties />
+                        </Route>
+                        <Route path="/contacts">
+                            <Contacts />
                         </Route>
                         <Route path="/">
                             <Dashboard />

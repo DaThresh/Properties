@@ -1,7 +1,7 @@
 import React from 'react';
 import { hot } from 'react-hot-loader/root';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChartLine, faHome, faCog } from '@fortawesome/free-solid-svg-icons';
+import { faChartLine, faHome, faCog, faUsers } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 
 function Sidebar(props){
@@ -33,6 +33,14 @@ function Sidebar(props){
                         <FontAwesomeIcon icon={faCog} size="2x" />
                     </span>
                     <span className="sidebar-text">Settings</span>
+                </Link>
+            </div>
+            <div className="sidebar-item">
+                <Link to="/contacts">
+                    <span className="sidebar-icon">
+                        <FontAwesomeIcon icon={faUsers} size="2x" />
+                    </span>
+                    <span className="sidebar-text">Contacts</span>
                 </Link>
             </div>
         </div>

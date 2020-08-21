@@ -25,8 +25,13 @@ function postProperty(address, zipcode, lotWidth, lotDepth, purchaseDate){
     })
 }
 
+function getContacts(offset, count){
+    return axios.get(hostName + '/api/contacts?offset=' + offset + '&count=' + count, addAuth());
+}
+
 export {
     postLogin,
     getProperties,
     postProperty,
+    getContacts,
 }

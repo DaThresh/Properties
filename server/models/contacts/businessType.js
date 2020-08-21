@@ -26,7 +26,7 @@ businessTypeSchema.statics.insertDefaults = function(){
         .then(count => {
             if(count !== 0) return;
             let objects = defaults.map(name => { return {name} });
-            BusinessType.insertMany(objects)
+            return BusinessType.insertMany(objects)
         })
         .then(() => resolve())
         .catch(error => reject(error));
