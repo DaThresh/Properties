@@ -3,6 +3,9 @@ import { hot } from 'react-hot-loader/root';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserPlus } from '@fortawesome/free-solid-svg-icons';
 
+// Components
+import SetContact from './modals/SetContact';
+
 // Services
 import { getContacts } from './services/contacts';
 import { openModal, subscribe, unsubscribe } from './services/modal';
@@ -28,13 +31,9 @@ function Contacts(props){
         fetch();
     }
 
-    // Simply these two functions to one using element attributes (new vs existing)
-    var openNewContactModal = () => {
-        openModal('SetContact', {new: true});
-    }
-
-    var openEditContactModal = () => {
-        openModal('SetContact', {new: false});
+    var openContactModal = (event) => {
+        let isNew = Boolean(event.currentTarget.dataset.new);
+        openModal(<SetContact new={isNew} />);
     }
 
     useEffect(() => {
@@ -50,7 +49,7 @@ function Contacts(props){
         <div>
             <div className="leveL">
                 <div className="level-left">
-                    <div className="level-item" onClick={openNewContactModal}>
+                    <div className="level-item" data-new={true} onClick={openContactModal}>
                         <FontAwesomeIcon icon={faUserPlus} />
                         <p>Add Contact</p>
                     </div>
@@ -75,7 +74,7 @@ function Contacts(props){
                                 <td>{contact.title}</td>
                                 <td>{contact.business.name}</td>
                                 <td>
-                                    <button className="button" onClick={openEditContactModal}>Edit</button>
+                                    <button className="button" data-contact={contact} data-new={false} onClick={openContactModal}>Edit</button>
                                 </td>
                             </tr>
                         )

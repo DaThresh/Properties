@@ -1,9 +1,9 @@
 var subscriptions = [];
 var modalOpen = false;
 
-function openModal(component, props = {}){
+function openModal(component){
     modalOpen = true;
-    notify('open', {component, props});
+    notify('open', {component});
     document.querySelector('.modal').classList.add('is-active');
 }
 
