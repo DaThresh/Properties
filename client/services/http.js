@@ -29,9 +29,16 @@ function getContacts(offset, count){
     return axios.get(hostName + '/api/contacts?offset=' + offset + '&count=' + count, addAuth());
 }
 
+function getBusinessTypes(){
+    return axios.get(hostName + '/api/contacts/businessTypes', addAuth());
+}
+
 export {
     postLogin,
     getProperties,
     postProperty,
     getContacts,
+    
+    // Reference data only below
+    getBusinessTypes,
 }

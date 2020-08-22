@@ -1,4 +1,5 @@
 import { postLogin } from './http';
+import { fetchReferenceData } from './reference';
 
 // Milliseconds until expire for new tokens
 const expire = 4 * 60 * 60 * 1000; // 4 Hours
@@ -24,6 +25,7 @@ function setToken(token, remember){
     let expireDatetime = new Date().getTime() - 5000 + (remember ? rememberExpire : expire);
     localStorage.setItem('expire', String(expireDatetime));
     localStorage.setItem('token', token);
+    fetchReferenceData();
     subscriptions.status.forEach(callback => {
         callback({
             event: 'login',

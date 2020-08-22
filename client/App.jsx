@@ -13,6 +13,7 @@ import Lock from './Lock';
 
 // Services
 import { getToken, subscribeStatus, unsubscribeStatus } from './services/account';
+import { fetchReferenceData } from './services/reference';
 
 function App() {
     const [loggedIn, setLoggedIn] = useState(getToken());
@@ -27,12 +28,17 @@ function App() {
         return () => unsubscribeStatus(handleAccountStatus);
     })
 
+    useEffect(() => {
+        if(!loggedIn) return;
+        fetchReferenceData();
+    }, []);
+
     var application = 
         <Router>
             <Sidebar />
             <span id="content">
                 <Navbar />
-                <section className="section">
+                <section className="section" style={{paddingTop: '24px'}}>
                     <Switch>
                         <Route path="/settings">
                             <Settings />
