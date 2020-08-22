@@ -23,6 +23,11 @@ function handleResponse(response, chain){
     if(chain) return chain();
 }
 
+function getReferenceData(key){
+    return referenceData[key];
+}
+
 export {
     fetchReferenceData,
+    getReferenceData,
 }

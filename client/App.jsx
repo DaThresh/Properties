@@ -10,6 +10,7 @@ import Properties from './Properties';
 import Settings from './Settings';
 import Contacts from './Contacts';
 import Lock from './Lock';
+import Modal from './Modal';
 
 // Services
 import { getToken, subscribeStatus, unsubscribeStatus } from './services/account';
@@ -55,6 +56,7 @@ function App() {
                     </Switch>
                 </section>
             </span>
+            <Modal />
         </Router>;
 
     return loggedIn ? application : <Lock />;
