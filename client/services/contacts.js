@@ -1,4 +1,7 @@
-import { getContacts as fetch } from './http';
+import { 
+    getContacts as fetch,
+    getBusinesses as fetchBusinesses,
+} from './http';
 
 function getContacts(offset = 0, count = 10){
     return new Promise((resolve, reject) => {
@@ -11,6 +14,18 @@ function getContacts(offset = 0, count = 10){
     });
 }
 
+function getBusinesses(){
+    return new Promise((resolve, reject) => {
+        fetchBusinesses()
+        .then(response => {
+            if(response.status === 200) resolve(response.data.businesses);
+            else reject(response);
+        })
+        .catch(error => reject(error));
+    })
+}
+
 export {
     getContacts,
+    getBusinesses,
 }

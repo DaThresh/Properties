@@ -8,8 +8,8 @@ function Modal(props){
     const [modal, setModal] = useState(null);
 
     var receiveModalUpdate = (data) => {
-        if(data.event !== 'open') return;
-        setModal(data.component);
+        if(data.event === 'open') setModal(data.component);
+        if(data.event === 'close') setModal(null);
     }
 
     useEffect(() => {

@@ -12,6 +12,7 @@ import { openModal, subscribe, unsubscribe } from './services/modal';
 
 // Utilities
 import { apiError } from './utilities/apiError';
+import { capitalize } from './utilities/format';
 
 function Contacts(props){
     const [fetching, setFetching] = useState(false);
@@ -27,13 +28,17 @@ function Contacts(props){
     }
 
     var receiveModalUpdate = (data) => {
-        if(data.event !== 'close') return;
-        fetch();
+        if(data.event === 'close' && data.actionTaken) fetch();
     }
 
     var openContactModal = (event) => {
-        let isNew = Boolean(event.currentTarget.dataset.new);
-        openModal(<SetContact new={isNew} />);
+        let isNew = event.currentTarget.dataset.new === 'true';
+        let extraProps = {};
+        if(!isNew){
+            let contactId = event.currentTarget.dataset.contact;
+            extraProps.contact = contacts.find(contact => contact._id === contactId);
+        }
+        openModal(<SetContact new={isNew} {...extraProps} />);
     }
 
     useEffect(() => {
@@ -68,13 +73,13 @@ function Contacts(props){
                 <tbody>
                     {contacts.map(contact => {
                         return (
-                            <tr>
-                                <td>{contact.fullName}</td>
+                            <tr key={contact._id}>
+                                <td>{capitalize(contact.firstName) + ' ' + capitalize(contact.lastName)}</td>
                                 <td>{contact.phoneNumber}</td>
-                                <td>{contact.title}</td>
-                                <td>{contact.business.name}</td>
+                                <td>{capitalize(contact.title)}</td>
+                                <td>{capitalize(contact.business.name)}</td>
                                 <td>
-                                    <button className="button" data-contact={contact} data-new={false} onClick={openContactModal}>Edit</button>
+                                    <button className="button" data-contact={contact._id} data-new={false} onClick={openContactModal}>Edit</button>
                                 </td>
                             </tr>
                         )

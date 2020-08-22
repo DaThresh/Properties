@@ -7,9 +7,11 @@ function openModal(component){
     document.querySelector('.modal').classList.add('is-active');
 }
 
-function closeModal(){
+function closeModal(actionTaken = false){
+    // This if often called from DOM events, so we want to filter those out
+    if(typeof actionTaken !== 'boolean') actionTaken = false;
     modalOpen = false;
-    notify('close');
+    notify('close', {actionTaken});
     document.querySelector('.modal').classList.remove('is-active');
 }
 
@@ -23,7 +25,7 @@ function unsubscribe(callback){
 
 function notify(event, extraInfo = {}){
     subscriptions.forEach(callback => {
-        callback(Object.assign(extraInfo, {event}));
+        callback(Object.assign({event}, extraInfo));
     })
 }
 
