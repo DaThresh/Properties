@@ -32,13 +32,12 @@ function Contacts(props){
     }
 
     var openContactModal = (event) => {
-        let isNew = event.currentTarget.dataset.new === 'true';
         let extraProps = {};
-        if(!isNew){
+        if(event.currentTarget.dataset.new !== 'true'){
             let contactId = event.currentTarget.dataset.contact;
             extraProps.contact = contacts.find(contact => contact._id === contactId);
         }
-        openModal(<SetContact new={isNew} {...extraProps} />);
+        openModal(<SetContact {...extraProps} />);
     }
 
     useEffect(() => {

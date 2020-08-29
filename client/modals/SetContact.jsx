@@ -4,23 +4,29 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBriefcase, faBuilding, faPhone, faEnvelope } from '@fortawesome/free-solid-svg-icons';
 
 // Services
-import { getBusinesses } from '../services/contacts';
+import { getBusinesses, createContact } from '../services/contacts';
 import { getReferenceData } from '../services/reference';
+import { closeModal } from '../services/modal';
 
 // Utilities
 import { capitalize } from '../utilities/format';
 import { apiError } from '../utilities/apiError';
 
 function SetContact(props){
+    var getInitial = (fieldName) => {
+        if(!props.contact) return '';
+        return props.contact[fieldName] ? props.contact[fieldName] : '';
+    }
+
     const [submitting, setSubmitting] = useState(false);
     const [businesses, setBusinesses] = useState([]);
-    const [businessTypes, setBusinessTypes] = useState([]);
-    const [firstName, setFirstName] = useState('');
-    const [lastName, setLastName] = useState('');
-    const [email, setEmail] = useState('');
-    const [phoneNumber, setPhoneNumber] = useState('');
-    const [title, setTitle] = useState('');
-    const [business, setBusiness] = useState('add');
+    const [businessTypes, setBusinessTypes] = useState(getReferenceData('businessTypes', 'array'));
+    const [firstName, setFirstName] = useState(getInitial('firstName'));
+    const [lastName, setLastName] = useState(getInitial('lastName'));
+    const [email, setEmail] = useState(getInitial('email'));
+    const [phoneNumber, setPhoneNumber] = useState(getInitial('phoneNumber'));
+    const [title, setTitle] = useState(getInitial('title'));
+    const [business, setBusiness] = useState(props.contact ? props.contact.business.name : 'add');
     const [name, setName] = useState('');
     const [businessType, setBusinessType] = useState('');
     // Add hook set methods for form fields into this object
@@ -30,13 +36,27 @@ function SetContact(props){
         getBusinesses()
         .then(businesses => setBusinesses(businesses))
         .catch(error => apiError(error));
-        setBusinessTypes(getReferenceData('businessTypes'));
     }, []);
+
+    useEffect(() => {
+        if(business === 'add' && name !== '') setName('');
+        if(business === 'add' && businessType !== '') setBusinessType('');
+    }, [business]);
 
     // Handle submission of form here
     var submit = (event) => {
-        console.log('submitted the form!');
         event.preventDefault();
+        if(submitting) return;
+        setSubmitting(true);
+        if(props.contact) return;
+        let success = false;
+        createContact(firstName, lastName, email, phoneNumber, title, business, name, businessType)
+        .then(() => success = true)
+        .catch(error => apiError(error))
+        .finally(() => {
+            if(success) closeModal(true);
+            else setSubmitting(false);
+        });
     }
 
     var handleChange = (event) => {
@@ -137,7 +157,7 @@ function SetContact(props){
             </div>
             <div className="field">
                 <div className={'control' + (business == 'add' ? ' has-text-centered' : '')}>
-                    <button className="button is-primary" onClick={submit}>Submit</button>
+                    <button className={'button is-primary' + (submitting ? ' is-loading' : '')} onClick={submit}>Submit</button>
                 </div>
             </div>
         </span>

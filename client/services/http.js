@@ -20,9 +20,9 @@ function getProperties(offset, count){
 
 function postProperty(address, zipcode, lotWidth, lotDepth, purchaseDate){
     return axios.post(hostName = '/api/properties', {
-        address, zipcode, lotWidth, lotDepth, purchaseDate,
-        headers: { Authorization: getToken() },
-    })
+        address, zipcode, lotWidth, lotDepth, purchaseDate},
+        addAuth()
+    )
 }
 
 function getContacts(offset, count){
@@ -37,12 +37,21 @@ function getBusinessTypes(){
     return axios.get(hostName + '/api/contacts/businessTypes', addAuth());
 }
 
+function postContact(firstName, lastName, email, phoneNumber, title, business, name, businessType){
+    return axios.post(hostName + '/api/contacts', {
+        firstName, lastName, email, phoneNumber, title, name, businessType,
+        business: business === 'add' ? null : business},
+        addAuth()
+    )
+}
+
 export {
     postLogin,
     getProperties,
     postProperty,
     getContacts,
     getBusinesses,
+    postContact,
     
     // Reference data only below
     getBusinessTypes,

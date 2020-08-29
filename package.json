@@ -1,12 +1,12 @@
 {
    "name": "properties",
-   "version": "0.0.1",
+   "version": "0.1.0",
    "description": "A web application using MERN for managing properties",
    "private": true,
    "scripts": {
       "build": "webpack",
-      "start": "node ./server/expressServer.js",
-      "debug": "node --inspect ./server/expressServer.js"
+      "start": "node ./server/server.js",
+      "debug": "node --inspect ./server/server.js"
    },
    "keywords": [],
    "author": "Andrew Thresher",
