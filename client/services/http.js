@@ -53,6 +53,13 @@ function putContact(contactId, firstName, lastName, email, phoneNumber, title, b
     )
 }
 
+function putBusiness(businessId, name, type){
+    return axios.put(hostName + '/api/contacts/businesses/' + businessId, {
+        name, type},
+        addAuth()
+    )
+}
+
 export {
     postLogin,
     getProperties,
@@ -61,6 +68,7 @@ export {
     getBusinesses,
     postContact,
     putContact,
+    putBusiness,
     
     // Reference data only below
     getBusinessTypes,

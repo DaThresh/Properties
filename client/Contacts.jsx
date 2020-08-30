@@ -5,6 +5,7 @@ import { faUserPlus, faSyncAlt } from '@fortawesome/free-solid-svg-icons';
 
 // Components
 import SetContact from './modals/SetContact';
+import SetBusiness from './modals/SetBusiness';
 
 // Services
 import { getContacts } from './services/contacts';
@@ -38,6 +39,13 @@ function Contacts(props){
             extraProps.contact = contacts.find(contact => contact._id === contactId);
         }
         openModal(<SetContact {...extraProps} />);
+    }
+
+    var openBusinessModal = (event) => {
+        let props = {};
+        let contactId = event.currentTarget.dataset.contact;
+        props.business = contacts.find(contact => contact._id === contactId).business;
+        openModal(<SetBusiness {...props} />);
     }
 
     useEffect(() => {
@@ -81,7 +89,9 @@ function Contacts(props){
                                 <td>{capitalize(contact.firstName) + ' ' + capitalize(contact.lastName)}</td>
                                 <td>{contact.phoneNumber}</td>
                                 <td>{capitalize(contact.title)}</td>
-                                <td>{capitalize(contact.business.name)}</td>
+                                <td data-contact={contact._id} onClick={openBusinessModal}>
+                                    {capitalize(contact.business.name)}
+                                </td>
                                 <td>
                                     <button className="button" data-contact={contact._id} data-new={false} onClick={openContactModal}>Edit</button>
                                 </td>

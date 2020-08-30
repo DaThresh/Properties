@@ -19,14 +19,14 @@ function SetContact(props){
         return props.contact[fieldName] ? props.contact[fieldName] : '';
     }
 
+    const businessTypes = getReferenceData('businessTypes', 'array');
     const [submitting, setSubmitting] = useState(false);
     const [businesses, setBusinesses] = useState([]);
-    const [businessTypes, setBusinessTypes] = useState(getReferenceData('businessTypes', 'array'));
-    const [firstName, setFirstName] = useState(getInitial('firstName'));
-    const [lastName, setLastName] = useState(getInitial('lastName'));
+    const [firstName, setFirstName] = useState(capitalize(getInitial('firstName')));
+    const [lastName, setLastName] = useState(capitalize(getInitial('lastName')));
     const [email, setEmail] = useState(getInitial('email'));
     const [phoneNumber, setPhoneNumber] = useState(getInitial('phoneNumber'));
-    const [title, setTitle] = useState(getInitial('title'));
+    const [title, setTitle] = useState(capitalize(getInitial('title')));
     const [business, setBusiness] = useState(props.contact ? props.contact.business.name : 'add');
     const [name, setName] = useState('');
     const [businessType, setBusinessType] = useState('');
@@ -45,7 +45,6 @@ function SetContact(props){
         adjustSize(business !== 'add');
     }, [business]);
 
-    // Handle submission of form here
     var submit = (event) => {
         event.preventDefault();
         if(submitting) return;
@@ -64,10 +63,7 @@ function SetContact(props){
         }
 
         function end(){
-            if(!success){
-                setSubmitting(false);
-                pushNotification('Error', 'Failed to create new contact', 'danger');
-            }
+            if(!success) pushNotification('Error', 'Failed to create new contact', 'danger');
             closeModal(success);
         }
     }
@@ -84,14 +80,14 @@ function SetContact(props){
                     <h4 className="title is-4 has-text-centered">New Contact</h4>
                     <form autoComplete="off" onSubmit={submit}>
                         <div className="field">
-                            <div className="control">
                             <label className="label">First name</label>
+                            <div className="control">
                                 <input className="input" type="text" name="firstName" value={firstName} onChange={handleChange} placeholder="Enter first name..." required />
                             </div>
                         </div>
                         <div className="field">
-                            <div className="control">
                             <label className="label">Last name</label>
+                            <div className="control">
                                 <input className="input" type="text" name="lastName" value={lastName} onChange={handleChange} placeholder="Enter last name..." />
                             </div>
                         </div>

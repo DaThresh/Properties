@@ -4,6 +4,7 @@ const ContactServices = {
     fetchBusinessTypes: require(DIR + '/services/contacts/fetchBusinessTypes'),
     create: require(DIR + '/services/contacts/create'),
     update: require(DIR + '/services/contacts/update'),
+    updateBusiness: require(DIR + '/services/contacts/updateBusiness'),
     delete: require(DIR + '/services/contacts/delete'),
 }
 
@@ -22,6 +23,7 @@ module.exports = (app) => {
 
     // Put routes
     app.put('/api/contacts/:contactId', Middleware.verifyAccount, ContactServices.update);
+    app.put('/api/contacts/businesses/:businessId', Middleware.verifyAccount, ContactServices.updateBusiness);
 
     // Delete routes
     app.delete('/api/contacts/:contactId', Middleware.verifyAccount, ContactServices.delete);

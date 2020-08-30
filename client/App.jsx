@@ -9,6 +9,7 @@ import Dashboard from './Dashboard';
 import Properties from './Properties';
 import Settings from './Settings';
 import Contacts from './Contacts';
+import Users from './Users';
 import Lock from './Lock';
 import Modal from './Modal';
 import Notifications from './Notifications';
@@ -50,6 +51,9 @@ function App() {
                         </Route>
                         <Route path="/contacts">
                             <Contacts />
+                        </Route>
+                        <Route path="/users">
+                            <Users />
                         </Route>
                         <Route path="/">
                             <Dashboard />
