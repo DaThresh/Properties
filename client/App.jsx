@@ -11,6 +11,7 @@ import Settings from './Settings';
 import Contacts from './Contacts';
 import Lock from './Lock';
 import Modal from './Modal';
+import Notifications from './Notifications';
 
 // Services
 import { getToken, subscribeStatus, unsubscribeStatus } from './services/account';
@@ -57,6 +58,7 @@ function App() {
                 </section>
             </span>
             <Modal />
+            <Notifications />
         </Router>;
 
     return loggedIn ? application : <Lock />;

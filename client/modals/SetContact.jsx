@@ -7,6 +7,7 @@ import { faBriefcase, faBuilding, faPhone, faEnvelope } from '@fortawesome/free-
 import { getBusinesses, createContact } from '../services/contacts';
 import { getReferenceData } from '../services/reference';
 import { closeModal } from '../services/modal';
+import { pushNotification } from '../services/notifications';
 
 // Utilities
 import { capitalize } from '../utilities/format';
@@ -54,8 +55,11 @@ function SetContact(props){
         .then(() => success = true)
         .catch(error => apiError(error))
         .finally(() => {
-            if(success) closeModal(true);
-            else setSubmitting(false);
+            if(!success){
+                setSubmitting(false);
+                pushNotification('Error', 'Failed to create new contact', 'danger');
+            }
+            closeModal(success);
         });
     }
 

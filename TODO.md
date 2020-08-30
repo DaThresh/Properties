@@ -6,7 +6,6 @@
 * Set up the navigation system on mobile
 * Add update submission to set contact modal
 * Add put method to update contact
-* Add notification system
 * Add ability to edit business details
 * Set Contact modal 50% width w/o adding new business
 * Fix sidebar highlighting
