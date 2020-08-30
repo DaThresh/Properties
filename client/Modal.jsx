@@ -6,10 +6,12 @@ import { subscribe, unsubscribe, closeModal } from './services/modal';
 
 function Modal(props){
     const [modal, setModal] = useState(null);
+    const [half, setHalf] = useState(false);
 
     var receiveModalUpdate = (data) => {
         if(data.event === 'open') setModal(data.component);
         if(data.event === 'close') setModal(null);
+        if(data.event === 'size') setHalf(data.half);
     }
 
     useEffect(() => {
@@ -20,7 +22,7 @@ function Modal(props){
     return (
         <div className="modal">
             <div className="modal-background" onClick={closeModal}></div>
-            <div className="modal-content">
+            <div className={'modal-content' + (half ? ' modal-half' : '')}>
                 <div className="box">
                     {modal}
                 </div>

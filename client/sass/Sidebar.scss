@@ -24,10 +24,6 @@
             margin-left: 10px;
         }
 
-        .sidebar-text:hover{
-            color: white;
-        }
-
         .sidebar-text-introduce{
             transition-delay: 1s;
             transition-property: opacity;
@@ -66,8 +62,10 @@
                 height: 38px;
                 color: $grey-white-text;
             }
+        }
 
-            .sidebar-icon:hover{
+        .sidebar-item:hover{
+            .sidebar-icon, .sidebar-text {
                 color: white;
             }
         }

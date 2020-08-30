@@ -15,6 +15,10 @@ function closeModal(actionTaken = false){
     document.querySelector('.modal').classList.remove('is-active');
 }
 
+function adjustSize(half){
+    notify('size', {half});
+}
+
 function subscribe(callback){
     if(!subscriptions.includes(callback)) subscriptions.push(callback);
 }
@@ -32,6 +36,7 @@ function notify(event, extraInfo = {}){
 export {
     openModal,
     closeModal,
+    adjustSize,
     subscribe,
     unsubscribe,
 }

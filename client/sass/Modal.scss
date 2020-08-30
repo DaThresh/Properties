@@ -1,3 +1,11 @@
+@import '../../node_modules//bulma/sass/utilities/initial-variables.sass';
+
 .modal-content{
     max-width: 80%;
+}
+
+@media (min-width: $tablet){
+    .modal-content.modal-half{
+        max-width: 40%;
+    }
 }

@@ -9,40 +9,40 @@ function Sidebar(props){
         <div id="sidebar">
             <div id="sidebar-top">
                 <img id="sidebar-brand-logo" src="https://picsum.photos/200" />
-                <strong className="sidebar-text">Company Name</strong>
+                <strong className="sidebar-text">Gramercy Homes</strong>
             </div>
-            <div className="sidebar-item">
-                <Link to ="/">
+            <Link to ="/">
+                <div className="sidebar-item">
                     <span className="sidebar-icon">
                         <FontAwesomeIcon icon={faChartLine} size="2x" />
                     </span>
                     <span className="sidebar-text">Dashboard</span>
-                </Link>
-            </div>
-            <div className="sidebar-item">
-                <Link to ="/properties">
+                </div>
+            </Link>
+            <Link to ="/properties">
+                <div className="sidebar-item">
                     <span className="sidebar-icon">
                         <FontAwesomeIcon icon={faHome} size="2x" />
                     </span>
                     <span className="sidebar-text">Properties</span>
-                </Link>
-            </div>
-            <div className="sidebar-item">
-                <Link to ="/settings">
+                </div>
+            </Link>
+            <Link to ="/settings">
+                <div className="sidebar-item">
                     <span className="sidebar-icon">
                         <FontAwesomeIcon icon={faCog} size="2x" />
                     </span>
                     <span className="sidebar-text">Settings</span>
-                </Link>
-            </div>
-            <div className="sidebar-item">
-                <Link to="/contacts">
+                </div>
+            </Link>
+            <Link to="/contacts">
+                <div className="sidebar-item">
                     <span className="sidebar-icon">
                         <FontAwesomeIcon icon={faUsers} size="2x" />
                     </span>
                     <span className="sidebar-text">Contacts</span>
-                </Link>
-            </div>
+                </div>
+            </Link>
         </div>
     )
 }

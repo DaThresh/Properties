@@ -6,7 +6,7 @@ import { faBriefcase, faBuilding, faPhone, faEnvelope } from '@fortawesome/free-
 // Services
 import { getBusinesses, createContact } from '../services/contacts';
 import { getReferenceData } from '../services/reference';
-import { closeModal } from '../services/modal';
+import { closeModal, adjustSize } from '../services/modal';
 import { pushNotification } from '../services/notifications';
 
 // Utilities
@@ -42,6 +42,7 @@ function SetContact(props){
     useEffect(() => {
         if(business === 'add' && name !== '') setName('');
         if(business === 'add' && businessType !== '') setBusinessType('');
+        adjustSize(business !== 'add');
     }, [business]);
 
     // Handle submission of form here
