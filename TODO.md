@@ -4,6 +4,4 @@
 * Investigate if we can pull out form elements in contact creation to another component
 * Add FA Icons to rest of contact creation form
 * Set up the navigation system on mobile
-* Add update submission to set contact modal
-* Add put method to update contact
 * Add ability to edit business details

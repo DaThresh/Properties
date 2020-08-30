@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBriefcase, faBuilding, faPhone, faEnvelope } from '@fortawesome/free-solid-svg-icons';
 
 // Services
-import { getBusinesses, createContact } from '../services/contacts';
+import { getBusinesses, createContact, updateContact } from '../services/contacts';
 import { getReferenceData } from '../services/reference';
 import { closeModal, adjustSize } from '../services/modal';
 import { pushNotification } from '../services/notifications';
@@ -50,18 +50,26 @@ function SetContact(props){
         event.preventDefault();
         if(submitting) return;
         setSubmitting(true);
-        if(props.contact) return;
-        let success = false;
-        createContact(firstName, lastName, email, phoneNumber, title, business, name, businessType)
-        .then(() => success = true)
-        .catch(error => apiError(error))
-        .finally(() => {
+        var success = false;
+        if(props.contact){
+            updateContact(props.contact._id, firstName, lastName, email, phoneNumber, title, business, name, businessType)
+            .then(() => success = true)
+            .catch(error => apiError(error))
+            .finally(() => end());
+        } else {
+            createContact(firstName, lastName, email, phoneNumber, title, business, name, businessType)
+            .then(() => success = true)
+            .catch(error => apiError(error))
+            .finally(() => end());
+        }
+
+        function end(){
             if(!success){
                 setSubmitting(false);
                 pushNotification('Error', 'Failed to create new contact', 'danger');
             }
             closeModal(success);
-        });
+        }
     }
 
     var handleChange = (event) => {

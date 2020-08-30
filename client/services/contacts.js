@@ -2,6 +2,7 @@ import {
     getContacts as fetch,
     getBusinesses as fetchBusinesses,
     postContact,
+    putContact,
 } from './http';
 
 function getContacts(offset = 0, count = 10){
@@ -37,8 +38,20 @@ function createContact(firstName, lastName, email, phoneNumber, title, business,
     })
 }
 
+function updateContact(contactId, firstName, lastName, email, phoneNumber, title, business, name, businessType){
+    return new Promise((resolve, reject) => {
+        putContact(contactId, firstName, lastName, email, phoneNumber, title, business, name, businessType)
+        .then(response => {
+            if(response.status === 200) resolve();
+            else reject(response);
+        })
+        .catch(error => reject(error));
+    })
+}
+
 export {
     getContacts,
     getBusinesses,
     createContact,
+    updateContact,
 }

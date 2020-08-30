@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { hot } from 'react-hot-loader/root';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUserPlus } from '@fortawesome/free-solid-svg-icons';
+import { faUserPlus, faSyncAlt } from '@fortawesome/free-solid-svg-icons';
 
 // Components
 import SetContact from './modals/SetContact';
@@ -56,6 +56,11 @@ function Contacts(props){
                     <div className="level-item" data-new={true} onClick={openContactModal}>
                         <FontAwesomeIcon icon={faUserPlus} />
                         <p>Add Contact</p>
+                    </div>
+                </div>
+                <div className="level-right">
+                    <div className="level-item" onClick={fetch}>
+                        <FontAwesomeIcon icon={faSyncAlt} spin={fetching} />
                     </div>
                 </div>
             </div>
