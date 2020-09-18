@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { hot } from 'react-hot-loader/root';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBriefcase, faBuilding, faPhone, faEnvelope } from '@fortawesome/free-solid-svg-icons';
+import { faBriefcase, faBuilding, faPhone, faEnvelope, faTag } from '@fortawesome/free-solid-svg-icons';
 
 // Services
 import { getBusinesses, createContact, updateContact } from '../services/contacts';
@@ -150,14 +150,19 @@ function SetContact(props){
                             </div>
                             <div className="field">
                                 <label className="label">Business type</label>
-                                <div className="select">
-                                    <select name="businessType" value={businessType} onChange={handleChange}>
-                                        {businessTypes.map(businessType => {
-                                            return (
-                                                <option key={businessType._id} value={businessType.name}>{capitalize(businessType.name)}</option>
-                                            )
-                                        })}
-                                    </select>
+                                <div className="control has-icons-left">
+                                    <div className="select">
+                                        <select name="businessType" value={businessType} onChange={handleChange}>
+                                            {businessTypes.map(businessType => {
+                                                return (
+                                                    <option key={businessType._id} value={businessType.name}>{capitalize(businessType.name)}</option>
+                                                )
+                                            })}
+                                        </select>
+                                    </div>
+                                    <div className="icon is-small is-left">
+                                        <FontAwesomeIcon icon={faTag} />
+                                    </div>
                                 </div>
                             </div>
                         </form>
