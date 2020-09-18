@@ -3,4 +3,3 @@
 * Investigate if horizontal forms for contact creation is a good idea https://bulma.io/documentation/form/general/#horizontal-form
 * Add FA Icons to rest of contact creation form
 * Set up the navigation system on mobile
-* Add ability to edit business details
