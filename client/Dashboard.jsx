@@ -1,7 +1,6 @@
 import React from 'react';
-import { hot } from 'react-hot-loader/root';
 
-function Dashboard(props){
+function Dashboard(){
     return (
         <div>
             dashboard
@@ -9,4 +8,4 @@ function Dashboard(props){
     )
 }
 
-export default hot(Dashboard);
+export default Dashboard;

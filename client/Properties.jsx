@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { hot } from 'react-hot-loader/root';
 
 // Services
 import { getProperties } from './services/properties';
@@ -23,4 +22,4 @@ function Properties(props){
     )
 }
 
-export default hot(Properties);
+export default Properties;

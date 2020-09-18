@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { hot } from 'react-hot-loader/root';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBriefcase, faBuilding, faPhone, faEnvelope, faTag } from '@fortawesome/free-solid-svg-icons';
 
@@ -178,4 +177,4 @@ function SetContact(props){
     )
 }
 
-export default hot(SetContact);
+export default SetContact;

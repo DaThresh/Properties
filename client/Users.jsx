@@ -1,10 +1,9 @@
 import React from 'react';
-import { hot } from 'react-hot-loader/root';
 
-function Users(props){
+function Users(){
     return (
         <div>Users</div>
     )
 }
 
-export default hot(Users);
+export default Users;

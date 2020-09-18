@@ -1,10 +1,9 @@
 import React from 'react';
-import { hot } from 'react-hot-loader/root';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChartLine, faHome, faCog, faUsers, faAddressCard } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 
-function Sidebar(props){
+function Sidebar(){
     return (
         <div id="sidebar">
             <div id="sidebar-top">
@@ -55,4 +54,4 @@ function Sidebar(props){
     )
 }
 
-export default hot(Sidebar);
+export default Sidebar;

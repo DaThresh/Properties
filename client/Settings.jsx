@@ -1,7 +1,6 @@
 import React from 'react';
-import { hot } from 'react-hot-loader/root';
 
-function Settings(props){
+function Settings(){
     return (
         <div>
             settings
@@ -9,4 +8,4 @@ function Settings(props){
     )
 }
 
-export default hot(Settings);
+export default Settings;

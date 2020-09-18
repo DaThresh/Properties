@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { hot } from 'react-hot-loader/root';
 
 // Services
 import { getReferenceData } from '../services/reference';
@@ -81,4 +80,4 @@ function SetBusiness(props){
     )
 }
 
-export default hot(SetBusiness);
+export default SetBusiness;

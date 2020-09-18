@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { hot } from 'react-hot-loader/root';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleDoubleRight, faAngleDoubleLeft, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 
@@ -7,7 +6,7 @@ import { faAngleDoubleRight, faAngleDoubleLeft, faSignOutAlt } from '@fortawesom
 import { subscribe, unsubscribe, isOpen, openSidebar, closeSidebar } from './services/sidebar';
 import { logout } from './services/account';
 
-function Navbar(props) {
+function Navbar() {
     const [sidebarOpen, setSidebarOpen] = useState(isOpen());
 
     var handleSidebarUpdate = data => {
@@ -51,4 +50,4 @@ function Navbar(props) {
     )
 }
 
-export default hot(Navbar);
+export default Navbar;

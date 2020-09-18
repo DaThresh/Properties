@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { hot } from 'react-hot-loader/root';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserPlus, faSyncAlt } from '@fortawesome/free-solid-svg-icons';
 
@@ -15,7 +14,7 @@ import { openModal, subscribe, unsubscribe } from './services/modal';
 import { apiError } from './utilities/apiError';
 import { capitalize } from './utilities/format';
 
-function Contacts(props){
+function Contacts(){
     const [fetching, setFetching] = useState(false);
     const [contacts, setContacts] = useState([]);
 
@@ -104,4 +103,4 @@ function Contacts(props){
     )
 }
 
-export default hot(Contacts);
+export default Contacts;

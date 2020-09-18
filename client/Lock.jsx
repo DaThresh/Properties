@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { hot } from 'react-hot-loader/root';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAt, faKey } from '@fortawesome/free-solid-svg-icons';
 
@@ -10,7 +9,7 @@ import { login, setToken } from './services/account';
 import { apiError } from './utilities/apiError';
 import { capitalize } from './utilities/format';
 
-function Lock(props){
+function Lock(){
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [remember, setRemember] = useState(false);
@@ -96,4 +95,4 @@ function Lock(props){
     )
 }
 
-export default hot(Lock);
+export default Lock;
