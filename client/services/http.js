@@ -60,6 +60,10 @@ function putBusiness(businessId, name, type){
     )
 }
 
+function getUsers(offset, count){
+    return axios.get(hostName + '/api/accounts?offset=' + offset + '&count=' + count, addAuth());
+}
+
 export {
     postLogin,
     getProperties,
@@ -69,6 +73,7 @@ export {
     postContact,
     putContact,
     putBusiness,
+    getUsers,
     
     // Reference data only below
     getBusinessTypes,
