@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 // Services
 import { getProperties } from './services/properties';
+import { pushNotification } from './services/notifications';
 
 // Utilities
 import { apiError } from './utilities/apiError';
@@ -12,7 +13,10 @@ function Properties(props){
     useEffect(() => {
         getProperties()
         .then(properties => setProperties(properties))
-        .catch(error => apiError(error));
+        .catch(error => {
+            apiError(error);
+            pushNotification('Error', 'Failed to load properties', 'danger');
+        });
     }, []);
 
     return (

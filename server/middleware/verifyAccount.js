@@ -18,7 +18,7 @@ module.exports = (req, res, next) => {
                 if(!account) return Promise.reject({});
                 req.account = account;
                 next();
-            }).catch(err => Errors.response(res, {invalid: 'Invalid token'}));
+            }).catch(err => Errors.response(res, {invalid: 'Invalid token'}, 401));
         }
     });
 }

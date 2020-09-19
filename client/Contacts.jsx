@@ -9,6 +9,7 @@ import SetBusiness from './modals/SetBusiness';
 // Services
 import { getContacts } from './services/contacts';
 import { openModal, subscribe, unsubscribe } from './services/modal';
+import { pushNotification } from './services/notifications';
 
 // Utilities
 import { apiError } from './utilities/apiError';
@@ -23,7 +24,10 @@ function Contacts(){
         setFetching(true);
         getContacts()
         .then(contacts => setContacts(contacts))
-        .catch(error => apiError(error))
+        .catch(error => {
+            apiError(error);
+            pushNotification('Error', 'Failed to load contacts', 'danger');
+        })
         .finally(() => setFetching(false));
     }
 
