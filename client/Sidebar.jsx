@@ -1,9 +1,27 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChartLine, faHome, faCog, faUsers, faAddressCard } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 
+// Services
+import { getRole } from './services/account';
+import { pushNotification } from './services/notifications';
+
+// Utilities
+import { apiError } from './utilities/apiError';
+
 function Sidebar(){
+    const [showUsers, setShowUsers] = useState(false);
+
+    useEffect(() => {
+        getRole()
+        .then(role => setShowUsers(role > 400))
+        .catch(error => {
+            apiError(error);
+            pushNotification('Error', 'Failed to obtain user role', 'danger');
+        });
+    }, []);
+
     return (
         <div id="sidebar">
             <div id="sidebar-top">
@@ -34,14 +52,16 @@ function Sidebar(){
                     <span className="sidebar-text">Contacts</span>
                 </div>
             </Link>
-            <Link to="/users">
-                <div className="sidebar-item">
-                    <span className="sidebar-icon">
-                        <FontAwesomeIcon icon={faUsers} size="2x" />
-                    </span>
-                    <span className="sidebar-text">Users</span>
-                </div>
-            </Link>
+            {showUsers ? (
+                <Link to="/users">
+                    <div className="sidebar-item">
+                        <span className="sidebar-icon">
+                            <FontAwesomeIcon icon={faUsers} size="2x" />
+                        </span>
+                        <span className="sidebar-text">Users</span>
+                    </div>
+                </Link>
+            ) : null}
             <Link to ="/settings">
                 <div className="sidebar-item">
                     <span className="sidebar-icon">

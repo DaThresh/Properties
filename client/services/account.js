@@ -1,4 +1,4 @@
-import { postLogin } from './http';
+import { postLogin, getRole as fetchRole } from './http';
 import { fetchReferenceData } from './reference';
 
 // Milliseconds until expire for new tokens
@@ -62,6 +62,23 @@ function unsubscribeStatus(callback){
     }
 }
 
+function getRole(){
+    return new Promise((resolve, reject) => {
+        if(cache?.role) resolve(cache.role);
+        else if(!getToken()) resolve(0);
+        else {
+            fetchRole()
+            .then(response => {
+                if(response.status === 200){
+                    cache.role = response.data.role;
+                    resolve(cache.role);
+                } else return Promise.reject({error: 'An unexpected error occurred'})
+            })
+            .catch(error => reject(error));
+        }
+    })
+}
+
 export {
     setToken,
     getToken,
@@ -69,4 +86,5 @@ export {
     logout,
     subscribeStatus,
     unsubscribeStatus,
+    getRole,
 }

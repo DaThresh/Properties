@@ -14,6 +14,10 @@ function postLogin(email, password, remember){
     return axios.post(hostName + '/api/accounts/login', {email, password, remember});
 }
 
+function getRole(){
+    return axios.get(hostName + '/api/accounts/role', addAuth());
+}
+
 function getProperties(offset, count){
     return axios.get(hostName + '/api/properties?offset=' + offset + '&count=' + count, addAuth());
 }
@@ -66,6 +70,7 @@ function getUsers(offset, count){
 
 export {
     postLogin,
+    getRole,
     getProperties,
     postProperty,
     getContacts,
