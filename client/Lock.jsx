@@ -52,7 +52,7 @@ function Lock(){
                 <div className="card centered">
                     <header className="card-header">
                         <p className="card-header-title">
-                            Company Name
+                            Gramercy Custom Homes
                         </p>
                     </header>
                     <div className="card-content" style={{paddingTop: '10px'}}>

@@ -78,60 +78,96 @@ function SetContact(props){
                 <div className="column">
                     <h4 className="title is-4 has-text-centered">New Contact</h4>
                     <form autoComplete="off" onSubmit={submit}>
-                        <div className="field">
-                            <label className="label">First name</label>
-                            <div className="control">
-                                <input className="input" type="text" name="firstName" value={firstName} onChange={handleChange} placeholder="Enter first name..." required />
+                        <div className="field is-horizontal">
+                            <div className="field-label is-normal">
+                                <label className="label">First name</label>
                             </div>
-                        </div>
-                        <div className="field">
-                            <label className="label">Last name</label>
-                            <div className="control">
-                                <input className="input" type="text" name="lastName" value={lastName} onChange={handleChange} placeholder="Enter last name..." />
-                            </div>
-                        </div>
-                        <div className="field">
-                            <label className="label">Email</label>
-                            <div className="control has-icons-left">
-                                <input className="input" type="email" name="email" value={email} onChange={handleChange} placeholder="joe@doe.com" />
-                                <div className="icon is-small is-left">
-                                    <FontAwesomeIcon icon={faEnvelope} />
+                            <div className="field-body">
+                                <div className="field">
+                                    <div className="control">
+                                        <input className="input" type="text" name="firstName" value={firstName} onChange={handleChange} placeholder="Enter first name..." required />
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div className="field">
-                            <label className="label">Phone number</label>
-                            <div className="control has-icons-left">
-                                <input className="input" type="tel" name="phoneNumber" value={phoneNumber} onChange={handleChange} placeholder="2149008000" maxLength="10" />
-                                <div className="icon is-small is-left">
-                                    <FontAwesomeIcon icon={faPhone} />
+                        <div className="field is-horizontal">
+                            <div className="field-label is-normal">
+                                <label className="label">Last name</label>
+                            </div>
+                            <div className="field-body">
+                                <div className="field">
+                                    <div className="control">
+                                        <input className="input" type="text" name="lastName" value={lastName} onChange={handleChange} placeholder="Enter last name..." />
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div className="field">
-                            <label className="label">Title</label>
-                            <div className="control has-icons-left">
-                                <input className="input" type="text" name="title" value={title} onChange={handleChange} placeholder="Manager" />
-                                <div className="icon is-small is-left">
-                                    <FontAwesomeIcon icon={faBriefcase} />
+                        <div className="field is-horizontal">
+                            <div className="field-label is-normal">
+                                <label className="label">Email</label>
+                            </div>
+                            <div className="field-body">
+                                <div className="field">
+                                    <div className="control has-icons-left">
+                                        <input className="input" type="email" name="email" value={email} onChange={handleChange} placeholder="joe@doe.com" />
+                                        <div className="icon is-small is-left">
+                                            <FontAwesomeIcon icon={faEnvelope} />
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div className="field">
-                            <label className="label">Business</label>
-                            <div className="control has-icons-left">
-                                <div className="select">
-                                    <select name="business" value={business} onChange={handleChange}>
-                                        {businesses.map(business => {
-                                            return (
-                                                <option key={business._id} value={business.name}>{capitalize(business.name)}</option>
-                                            )
-                                        })}
-                                        <option value="add">Add</option>
-                                    </select>
+                        <div className="field is-horizontal">
+                            <div className="field-label is-normal">
+                                <label className="label">Phone number</label>
+                            </div>
+                            <div className="field-body">
+                                <div className="field">
+                                    <div className="control has-icons-left">
+                                        <input className="input" type="tel" name="phoneNumber" value={phoneNumber} onChange={handleChange} placeholder="2149008000" maxLength="10" />
+                                        <div className="icon is-small is-left">
+                                            <FontAwesomeIcon icon={faPhone} />
+                                        </div>
+                                    </div>
                                 </div>
-                                <div className="icon is-small is-left">
-                                    <FontAwesomeIcon icon={faBuilding} />
+                            </div>
+                        </div>
+                        <div className="field is-horizontal">
+                            <div className="field-label is-normal">
+                                <label className="label">Title</label>
+                            </div>
+                            <div className="field-body">
+                                <div className="field">
+                                    <div className="control has-icons-left">
+                                        <input className="input" type="text" name="title" value={title} onChange={handleChange} placeholder="Manager" />
+                                        <div className="icon is-small is-left">
+                                            <FontAwesomeIcon icon={faBriefcase} />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="field is-horizontal">
+                            <div className="field-label is-normal">
+                                <label className="label">Business</label>
+                            </div>
+                            <div className="field-body">
+                                <div className="field">
+                                    <div className="control has-icons-left">
+                                        <div className="select">
+                                            <select name="business" value={business} onChange={handleChange}>
+                                                {businesses.map(business => {
+                                                    return (
+                                                        <option key={business._id} value={business.name}>{capitalize(business.name)}</option>
+                                                    )
+                                                })}
+                                                <option value="add">Add</option>
+                                            </select>
+                                        </div>
+                                        <div className="icon is-small is-left">
+                                            <FontAwesomeIcon icon={faBuilding} />
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -141,26 +177,38 @@ function SetContact(props){
                     <div className="column">
                         <h4 className="title is-4 has-text-centered">New Business</h4>
                         <form autoComplete="off" onSubmit={submit}>
-                            <div className="field">
-                                <label className="label">Name</label>
-                                <div className="control">
-                                    <input className="input" type="text" name="name" value={name} onChange={handleChange} placeholder="Incorporated LLC" />
+                            <div className="field is-horizontal">
+                                <div className="field-label is-normal">
+                                    <label className="label">Name</label>
+                                </div>
+                                <div className="field-body">
+                                    <div className="field">
+                                        <div className="control">
+                                            <input className="input" type="text" name="name" value={name} onChange={handleChange} placeholder="Incorporated LLC" />
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                            <div className="field">
-                                <label className="label">Business type</label>
-                                <div className="control has-icons-left">
-                                    <div className="select">
-                                        <select name="businessType" value={businessType} onChange={handleChange}>
-                                            {businessTypes.map(businessType => {
-                                                return (
-                                                    <option key={businessType._id} value={businessType.name}>{capitalize(businessType.name)}</option>
-                                                )
-                                            })}
-                                        </select>
-                                    </div>
-                                    <div className="icon is-small is-left">
-                                        <FontAwesomeIcon icon={faTag} />
+                            <div className="field is-horizontal">
+                                <div className="field-label is-normal">
+                                    <label className="label">Business type</label>
+                                </div>
+                                <div className="field-body">
+                                    <div className="field">
+                                        <div className="control has-icons-left">
+                                            <div className="select">
+                                                <select name="businessType" value={businessType} onChange={handleChange}>
+                                                    {businessTypes.map(businessType => {
+                                                        return (
+                                                            <option key={businessType._id} value={businessType.name}>{capitalize(businessType.name)}</option>
+                                                        )
+                                                    })}
+                                                </select>
+                                            </div>
+                                            <div className="icon is-small is-left">
+                                                <FontAwesomeIcon icon={faTag} />
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -169,7 +217,7 @@ function SetContact(props){
                 ) : null}
             </div>
             <div className="field">
-                <div className={'control' + (business == 'add' ? ' has-text-centered' : '')}>
+                <div className="control has-text-centered">
                     <button className={'button is-primary' + (submitting ? ' is-loading' : '')} onClick={submit}>Submit</button>
                 </div>
             </div>

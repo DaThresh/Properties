@@ -47,31 +47,43 @@ function SetBusiness(props){
         <span id="SetContact">
             <h4 className="title is-4 has-text-centered">Edit Business</h4>
             <form autoComplete="off" onSubmit={submit}>
-                <div className="field">
-                    <label className="label">Name</label>
-                    <div className="control">
-                        <input className="input" type="text" name="name" value={name} onChange={handleChange} placeholder="Incorporated LLC" />
+                <div className="field is-horizontal">
+                    <div className="field-label is-normal">
+                        <label className="label">Name</label>
                     </div>
-                </div>
-                <div className="field">
-                    <label className="label">Business type</label>
-                    <div className="control has-icons-left">
-                        <div className="select">
-                            <select name="businessType" value={businessType} onChange={handleChange}>
-                                {businessTypes.map(businessType => {
-                                    return (
-                                        <option key={businessType._id} value={businessType.name}>{capitalize(businessType.name)}</option>
-                                    )
-                                })}
-                            </select>
-                        </div>
-                        <div className="icon is-small is-left">
-                            <FontAwesomeIcon icon={faTag} />
+                    <div className="field-body">
+                        <div className="field">
+                            <div className="control">
+                                <input className="input" type="text" name="name" value={name} onChange={handleChange} placeholder="Incorporated LLC" />
+                            </div>
                         </div>
                     </div>
                 </div>
+                <div className="field is-horizontal">
+                    <div className="field-label is-normal">
+                        <label className="label">Business type</label>
+                    </div>
+                    <div className="field-body">
+                        <div className="field">
+                            <div className="control has-icons-left">
+                                <div className="select">
+                                    <select name="businessType" value={businessType} onChange={handleChange}>
+                                        {businessTypes.map(businessType => {
+                                            return (
+                                                <option key={businessType._id} value={businessType.name}>{capitalize(businessType.name)}</option>
+                                            )
+                                        })}
+                                    </select>
+                                </div>
+                                <div className="icon is-small is-left">
+                                    <FontAwesomeIcon icon={faTag} />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div className="field">
-                    <div className="control">
+                    <div className="control has-text-centered">
                         <button className={'button is-primary' + (submitting ? ' is-loading' : '')} onClick={submit}>Submit</button>
                     </div>
                 </div>
