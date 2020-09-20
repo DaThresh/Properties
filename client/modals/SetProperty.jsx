@@ -42,6 +42,13 @@ function SetProperty(props){
         if(setFunctions[setFunction]) setFunctions[setFunction](event?.currentTarget?.value ?? event);
     }
 
+    var datePreset = (event) => {
+        let date = new Date();
+        date.setHours(0); date.setMinutes(0); date.setSeconds(0); date.setMilliseconds(0);
+        if(event.currentTarget.name === 'yesterday') date.setDate(date.getDate() - 1);
+        setPurchaseDate(date);
+    }
+
     return (
         <span id="SetProperty">
             <h4 className="title is-4 has-text-centered">Create Property</h4>
@@ -99,9 +106,15 @@ function SetProperty(props){
                         <label className="label">Purchase Date</label>
                     </div>
                     <div className="field-body">
-                        <div className="field">
+                        <div className="field is-grouped">
                             <div className="control">
                                 <DatePicker className="date-picker" name="purchaseDate" value={purchaseDate} onChange={handleChange} clearIcon={null} minDetail="year" />
+                            </div>
+                            <div className="control">
+                                <button className="button is-info" type="button" name="today" onClick={datePreset}>Today</button>
+                            </div>
+                            <div className="control">
+                                <button className="button is-info" type="button" name="yesterday" onClick={datePreset}>Yesterday</button>
                             </div>
                         </div>
                     </div>
