@@ -62,7 +62,7 @@ function SetContact(props){
         }
 
         function end(){
-            if(!success) pushNotification('Error', 'Failed to create new contact', 'danger');
+            if(!success) pushNotification('Error', props.contact ? 'Failed to update contact' : 'Failed to create new contact', 'danger');
             closeModal(success);
         }
     }

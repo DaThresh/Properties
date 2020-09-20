@@ -9,7 +9,10 @@ var contactSchema = Schema({
     lastName: String,
     phoneNumber: Number,
     title: String,
-    email: String,
+    email: {
+        type: String,
+        validate: isEmailReal,
+    },
     business: {
         type: Schema.Types.ObjectId,
         ref: 'Business',
@@ -33,6 +36,14 @@ contactSchema.pre('findOne', function(next){ defaultQuery(this, next) });
 contactSchema.virtual('fullName').get(function(){
     return this.lastName ? this.firstName + ' ' + this.lastName : this.firstName;
 });
+
+function isEmailReal(param){
+    return new Promise((resolve, reject) => {
+        let regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        if(!regex.test(String(param).toLowerCase())) reject({invalid: 'Invalid email address given'});
+        else resolve();
+    })
+}
 
 var Contact = mongoose.model('Contact', contactSchema);
 
