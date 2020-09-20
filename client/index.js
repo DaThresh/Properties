@@ -9,6 +9,7 @@ import './sass/Navbar.scss';
 import './sass/Modal.scss';
 import './sass/Lock.scss';
 import './sass/SetProperty.scss';
+import './sass/tables.scss';
 
 import App from './App';
 

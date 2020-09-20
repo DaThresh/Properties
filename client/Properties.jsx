@@ -44,7 +44,7 @@ function Properties(props){
             <button onClick={newProperty} className="button is-primary">New Property</button>
             <table className="table is-hoverable is-bordered is-fullwidth">
                 <thead>
-                    <tr>
+                    <tr className="is-left">
                         <th>Address</th>
                         <th>Status</th>
                         <th>Days Held</th>
@@ -53,7 +53,7 @@ function Properties(props){
                 <tbody>
                     {properties.map(property => {
                         return (
-                            <tr>
+                            <tr key={property._id}>
                                 <td>{property.address}</td>
                                 <td>{property.status}</td>
                                 <td>{differenceInDays(new Date, new Date(property.purchaseDate))}</td>

@@ -13,7 +13,7 @@ import { pushNotification } from './services/notifications';
 
 // Utilities
 import { apiError } from './utilities/apiError';
-import { capitalize } from './utilities/format';
+import { capitalize, phoneNumber } from './utilities/format';
 
 function Contacts(){
     const [fetching, setFetching] = useState(false);
@@ -75,9 +75,9 @@ function Contacts(){
                     </div>
                 </div>
             </div>
-            <table className="table is-striped is-narrow is-hoverable is-fullwidth">
+            <table className="table is-hoverable is-bordered is-fullwidth">
                 <thead>
-                    <tr>
+                    <tr className="is-left">
                         <th>Name</th>
                         <th>Phone Number</th>
                         <th>Title</th>
@@ -89,8 +89,12 @@ function Contacts(){
                     {contacts.map(contact => {
                         return (
                             <tr key={contact._id}>
-                                <td>{capitalize(contact.firstName) + ' ' + capitalize(contact.lastName)}</td>
-                                <td>{contact.phoneNumber}</td>
+                                <td>
+                                    <ConditionalWrapper condition={contact.email} wrapper={children => (<a href={'mailto:' + contact.email}>{children}</a>)}>
+                                        {capitalize(contact.firstName) + ' ' + capitalize(contact.lastName)}
+                                    </ConditionalWrapper>
+                                </td>
+                                <td><a href={'tel:' + contact.phoneNumber}>{phoneNumber(contact.phoneNumber)}</a></td>
                                 <td>{capitalize(contact.title)}</td>
                                 <td data-contact={contact._id} onClick={openBusinessModal}>
                                     {capitalize(contact.business.name)}
@@ -105,6 +109,10 @@ function Contacts(){
             </table>
         </div>
     )
+}
+
+function ConditionalWrapper(props){
+    return props.condition ? props.wrapper(props.children) : props.children;
 }
 
 export default Contacts;
