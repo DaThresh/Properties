@@ -28,6 +28,7 @@ function buildContact(body, object){
         if(body.lastName) contact.lastName = String(body.lastName);
         if(body.phoneNumber) contact.phoneNumber = Number(body.phoneNumber);
         if(body.title) contact.title = String(body.title);
+        if(body.email) contact.email = String(body.email);
         // Check to see if the passed object is a businessType or a Business
         if(object.constructor.modelName == Business.modelName){
             contact.business = object;

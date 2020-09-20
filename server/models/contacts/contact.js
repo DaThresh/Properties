@@ -9,6 +9,7 @@ var contactSchema = Schema({
     lastName: String,
     phoneNumber: Number,
     title: String,
+    email: String,
     business: {
         type: Schema.Types.ObjectId,
         ref: 'Business',
@@ -21,6 +22,7 @@ contactSchema.pre('save', function(next){
     if(this.firstName) this.firstName = this.firstName.toLowerCase();
     if(this.lastName) this.lastName = this.lastName.toLowerCase();
     if(this.title) this.title = this.title.toLowerCase();
+    if(this.email) this.email = this.email.toLowerCase();
     next();
 });
 
