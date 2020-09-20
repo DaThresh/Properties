@@ -1,4 +1,4 @@
-import { getProperties as fetch } from './http';
+import { getProperties as fetch, postProperty } from './http';
 
 function getProperties(offset = 0, count = 10){
     return new Promise((resolve, reject) => {
@@ -11,6 +11,18 @@ function getProperties(offset = 0, count = 10){
     });
 }
 
+function createProperty(address, zipcode, lotWidth, lotDepth, purchaseDate){
+    return new Promise((resolve, reject) => {
+        postProperty(address, zipcode, lotWidth, lotDepth, purchaseDate)
+        .then(response => {
+            if(response.status === 201) resolve(response.data.property);
+            else reject(response);
+        })
+        .catch(error => reject(error));
+    });
+}
+
 export {
     getProperties,
+    createProperty,
 }

@@ -8,6 +8,7 @@ import './sass/Content.scss';
 import './sass/Navbar.scss';
 import './sass/Modal.scss';
 import './sass/Lock.scss';
+import './sass/SetProperty.scss';
 
 import App from './App';
 

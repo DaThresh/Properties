@@ -23,7 +23,7 @@ function getProperties(offset, count){
 }
 
 function postProperty(address, zipcode, lotWidth, lotDepth, purchaseDate){
-    return axios.post(hostName = '/api/properties', {
+    return axios.post(hostName + '/api/properties', {
         address, zipcode, lotWidth, lotDepth, purchaseDate},
         addAuth()
     )
