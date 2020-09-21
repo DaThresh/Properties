@@ -1,5 +1,6 @@
 const PropertyServices = {
     fetch: require(DIR + '/services/properties/fetch'),
+    fetchStatuses: require(DIR + '/services/properties/fetchStatuses'),
     create: require(DIR + '/services/properties/create'),
     delete: require(DIR + '/services/properties/delete'),
 }
@@ -11,6 +12,7 @@ const Middleware = {
 module.exports = (app) => {
     // Get routes
     app.get('/api/properties', Middleware.verifyAccount, PropertyServices.fetch);
+    app.get('/api/properties/statuses', Middleware.verifyAccount, PropertyServices.fetchStatuses);
 
     // Post routes
     app.post('/api/properties', Middleware.verifyAccount, PropertyServices.create);
