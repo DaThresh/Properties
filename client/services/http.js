@@ -29,6 +29,10 @@ function postProperty(address, zipcode, lotWidth, lotDepth, purchaseDate){
     )
 }
 
+function getPropertyStatuses(){
+    return axios.get(hostName + '/api/properties/statuses', addAuth());
+}
+
 function getContacts(offset, count){
     return axios.get(hostName + '/api/contacts?offset=' + offset + '&count=' + count, addAuth());
 }
@@ -82,4 +86,5 @@ export {
     
     // Reference data only below
     getBusinessTypes,
+    getPropertyStatuses,
 }

@@ -34,7 +34,7 @@ function App() {
     useEffect(() => {
         if(!loggedIn) return;
         fetchReferenceData();
-    }, []);
+    }, [loggedIn]);
 
     var application = 
         <Router>

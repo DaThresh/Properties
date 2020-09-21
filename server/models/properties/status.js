@@ -14,6 +14,10 @@ var statusSchema = Schema({
     name: {
         type: String,
         required: true,
+    },
+    color: {
+        type: String,
+        required: true,
     }
 }, { collection: 'statuses' });
 
