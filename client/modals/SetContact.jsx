@@ -39,6 +39,10 @@ function SetContact(props){
     }, []);
 
     useEffect(() => {
+        setBusinessType(businessTypes[0]?.name ?? '');
+    }, []);
+
+    useEffect(() => {
         if(business === 'add' && name !== '') setName('');
         if(business === 'add' && businessType !== '') setBusinessType('');
         adjustSize(business !== 'add');

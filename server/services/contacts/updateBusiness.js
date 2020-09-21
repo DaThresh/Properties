@@ -5,7 +5,7 @@ const success = require('../success');
 
 module.exports = (req, res) => {
     fields(req.body, ['name', 'type'])
-    .then(() => BusinessType.findOne({name: String(req.body.type).toLowerCase()}))
+    .then(() => BusinessType.findOne({name: String(req.body.type)}))
     .then(businessType => {
         if(businessType == null) return Promise.reject({invalid: 'Business Type does not exit'});
         return Business.findById(req.params.businessId)

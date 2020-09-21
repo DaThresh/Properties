@@ -33,12 +33,6 @@ var propertySchema = Schema({
     }
 }, { timestamps: true });
 
-// Converts all the addresses to lower case so they are searchable
-propertySchema.pre('save', function(next){
-    this.address = this.address.toLowerCase();
-    next();
-});
-
 // Apply default query
 propertySchema.pre('find', function(next){ defaultQuery(this, next) });
 propertySchema.pre('findOne', function(next){ defaultQuery(this, next) });
@@ -55,12 +49,23 @@ propertySchema.virtual('state').get(function(){
 
 function isAddressUnique(param){
     return new Promise((resolve, reject) => {
-        Property.find({address: String(param).toLowerCase()})
-        .then(properties => {
-            if(properties.length === 0) return resolve();
-            if(properties.length === 1 && properties[0] === this) return resolve();
-            reject({unique: 'Address must be unique'});
-        }).catch(error => reject(error));
+        var self = this;
+        if(this instanceof mongoose.Query){
+            Property.findById(this._conditions._id.toLocaleString())
+            .then(property => {
+                self = property;
+                compareRecords();
+            }).catch(error => reject(error));
+        } else compareRecords()
+
+        function compareRecords(){
+            Property.find({address: { $regex: new RegExp(param, 'i') }})
+            .then(properties => {
+                if(properties.length === 0) return resolve();
+                if(properties.length === 1 && properties[0].id === self.id) return resolve();
+                reject(new Error('Address must be unique'));
+            }).catch(error => reject(error));
+        }
     })
 }
 

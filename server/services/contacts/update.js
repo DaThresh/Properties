@@ -12,8 +12,8 @@ module.exports = (req, res) => {
     .then(object => {
         if(object == null) return Promise.reject({invalid: 'Invalid contact ID'});
         contact = object;
-        if(req.body.business) return Business.findOne({name: String(req.body.business).toLowerCase()})
-        else return BusinessType.findOne({name: String(req.body.businessType).toLowerCase()})
+        if(req.body.business) return Business.findOne({name: { $regex: new RegExp(String(req.body.business, 'i')) }})
+        else return BusinessType.findOne({name: { $regex: new RegExp(String(req.body.businessType, 'i')) }})
     })
     .then(object => {
         if(object == null) return Promise.reject(rejection(req.body));

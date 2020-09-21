@@ -2,7 +2,7 @@ const Schema = mongoose.Schema;
 const defaultQuery = require('../utilities/defaultQuery');
 
 // All lowercase for searchability
-const defaults = ['legal', 'home building', 'tax', 'other'];
+const defaults = ['Legal', 'Home building', 'Tax', 'Other'];
 
 var businessTypeSchema = Schema({
     name: {
@@ -10,11 +10,6 @@ var businessTypeSchema = Schema({
         required: true,
     }
 }, { collection: 'businessTypes' });
-
-businessTypeSchema.pre('save', function(next){
-    this.name = this.name.toLowerCase();
-    next();
-});
 
 // Apply default query
 businessTypeSchema.pre('find', function(next){ defaultQuery(this, next) });

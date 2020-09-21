@@ -20,15 +20,6 @@ var contactSchema = Schema({
     },
 }, { timestamps: true });
 
-// Converts are string fields to lowercase so they are searchable
-contactSchema.pre('save', function(next){
-    if(this.firstName) this.firstName = this.firstName.toLowerCase();
-    if(this.lastName) this.lastName = this.lastName.toLowerCase();
-    if(this.title) this.title = this.title.toLowerCase();
-    if(this.email) this.email = this.email.toLowerCase();
-    next();
-});
-
 // Apply default query
 contactSchema.pre('find', function(next){ defaultQuery(this, next) });
 contactSchema.pre('findOne', function(next){ defaultQuery(this, next) });
@@ -40,7 +31,7 @@ contactSchema.virtual('fullName').get(function(){
 function isEmailReal(param){
     return new Promise((resolve, reject) => {
         let regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-        if(!regex.test(String(param).toLowerCase())) reject({invalid: 'Invalid email address given'});
+        if(!regex.test(String(param))) reject(new Error('Invalid email address given'));
         else resolve();
     })
 }

@@ -3,3 +3,5 @@
 * Set up the navigation system on mobile
 * Restrict account fetch endpoint to admins ONLY
 * Added status colors and reference data https://image.opencart.com/cache/5c8cf62bcf46d-resize-500x500.jpg
+* Investigate if "updateOne" query calls can be defaulted to include validation and context
+* Eliminate capitalizing on client side for newly case-insensitive fields
