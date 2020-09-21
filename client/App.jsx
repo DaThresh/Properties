@@ -20,6 +20,7 @@ import { fetchReferenceData } from './services/reference';
 
 function App() {
     const [loggedIn, setLoggedIn] = useState(getToken());
+    if(loggedIn) fetchReferenceData();
 
     var handleAccountStatus = (data) => {
         if(data.event === 'login') setLoggedIn(true);
@@ -30,11 +31,6 @@ function App() {
         subscribeStatus(handleAccountStatus);
         return () => unsubscribeStatus(handleAccountStatus);
     })
-
-    useEffect(() => {
-        if(!loggedIn) return;
-        fetchReferenceData();
-    }, [loggedIn]);
 
     var application = 
         <Router>
