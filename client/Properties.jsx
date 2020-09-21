@@ -45,12 +45,20 @@ function Properties(props){
 
     var statusTag = (status) => {
         if(statuses.length === 0) return status;
-        let statusObj = statuses.find(data => data.name === status);
+        let index = statuses.findIndex(data => data.name === status);
+        let statusObj = statuses[index];
+        if(index + 1 !== statuses.length) var nextObj = statuses[index + 1];
         return (
             <div className="tags has-addons">
-                <span className={'tag is-' + statusObj.color}>{status}</span>
-                {statuses.indexOf(statusObj) < statuses.length - 1 ?
-                    <span className="tag"><FontAwesomeIcon icon={faChevronRight} /></span>
+                <span className={'tag is-' + statusObj.color}>{statusObj.name}</span>
+                {typeof nextObj !== 'undefined' ?
+                    <span className="tag has-tooltip">
+                        <FontAwesomeIcon icon={faChevronRight} />
+                        <span className="tooltip has-text-centered">
+                            <p>Promote to</p>
+                            <span className={'tag mb-0 is-' + nextObj.color}>{nextObj.name}</span>
+                        </span>
+                    </span>
                 : null}
             </div>
         )

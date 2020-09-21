@@ -10,6 +10,7 @@ import './sass/Modal.scss';
 import './sass/Lock.scss';
 import './sass/SetProperty.scss';
 import './sass/tables.scss';
+import './sass/tooltips.scss';
 
 import App from './App';
 

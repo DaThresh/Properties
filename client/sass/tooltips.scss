@@ -1,0 +1,59 @@
+@import '../../node_modules/bulma/sass/utilities/initial-variables.sass';
+
+.has-tooltip{
+    position: relative;
+    cursor: pointer;
+    overflow: visible;
+}
+
+.has-tooltip .tooltip{
+    height: auto;
+    max-width: 15rem;
+    text-overflow: clip;
+    word-break: keep-all;
+    bottom: 0;
+    left: 50%;
+    margin-bottom: -5px;
+    transform: translate(-50%,100%);
+    box-sizing: border-box;
+    color: white;
+    display: inline-block;
+    font-size: .75rem;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    position: absolute;
+    z-index: 1;
+    background-color: rgba(74,74,74,.9);
+    border-radius: 2px;
+    padding: .5rem 1rem;
+
+    // Below used to reset tags radius when placed inside another tags' "has-addons"
+    .tag{
+        border-bottom-left-radius: $radius !important;
+        border-top-left-radius: $radius !important;
+    }
+}
+
+.has-tooltip .tooltip::after{
+    content: '';
+    box-sizing: border-box;
+    color: rgba(74,74,74,.9);
+    font-size: .75rem;
+    pointer-events: none;
+    position: absolute;
+    z-index: 1;
+    border-style: solid;
+    border-width: 6px;
+    border-color:  rgba(74,74,74,.9) transparent transparent transparent;
+    top: -6px;
+    left: 50%;
+    margin-top: 6px * -1 + 1;
+    margin-left: 6px * -1 + 1;
+    transform: rotate(180deg);
+}
+
+.has-tooltip:hover .tooltip{
+    visibility: visible;
+    opacity: 0.9;
+}
