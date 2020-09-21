@@ -1,5 +1,8 @@
+const Status = require('./status');
 const Schema = mongoose.Schema;
-const defaultQuery = require('../utilities/defaultQuery');
+const Query = require('../utilities/query');
+const defaultQuery = Query.defaultQuery;
+const defaultUpdate = Query.defaultUpdate;
 const zipcodes = require('zipcodes');
 
 var propertySchema = Schema({
@@ -26,6 +29,7 @@ var propertySchema = Schema({
     status: {
         type: String,
         default: 'Planning',
+        validate: isStatusValid,
     },
     publicVisible: {
         type: Boolean,
@@ -36,6 +40,11 @@ var propertySchema = Schema({
 // Apply default query
 propertySchema.pre('find', function(next){ defaultQuery(this, next) });
 propertySchema.pre('findOne', function(next){ defaultQuery(this, next) });
+
+// Apply defaults for updating
+propertySchema.pre('update', function(next){ defaultUpdate(this, next) });
+propertySchema.pre('updateOne', function(next){ defaultUpdate(this, next) });
+propertySchema.pre('findOneAndUpdate', function(next){ defaultUpdate(this, next) });
 
 propertySchema.virtual('city').get(function(){
     let location = zipcodes.lookup(this.zipcode);
@@ -66,6 +75,16 @@ function isAddressUnique(param){
                 reject(new Error('Address must be unique'));
             }).catch(error => reject(error));
         }
+    })
+}
+
+function isStatusValid(param){
+    return new Promise((resolve, reject) => {
+        Status.findOne({name: param})
+        .then(status => {
+            if(!status) reject(new Error('Status not valid'));
+            resolve();
+        }).catch(error => reject(error));
     })
 }
 

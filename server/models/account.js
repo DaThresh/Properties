@@ -1,5 +1,7 @@
 const Schema = mongoose.Schema;
-const defaultQuery = require('./utilities/defaultQuery');
+const Query = require('./utilities/query');
+const defaultQuery = Query.defaultQuery;
+const defaultUpdate = Query.defaultUpdate;
 
 var accountSchema = Schema({
     email: {
@@ -14,6 +16,11 @@ var accountSchema = Schema({
 // Apply default query
 accountSchema.pre('find', function(next){ defaultQuery(this, next) });
 accountSchema.pre('findOne', function(next){ defaultQuery(this, next) });
+
+// Apply defaults for updating
+accountSchema.pre('update', function(next){ defaultUpdate(this, next) });
+accountSchema.pre('updateOne', function(next){ defaultUpdate(this, next) });
+accountSchema.pre('fineOneAndUpdate', function(next){ defaultUpdate(this, next) });
 
 function isEmailUnique(param){
     return new Promise((resolve, reject) => {

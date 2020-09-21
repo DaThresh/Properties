@@ -1,5 +1,7 @@
 const Schema = mongoose.Schema;
-const defaultQuery = require('../utilities/defaultQuery');
+const Query = require('../utilities/query');
+const defaultQuery = Query.defaultQuery;
+const defaultUpdate = Query.defaultUpdate;
 
 var contactSchema = Schema({
     firstName: {
@@ -23,6 +25,11 @@ var contactSchema = Schema({
 // Apply default query
 contactSchema.pre('find', function(next){ defaultQuery(this, next) });
 contactSchema.pre('findOne', function(next){ defaultQuery(this, next) });
+
+// Apply defaults for updating
+contactSchema.pre('update', function(next){ defaultUpdate(this, next) });
+contactSchema.pre('updateOne', function(next){ defaultUpdate(this, next) });
+contactSchema.pre('findOneAndUpdate', function(next){ defaultUpdate(this, next) });
 
 contactSchema.virtual('fullName').get(function(){
     return this.lastName ? this.firstName + ' ' + this.lastName : this.firstName;

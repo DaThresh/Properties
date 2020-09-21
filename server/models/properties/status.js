@@ -1,5 +1,6 @@
 const Schema = mongoose.Schema;
-const defaultQuery = require('../utilities/defaultQuery');
+const Query = require('../utilities/query');
+const defaultQuery = Query.defaultQuery;
 
 // Name of status, color corresponding with Bulma color
 const defaults = [
