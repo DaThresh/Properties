@@ -21,11 +21,11 @@ function SetContact(props){
     const businessTypes = getReferenceData('businessTypes', 'array');
     const [submitting, setSubmitting] = useState(false);
     const [businesses, setBusinesses] = useState([]);
-    const [firstName, setFirstName] = useState(capitalize(getInitial('firstName')));
-    const [lastName, setLastName] = useState(capitalize(getInitial('lastName')));
+    const [firstName, setFirstName] = useState(getInitial('firstName'));
+    const [lastName, setLastName] = useState(getInitial('lastName'));
     const [email, setEmail] = useState(getInitial('email'));
     const [phoneNumber, setPhoneNumber] = useState(getInitial('phoneNumber'));
-    const [title, setTitle] = useState(capitalize(getInitial('title')));
+    const [title, setTitle] = useState(getInitial('title'));
     const [business, setBusiness] = useState(props.contact ? props.contact.business.name : 'add');
     const [name, setName] = useState('');
     const [businessType, setBusinessType] = useState('');
@@ -162,7 +162,7 @@ function SetContact(props){
                                             <select name="business" value={business} onChange={handleChange}>
                                                 {businesses.map(business => {
                                                     return (
-                                                        <option key={business._id} value={business.name}>{capitalize(business.name)}</option>
+                                                        <option key={business._id} value={business.name}>{business.name}</option>
                                                     )
                                                 })}
                                                 <option value="add">Add</option>
@@ -204,7 +204,7 @@ function SetContact(props){
                                                 <select name="businessType" value={businessType} onChange={handleChange}>
                                                     {businessTypes.map(businessType => {
                                                         return (
-                                                            <option key={businessType._id} value={businessType.name}>{capitalize(businessType.name)}</option>
+                                                            <option key={businessType._id} value={businessType.name}>{businessType.name}</option>
                                                         )
                                                     })}
                                                 </select>

@@ -15,7 +15,7 @@ import { faTag } from '@fortawesome/free-solid-svg-icons';
 function SetBusiness(props){
     const business = props.business;
     const businessTypes = getReferenceData('businessTypes', 'array');
-    const [name, setName] = useState(capitalize(business.name));
+    const [name, setName] = useState(business.name);
     const [businessType, setBusinessType] = useState(business.type);
     const [submitting, setSubmitting] = useState(false);
     const setFunctions = {setName, setBusinessType};
@@ -70,7 +70,7 @@ function SetBusiness(props){
                                     <select name="businessType" value={businessType} onChange={handleChange}>
                                         {businessTypes.map(businessType => {
                                             return (
-                                                <option key={businessType._id} value={businessType.name}>{capitalize(businessType.name)}</option>
+                                                <option key={businessType._id} value={businessType.name}>{businessType.name}</option>
                                             )
                                         })}
                                     </select>

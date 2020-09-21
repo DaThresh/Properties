@@ -91,13 +91,13 @@ function Contacts(){
                             <tr key={contact._id}>
                                 <td>
                                     <ConditionalWrapper condition={contact.email} wrapper={children => (<a href={'mailto:' + contact.email}>{children}</a>)}>
-                                        {capitalize(contact.firstName) + ' ' + capitalize(contact.lastName)}
+                                        {contact.firstName + ' ' + contact.lastName}
                                     </ConditionalWrapper>
                                 </td>
                                 <td><a href={'tel:' + contact.phoneNumber}>{phoneNumber(contact.phoneNumber)}</a></td>
-                                <td>{capitalize(contact.title)}</td>
+                                <td>{contact.title}</td>
                                 <td data-contact={contact._id} onClick={openBusinessModal}>
-                                    {capitalize(contact.business.name)}
+                                    {contact.business.name}
                                 </td>
                                 <td>
                                     <button className="button" data-contact={contact._id} data-new={false} onClick={openContactModal}>Edit</button>
