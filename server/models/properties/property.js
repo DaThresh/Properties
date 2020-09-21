@@ -1,5 +1,5 @@
 const Schema = mongoose.Schema;
-const defaultQuery = require('./utilities/defaultQuery');
+const defaultQuery = require('../utilities/defaultQuery');
 const zipcodes = require('zipcodes');
 
 var propertySchema = Schema({
@@ -25,7 +25,7 @@ var propertySchema = Schema({
     bathrooms: Number,
     status: {
         type: String,
-        default: 'planning',
+        default: 'Planning',
     },
     publicVisible: {
         type: Boolean,

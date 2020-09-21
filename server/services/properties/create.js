@@ -1,4 +1,4 @@
-const Property = require(DIR + '/models/property');
+const Property = require(DIR + '/models/properties/property');
 const fields = require(DIR + '/validations/fields');
 const success = require('../success');
 
@@ -16,6 +16,5 @@ function buildProperty(body){
     property.lotWidth = Number(body.lotWidth);
     property.lotDepth = Number(body.lotDepth);
     property.purchaseDate = new Date(body.purchaseDate);
-    if(body.status) property.status = String(body.status);
     return property;
 }

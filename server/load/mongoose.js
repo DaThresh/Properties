@@ -1,5 +1,6 @@
 global.mongoose = require('mongoose');
 const BusinessType = require(DIR + '/models/contacts/businessType');
+const Status = require(DIR + '/models/properties/status');
 
 let mongostring;
 let name = DATABASE['NAME'];
@@ -41,5 +42,6 @@ mongoose.connect(mongostring, {useNewUrlParser: true, useUnifiedTopology: true})
 
 function insertDefaults(){
     BusinessType.insertDefaults()
+    .then(() => Status.insertDefaults())
     .catch(error => Errors.error(error, 'Failed to insert all of the default reference data'));
 }
