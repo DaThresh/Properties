@@ -11,7 +11,7 @@ module.exports = (req, res, next) => {
         authorization = authorization.slice(7);
     }
     jwt.verify(authorization, TOKEN['KEY'], (err, data) => {
-        if(err) Errors.response(res, {invalid: 'Invalid token'});
+        if(err) Errors.response(res, {invalid: 'Invalid token'}, 401);
         else {
             Account.findById(data.accountId)
             .then(account => {
