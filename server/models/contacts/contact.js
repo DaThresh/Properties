@@ -34,8 +34,7 @@ contactSchema.pre('findOneAndUpdate', function(next){ defaultUpdate(this, next) 
 contactSchema.pre('find', findMiddleware);
 contactSchema.pre('findOne', findMiddleware);
 function findMiddleware(next){
-    let populated = this.getPopulatedPaths();
-    if(!populated.includes('business')) this.populate('business');
+    this.populate('business');
     next();
 }
 

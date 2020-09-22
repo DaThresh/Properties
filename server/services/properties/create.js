@@ -12,7 +12,7 @@ module.exports = (req, res) => {
 function buildProperty(body){
     var property = new Property();
     property.address = String(body.address);
-    property.zipcode = Number(body.zipcode);
+    property.zipcode = String(body.zipcode);
     property.purchaseDate = new Date(body.purchaseDate);
     if(body.lotWidth) property.lotWidth = Number(body.lotWidth);
     if(body.lotDepth) property.lotDepth = Number(body.lotDepth);

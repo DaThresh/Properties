@@ -11,7 +11,7 @@ var propertySchema = Schema({
         required: true,
         validate: isAddressUnique,
     },
-    zipcode: Number,
+    zipcode: String,
     salePrice: Number,
     anticipatedSalePriceLow: Number,
     anticipatedSalePriceHigh: Number,
@@ -35,7 +35,7 @@ var propertySchema = Schema({
         type: Boolean,
         default: false,
     }
-}, { timestamps: true });
+}, { timestamps: true, toJSON: { virtuals: true } });
 
 // Apply default query
 propertySchema.pre('find', function(next){ defaultQuery(this, next) });
@@ -48,12 +48,12 @@ propertySchema.pre('findOneAndUpdate', function(next){ defaultUpdate(this, next)
 
 propertySchema.virtual('city').get(function(){
     let location = zipcodes.lookup(this.zipcode);
-    return location.city ? location.city : ''
+    return location && location.city ? location.city : ''
 })
 
 propertySchema.virtual('state').get(function(){
     let location = zipcodes.lookup(this.zipcode);
-    return location.state ? location.state : ''
+    return location && location.state ? location.state : ''
 })
 
 function isAddressUnique(param){
