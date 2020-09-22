@@ -5,6 +5,7 @@ import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
 
 // Components
 import SetProperty from './modals/SetProperty';
+import Pagination from './shared/Pagination';
 
 // Services
 import { getProperties, updatePropertyStatus } from './services/properties';
@@ -90,6 +91,14 @@ function Properties(props){
         )
     }
 
+    var changePage = (event) => {
+        let num = Number(event.currentTarget.dataset.number);
+        if(num !== NaN) setPage(num);
+    }
+
+    let totalPages = Math.ceil(total / 10);
+    if(totalPages === 0) totalPages = 1;
+
     return (
         <span id="Properties">
             <div className="container is-fluid is-sectioned">
@@ -117,19 +126,7 @@ function Properties(props){
                     </tbody>
                 </table>
             </div>
-            <div className="container is-fluid is-sectioned">
-                <nav className="pagination is-small" role="navigation" aria-label="pagination">
-                    {page > 1 ? 
-                        <a className="pagination-previous">Previous</a>
-                    : null }
-                    {total > page * 10 ?
-                        <a className="pagination-next">Next</a>
-                    : null }
-                    <ul className="pagination-list">
-                        <li><a className="pagination-link">1</a></li>
-                    </ul>
-                </nav>
-            </div>
+            {totalPages > 1 ? <Pagination {...{page, totalPages, changePage}} /> : null}
         </span>
     )
 }
