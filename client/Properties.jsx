@@ -18,6 +18,8 @@ import { apiError } from './utilities/apiError';
 function Properties(props){
     const statuses = getReferenceData('statuses', 'array');
     const [properties, setProperties] = useState([]);
+    const [page, setPage] = useState(1);
+    const [total, setTotal] = useState(10);
     const [updatingStatus, setUpdatingStatus] = useState(false);
 
     var newProperty = () => openModal(<SetProperty />);
@@ -28,7 +30,7 @@ function Properties(props){
 
     useEffect(() => {
         fetch()
-    }, []);
+    }, [page]);
 
     useEffect(() => {
         subscribe(receiveModalUpdate);
@@ -36,8 +38,11 @@ function Properties(props){
     })
 
     var fetch = () => {
-        getProperties()
-        .then(properties => setProperties(properties))
+        getProperties(10 * (page - 1))
+        .then(data => {
+            setProperties(data.properties);
+            setTotal(data.total);
+        })
         .catch(error => {
             apiError(error);
             pushNotification('Error', 'Failed to load properties', 'danger');
@@ -86,29 +91,46 @@ function Properties(props){
     }
 
     return (
-        <div>
-            <button onClick={newProperty} className="button is-primary">New Property</button>
-            <table className="table is-hoverable is-bordered is-fullwidth">
-                <thead>
-                    <tr className="is-left">
-                        <th>Address</th>
-                        <th>Status</th>
-                        <th>Days Held</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {properties.map(property => {
-                        return (
-                            <tr key={property._id}>
-                                <td>{property.address}</td>
-                                <td>{statusTag(property)}</td>
-                                <td>{differenceInDays(new Date, new Date(property.purchaseDate))}</td>
-                            </tr>
-                        )
-                    })}
-                </tbody>
-            </table>
-        </div>
+        <span id="Properties">
+            <div className="container is-fluid is-sectioned">
+                <button onClick={newProperty} className="button is-primary">New Property</button>
+            </div>
+            <div className="container is-fluid is-sectioned">
+                <table className="table is-hoverable is-bordered is-fullwidth">
+                    <thead>
+                        <tr className="is-left">
+                            <th>Address</th>
+                            <th>Status</th>
+                            <th>Days Held</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {properties.map(property => {
+                            return (
+                                <tr key={property._id}>
+                                    <td>{property.address}</td>
+                                    <td>{statusTag(property)}</td>
+                                    <td>{differenceInDays(new Date, new Date(property.purchaseDate))}</td>
+                                </tr>
+                            )
+                        })}
+                    </tbody>
+                </table>
+            </div>
+            <div className="container is-fluid is-sectioned">
+                <nav className="pagination is-small" role="navigation" aria-label="pagination">
+                    {page > 1 ? 
+                        <a className="pagination-previous">Previous</a>
+                    : null }
+                    {total > page * 10 ?
+                        <a className="pagination-next">Next</a>
+                    : null }
+                    <ul className="pagination-list">
+                        <li><a className="pagination-link">1</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </span>
     )
 }
 

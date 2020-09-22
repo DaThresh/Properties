@@ -4,7 +4,7 @@ function getProperties(offset = 0, count = 10){
     return new Promise((resolve, reject) => {
         fetch(offset, count)
         .then(response => {
-            if(response.status === 200) resolve(response.data.properties);
+            if(response.status === 200) resolve(response.data);
             else reject(response);
         })
         .catch(error => reject(error));
