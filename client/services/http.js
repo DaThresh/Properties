@@ -44,8 +44,12 @@ function getPropertyStatuses(){
     return axios.get(hostName + '/api/properties/statuses', addAuth());
 }
 
-function getContacts(offset, count){
-    return axios.get(hostName + '/api/contacts?offset=' + offset + '&count=' + count, addAuth());
+function getContacts(offset, count, filters){
+    return axios.get(hostName + '/api/contacts?offset=' + offset + '&count=' + count, { params: {...filters}, ...addAuth() });
+}
+
+function getContactsCount(filters){
+    return axios.get(hostName + '/api/contacts/count', { params: {...filters}, ...addAuth() });
 }
 
 function getBusinesses(){
@@ -91,6 +95,7 @@ export {
     postProperty,
     putPropertyStatus,
     getContacts,
+    getContactsCount,
     getBusinesses,
     postContact,
     putContact,

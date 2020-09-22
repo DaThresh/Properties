@@ -1,20 +1,32 @@
 import { 
     getContacts as fetch,
+    getContactsCount as fetchCount,
     getBusinesses as fetchBusinesses,
     postContact,
     putContact,
     putBusiness,
 } from './http';
 
-function getContacts(offset = 0, count = 10){
+function getContacts(offset = 0, count = 10, filters = {}){
     return new Promise((resolve, reject) => {
-        fetch(offset, count)
+        fetch(offset, count, {filters})
         .then(response => {
-            if(response.status === 200) resolve(response.data);
+            if(response.status === 200) resolve(response.data.contacts);
             else reject(response);
         })
         .catch(error => reject(error));
     });
+}
+
+function getContactsCount(filters = {}){
+    return new Promise((resolve, reject) => {
+        fetchCount({filters})
+        .then(response => {
+            if(response.status === 200) resolve(response.data.count);
+            else reject(response);
+        })
+        .catch(error => reject(error));
+    })
 }
 
 function getBusinesses(){
@@ -63,6 +75,7 @@ function updateBusiness(businessId, name, type){
 
 export {
     getContacts,
+    getContactsCount,
     getBusinesses,
     createContact,
     updateContact,

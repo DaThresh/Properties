@@ -8,7 +8,7 @@ import SetBusiness from './modals/SetBusiness';
 import Pagination from './shared/Pagination';
 
 // Services
-import { getContacts } from './services/contacts';
+import { getContacts, getContactsCount } from './services/contacts';
 import { openModal, subscribe, unsubscribe } from './services/modal';
 import { pushNotification } from './services/notifications';
 
@@ -26,10 +26,16 @@ function Contacts(){
     var fetch = () => {
         if(fetching) return;
         setFetching(true);
-        getContacts()
+        var contacts, count;
+        getContacts(10 * (page - 1), 10)
         .then(data => {
-            setContacts(data.contacts);
-            setCount(data.total);
+            contacts = data;
+            return getContactsCount()
+        })
+        .then(data => count = data)
+        .then(() => {
+            setContacts(contacts);
+            setCount(count);
         })
         .catch(error => {
             apiError(error);
@@ -106,7 +112,7 @@ function Contacts(){
                                 <tr key={contact._id}>
                                     <td>
                                         <ConditionalWrapper condition={contact.email} wrapper={children => (<a href={'mailto:' + contact.email}>{children}</a>)}>
-                                            {contact.firstName + ' ' + contact.lastName}
+                                            {contact.fullName}
                                         </ConditionalWrapper>
                                     </td>
                                     <td><a href={'tel:' + contact.phoneNumber}>{phoneNumber(contact.phoneNumber)}</a></td>

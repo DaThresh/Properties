@@ -1,8 +1,8 @@
+const Contact = require(DIR + '/models/contacts/contact');
 const Business = require(DIR + '/models/contacts/business');
 const BusinessType = require(DIR + '/models/contacts/businessType');
 
 const ContactServices = {
-    fetch: require(DIR + '/services/contacts/fetch'),
     create: require(DIR + '/services/contacts/create'),
     update: require(DIR + '/services/contacts/update'),
     updateBusiness: require(DIR + '/services/contacts/updateBusiness'),
@@ -16,13 +16,16 @@ const Middleware = {
 const fetch = require(DIR + '/services/fetch');
 const Fetch = {
     fetch: fetch.fetch,
+    count: fetch.count,
+    contacts: (req, res, next) => { req.model = Contact; req.supportFilters = true; next() },
     businesses: (req, res, next) => { req.model = Business; req.supportFilters = true; next() },
     businessTypes: (req, res, next) => { req.model = BusinessType; next() },
 }
 
 module.exports = (app) => {
     // Get routes
-    app.get('/api/contacts', Middleware.verifyAccount, ContactServices.fetch);
+    app.get('/api/contacts', Middleware.verifyAccount, Fetch.contacts, Fetch.fetch);
+    app.get('/api/contacts/count', Middleware.verifyAccount, Fetch.contacts, Fetch.count);
     app.get('/api/contacts/businesses', Middleware.verifyAccount, Fetch.businesses, Fetch.fetch);
     app.get('/api/contacts/businessTypes', Middleware.verifyAccount, Fetch.businessTypes, Fetch.fetch);
 
