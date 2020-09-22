@@ -20,7 +20,7 @@ var contactSchema = Schema({
         ref: 'Business',
         required: true,
     },
-}, { timestamps: true });
+}, { timestamps: true, toJSON: { virtuals: true } });
 
 // Apply default query
 contactSchema.pre('find', function(next){ defaultQuery(this, next) });
@@ -30,6 +30,14 @@ contactSchema.pre('findOne', function(next){ defaultQuery(this, next) });
 contactSchema.pre('update', function(next){ defaultUpdate(this, next) });
 contactSchema.pre('updateOne', function(next){ defaultUpdate(this, next) });
 contactSchema.pre('findOneAndUpdate', function(next){ defaultUpdate(this, next) });
+
+contactSchema.pre('find', findMiddleware);
+contactSchema.pre('findOne', findMiddleware);
+function findMiddleware(next){
+    let populated = this.getPopulatedPaths();
+    if(!populated.includes('business')) this.populate('business');
+    next();
+}
 
 contactSchema.virtual('fullName').get(function(){
     return this.lastName ? this.firstName + ' ' + this.lastName : this.firstName;
