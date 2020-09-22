@@ -2,8 +2,8 @@ const Property = require(DIR + '/models/properties/property');
 const success = require('../success');
 
 module.exports = (req, res) => {
-    let offset = req.params.offset ? Number(req.params.offset) : 0;
-    let count = req.params.count ? Number(req.params.count) : 10;
+    let offset = req.query.offset ? Number(req.query.offset) : 0;
+    let count = req.query.count ? Number(req.query.count) : 10;
     var total;
     Property.countDocuments()
     .then(data => {
