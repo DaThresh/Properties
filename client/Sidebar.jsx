@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 // Services
 import { getRole } from './services/account';
 import { pushNotification } from './services/notifications';
+import { getReferenceData } from './services/reference';
 
 // Utilities
 import { apiError } from './utilities/apiError';
@@ -14,8 +15,9 @@ function Sidebar(){
     const [showUsers, setShowUsers] = useState(false);
 
     useEffect(() => {
+        var adminRole = getReferenceData('adminRole') ?? 600;
         getRole()
-        .then(role => setShowUsers(role > 400))
+        .then(role => setShowUsers(role > adminRole))
         .catch(error => {
             apiError(error);
             pushNotification('Error', 'Failed to obtain user role', 'danger');

@@ -1,6 +1,8 @@
 port: 5000
 environment: dev
 
+adminRole: 600
+
 token:
   expire: '4h'
   expireRemember: '7d'
