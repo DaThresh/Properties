@@ -1,6 +1,7 @@
+const Property = require(DIR + '/models/properties/property');
+const Status = require(DIR + '/models/properties/status');
+
 const PropertyServices = {
-    fetch: require(DIR + '/services/properties/fetch'),
-    fetchStatuses: require(DIR + '/services/properties/fetchStatuses'),
     create: require(DIR + '/services/properties/create'),
     updateStatus: require(DIR + '/services/properties/updateStatus'),
     delete: require(DIR + '/services/properties/delete'),
@@ -10,10 +11,19 @@ const Middleware = {
     verifyAccount: require(DIR + '/middleware/verifyAccount'),
 }
 
+const fetch = require(DIR + '/services/fetch');
+const Fetch = {
+    fetch: fetch.fetch,
+    count: fetch.count,
+    properties: (req, res, next) => { req.model = Property; req.supportFilters = true; next() },
+    statuses: (req, res, next) => { req.model = Status; next() },
+}
+
 module.exports = (app) => {
     // Get routes
-    app.get('/api/properties', Middleware.verifyAccount, PropertyServices.fetch);
-    app.get('/api/properties/statuses', Middleware.verifyAccount, PropertyServices.fetchStatuses);
+    app.get('/api/properties', Middleware.verifyAccount, Fetch.properties, Fetch.fetch);
+    app.get('/api/properties/count', Middleware.verifyAccount, Fetch.properties, Fetch.count);
+    app.get('/api/properties/statuses', Middleware.verifyAccount, Fetch.statuses, Fetch.fetch);
 
     // Post routes
     app.post('/api/properties', Middleware.verifyAccount, PropertyServices.create);

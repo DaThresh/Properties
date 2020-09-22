@@ -18,8 +18,12 @@ function getRole(){
     return axios.get(hostName + '/api/accounts/role', addAuth());
 }
 
-function getProperties(offset, count){
-    return axios.get(hostName + '/api/properties?offset=' + offset + '&count=' + count, addAuth());
+function getProperties(offset, count, filters){
+    return axios.get(hostName + '/api/properties?offset=' + offset + '&count=' + count, { params: {...filters}, ...addAuth() });
+}
+
+function getPropertiesCount(filters){
+    return axios.get(hostName + '/api/properties/count', { params: {...filters}, ...addAuth() });
 }
 
 function postProperty(address, zipcode, lotWidth, lotDepth, purchaseDate){
@@ -83,6 +87,7 @@ export {
     postLogin,
     getRole,
     getProperties,
+    getPropertiesCount,
     postProperty,
     putPropertyStatus,
     getContacts,

@@ -1,14 +1,29 @@
-import { getProperties as fetch, postProperty, putPropertyStatus } from './http';
+import { getProperties as fetch,
+        getPropertiesCount as fetchCount,
+        postProperty,
+        putPropertyStatus
+    } from './http';
 
-function getProperties(offset = 0, count = 10){
+function getProperties(offset = 0, count = 10, filters = {}){
     return new Promise((resolve, reject) => {
-        fetch(offset, count)
+        fetch(offset, count, {filters})
         .then(response => {
-            if(response.status === 200) resolve(response.data);
+            if(response.status === 200) resolve(response.data.properties);
             else reject(response);
         })
         .catch(error => reject(error));
     });
+}
+
+function getPropertiesCount(filters = {}){
+    return new Promise((resolve, reject) => {
+        fetchCount({filters})
+        .then(response => {
+            if(response.status === 200) resolve(response.data.count);
+            else reject(response);
+        })
+        .catch(error => reject(error));
+    })
 }
 
 function createProperty(address, zipcode, lotWidth, lotDepth, purchaseDate){
@@ -35,6 +50,7 @@ function updatePropertyStatus(propertyId, status){
 
 export {
     getProperties,
+    getPropertiesCount,
     createProperty,
     updatePropertyStatus,
 }

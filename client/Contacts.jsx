@@ -20,7 +20,8 @@ function Contacts(){
     const [fetching, setFetching] = useState(false);
     const [contacts, setContacts] = useState([]);
     const [page, setPage] = useState(1);
-    const [total, setTotal] = useState(10);
+    const [count, setCount] = useState(10);
+    let pageCount = Math.ceil(count / 10);
 
     var fetch = () => {
         if(fetching) return;
@@ -28,7 +29,7 @@ function Contacts(){
         getContacts()
         .then(data => {
             setContacts(data.contacts);
-            setTotal(data.total);
+            setCount(data.total);
         })
         .catch(error => {
             apiError(error);
@@ -70,9 +71,6 @@ function Contacts(){
         let num = Number(event.currentTarget.dataset.number);
         if(num !== NaN) setPage(num);
     }
-
-    let totalPages = Math.ceil(total / 10);
-    if(totalPages === 0) totalPages = 1;
 
     return(
         <span id="Contacts">
@@ -125,7 +123,7 @@ function Contacts(){
                     </tbody>
                 </table>
             </div>
-            {totalPages > 1 ? <Pagination {...{pages, totalPages, changePage}} /> : null}
+            {pageCount > 1 ? <Pagination {...{pages, pageCount, changePage}} /> : null}
         </span>
     )
 }

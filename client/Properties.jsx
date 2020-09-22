@@ -8,7 +8,7 @@ import SetProperty from './modals/SetProperty';
 import Pagination from './shared/Pagination';
 
 // Services
-import { getProperties, updatePropertyStatus } from './services/properties';
+import { getProperties, getPropertiesCount, updatePropertyStatus } from './services/properties';
 import { pushNotification } from './services/notifications';
 import { openModal, subscribe, unsubscribe } from './services/modal';
 import { getReferenceData } from './services/reference';
@@ -18,10 +18,12 @@ import { apiError } from './utilities/apiError';
 
 function Properties(props){
     const statuses = getReferenceData('statuses', 'array');
+    const [fetching, setFetching] = useState(false);
     const [properties, setProperties] = useState([]);
     const [page, setPage] = useState(1);
-    const [total, setTotal] = useState(10);
+    const [count, setCount] = useState(10);
     const [updatingStatus, setUpdatingStatus] = useState(false);
+    let pageCount = Math.ceil(count / 10);
 
     var newProperty = () => openModal(<SetProperty />);
 
@@ -39,15 +41,24 @@ function Properties(props){
     })
 
     var fetch = () => {
-        getProperties(10 * (page - 1))
+        if(fetching) return;
+        setFetching(true);
+        var properties, count;
+        getProperties(10 * (page - 1), 10)
         .then(data => {
-            setProperties(data.properties);
-            setTotal(data.total);
+            properties = data;
+            return getPropertiesCount()
+        })
+        .then(data => count = data)
+        .then(() => {
+            setProperties(properties);
+            setCount(count);
         })
         .catch(error => {
             apiError(error);
             pushNotification('Error', 'Failed to load properties', 'danger');
         })
+        .finally(() => setFetching(false));
     }
 
     var updateStatus = (event) => {
@@ -96,9 +107,6 @@ function Properties(props){
         if(num !== NaN) setPage(num);
     }
 
-    let totalPages = Math.ceil(total / 10);
-    if(totalPages === 0) totalPages = 1;
-
     return (
         <span id="Properties">
             <div className="container is-fluid is-sectioned">
@@ -126,7 +134,7 @@ function Properties(props){
                     </tbody>
                 </table>
             </div>
-            {totalPages > 1 ? <Pagination {...{page, totalPages, changePage}} /> : null}
+            {pageCount > 1 ? <Pagination {...{page, pageCount, changePage}} /> : null}
         </span>
     )
 }
