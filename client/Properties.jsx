@@ -7,7 +7,7 @@ import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import SetProperty from './modals/SetProperty';
 
 // Services
-import { getProperties } from './services/properties';
+import { getProperties, updatePropertyStatus } from './services/properties';
 import { pushNotification } from './services/notifications';
 import { openModal, subscribe, unsubscribe } from './services/modal';
 import { getReferenceData } from './services/reference';
@@ -18,6 +18,7 @@ import { apiError } from './utilities/apiError';
 function Properties(props){
     const statuses = getReferenceData('statuses', 'array');
     const [properties, setProperties] = useState([]);
+    const [updatingStatus, setUpdatingStatus] = useState(false);
 
     var newProperty = () => openModal(<SetProperty />);
 
@@ -43,7 +44,27 @@ function Properties(props){
         })
     }
 
-    var statusTag = (status) => {
+    var updateStatus = (event) => {
+        if(updatingStatus) return;
+        setUpdatingStatus(true);
+        let property = properties.find(property => property._id === event.currentTarget.dataset.property);
+        let status = event.currentTarget.dataset.status;
+        let success = false;
+        updatePropertyStatus(property._id, status)
+        .then(() => success = true)
+        .catch(error => apiError(error))
+        .finally(() => {
+            if(!success) pushNotification('Error', 'Failed to progress status', 'danger');
+            else{
+                pushNotification('Success', 'Promoted ' + property.address + ' to ' + status, 'info', {duration: 7.5 * 1000});
+                fetch();
+            }
+            setUpdatingStatus(false);
+        })
+    }
+
+    var statusTag = (property) => {
+        var status = property.status;
         if(statuses.length === 0) return status;
         let index = statuses.findIndex(data => data.name === status);
         let statusObj = statuses[index];
@@ -52,7 +73,7 @@ function Properties(props){
             <div className="tags has-addons">
                 <span className={'tag is-' + statusObj.color}>{statusObj.name}</span>
                 {typeof nextObj !== 'undefined' ?
-                    <span className="tag has-tooltip">
+                    <span className="tag has-tooltip" onClick={updateStatus} data-property={property._id} data-status={nextObj.name}>
                         <FontAwesomeIcon icon={faChevronRight} />
                         <span className="tooltip has-text-centered">
                             <p>Promote to</p>
@@ -80,7 +101,7 @@ function Properties(props){
                         return (
                             <tr key={property._id}>
                                 <td>{property.address}</td>
-                                <td>{statusTag(property.status)}</td>
+                                <td>{statusTag(property)}</td>
                                 <td>{differenceInDays(new Date, new Date(property.purchaseDate))}</td>
                             </tr>
                         )

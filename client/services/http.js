@@ -23,8 +23,15 @@ function getProperties(offset, count){
 }
 
 function postProperty(address, zipcode, lotWidth, lotDepth, purchaseDate){
-    return axios.post(hostName + '/api/properties', {
-        address, zipcode, lotWidth, lotDepth, purchaseDate},
+    return axios.post(hostName + '/api/properties',
+        {address, zipcode, lotWidth, lotDepth, purchaseDate},
+        addAuth()
+    )
+}
+
+function putPropertyStatus(propertyId, status){
+    return axios.put(hostName + '/api/properties/' + propertyId + '/status',
+        {status},
         addAuth()
     )
 }
@@ -46,24 +53,24 @@ function getBusinessTypes(){
 }
 
 function postContact(firstName, lastName, email, phoneNumber, title, business, name, businessType){
-    return axios.post(hostName + '/api/contacts', {
-        firstName, lastName, email, phoneNumber, title, name, businessType,
+    return axios.post(hostName + '/api/contacts',
+        {firstName, lastName, email, phoneNumber, title, name, businessType,
         business: business === 'add' ? null : business},
         addAuth()
     )
 }
 
 function putContact(contactId, firstName, lastName, email, phoneNumber, title, business, name, businessType){
-    return axios.put(hostName + '/api/contacts/' + contactId, {
-        firstName, lastName, email, phoneNumber, title, name, businessType,
+    return axios.put(hostName + '/api/contacts/' + contactId,
+        {firstName, lastName, email, phoneNumber, title, name, businessType,
         business: business === 'add' ? null : business},
         addAuth()
     )
 }
 
 function putBusiness(businessId, name, type){
-    return axios.put(hostName + '/api/contacts/businesses/' + businessId, {
-        name, type},
+    return axios.put(hostName + '/api/contacts/businesses/' + businessId,
+        {name, type},
         addAuth()
     )
 }
@@ -77,6 +84,7 @@ export {
     getRole,
     getProperties,
     postProperty,
+    putPropertyStatus,
     getContacts,
     getBusinesses,
     postContact,
