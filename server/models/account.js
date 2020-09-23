@@ -11,7 +11,7 @@ var accountSchema = Schema({
     password: String,
     lastLogin: Date,
     role: Number,
-}, { timestamps: true });
+}, { timestamps: true, toJSON: { virtuals: true } });
 
 // Apply default query
 accountSchema.pre('find', function(next){ defaultQuery(this, next) });

@@ -10,11 +10,17 @@ var businessTypeSchema = Schema({
         type: String,
         required: true,
     }
-}, { collection: 'businessTypes' });
+}, { collection: 'businessTypes', toJSON: { virtuals: true } });
 
 // Apply default query
 businessTypeSchema.pre('find', function(next){ defaultQuery(this, next) });
 businessTypeSchema.pre('findOne', function(next){ defaultQuery(this, next) });
+
+businessTypeSchema.virtual('businesses', {
+    ref: 'Business',
+    localField: 'name',
+    foreignField: 'type',
+});
 
 businessTypeSchema.statics.insertDefaults = function(){
     return new Promise((resolve, reject) => {

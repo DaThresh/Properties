@@ -20,7 +20,7 @@ var statusSchema = Schema({
         type: String,
         required: true,
     }
-}, { collection: 'statuses' });
+}, { collection: 'statuses', toJSON: { virtuals: true } });
 
 // Apply default query
 statusSchema.pre('find', function(next){ defaultQuery(this, next) });

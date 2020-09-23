@@ -13,7 +13,7 @@ var businessSchema = Schema({
         type: String,
         required: true,
     },
-}, { timestamps: true });
+}, { timestamps: true, toJSON: { virtuals: true } });
 
 // Apply default query
 businessSchema.pre('find', function(next){ defaultQuery(this, next) });
@@ -23,6 +23,12 @@ businessSchema.pre('findOne', function(next){ defaultQuery(this, next) });
 businessSchema.pre('update', function(next){ defaultUpdate(this, next) });
 businessSchema.pre('updateOne', function(next){ defaultUpdate(this, next) });
 businessSchema.pre('findOneAndUpdate', function(next){ defaultUpdate(this, next) });
+
+businessSchema.virtual('contacts', {
+    ref: 'Contact',
+    localField: '_id',
+    foreignField: 'business',
+});
 
 function isNameUnique(param){
     return new Promise((resolve, reject) => {
