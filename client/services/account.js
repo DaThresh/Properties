@@ -1,4 +1,5 @@
 import { postLogin, getRole as fetchRole } from './http';
+import responseHandler from '../utilities/responseHandler';
 import { fetchReferenceData } from './reference';
 
 // Milliseconds until expire for new tokens
@@ -11,14 +12,7 @@ let subscriptions = {
 let cache = {};
 
 function login(email, password, remember){
-    return new Promise((resolve, reject) => {
-        postLogin(email, password, remember)
-        .then(response => {
-            if(response.status === 200) resolve(response.data);
-            else reject(response);
-        })
-        .catch(error => reject(error));
-    });
+    return responseHandler(postLogin, 200, null, email, password, remember);
 }
 
 function setToken(token, remember){

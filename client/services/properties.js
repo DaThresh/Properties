@@ -4,48 +4,22 @@ import { getProperties as fetch,
         putPropertyStatus
     } from './http';
 
+import responseHandler from '../utilities/responseHandler';
+
 function getProperties(offset = 0, count = 10, filters = {}){
-    return new Promise((resolve, reject) => {
-        fetch(offset, count, {filters})
-        .then(response => {
-            if(response.status === 200) resolve(response.data.properties);
-            else reject(response);
-        })
-        .catch(error => reject(error));
-    });
+    return responseHandler(fetch, 200, 'properties', offset, count, {filters});
 }
 
 function getPropertiesCount(filters = {}){
-    return new Promise((resolve, reject) => {
-        fetchCount({filters})
-        .then(response => {
-            if(response.status === 200) resolve(response.data.count);
-            else reject(response);
-        })
-        .catch(error => reject(error));
-    })
+    return responseHandler(fetchCount, 200, 'count', {filters});
 }
 
 function createProperty(address, zipcode, lotWidth, lotDepth, purchaseDate){
-    return new Promise((resolve, reject) => {
-        postProperty(address, zipcode, lotWidth, lotDepth, purchaseDate)
-        .then(response => {
-            if(response.status === 201) resolve(response.data.property);
-            else reject(response);
-        })
-        .catch(error => reject(error));
-    });
+    return responseHandler(postProperty, 201, 'property', address, zipcode, lotWidth, lotDepth, purchaseDate);
 }
 
 function updatePropertyStatus(propertyId, status){
-    return new Promise((resolve, reject) => {
-        putPropertyStatus(propertyId, status)
-        .then(response => {
-            if(response.status === 200) resolve();
-            else reject(response);
-        })
-        .catch(error => reject(error));
-    })
+    return responseHandler(putPropertyStatus, 200, null, propertyId, status);
 }
 
 export {

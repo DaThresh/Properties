@@ -117,6 +117,7 @@ function Properties(props){
                     <thead>
                         <tr className="is-left">
                             <th>Address</th>
+                            <th>City</th>
                             <th>Status</th>
                             <th>Days Held</th>
                         </tr>
@@ -126,6 +127,7 @@ function Properties(props){
                             return (
                                 <tr key={property._id}>
                                     <td>{property.address}</td>
+                                    <td>{property.city}</td>
                                     <td>{statusTag(property)}</td>
                                     <td>{differenceInDays(new Date, new Date(property.purchaseDate))}</td>
                                 </tr>

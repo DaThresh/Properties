@@ -52,8 +52,8 @@ function getContactsCount(filters){
     return axios.get(hostName + '/api/contacts/count', { params: {...filters}, ...addAuth() });
 }
 
-function getBusinesses(){
-    return axios.get(hostName + '/api/contacts/businesses', addAuth());
+function getBusinesses(filters){
+    return axios.get(hostName + '/api/contacts/businesses', { params: {...filters}, ...addAuth() });
 }
 
 function getBusinessTypes(){
@@ -83,8 +83,8 @@ function putBusiness(businessId, name, type){
     )
 }
 
-function getUsers(offset, count){
-    return axios.get(hostName + '/api/accounts?offset=' + offset + '&count=' + count, addAuth());
+function getUsers(offset, count, filters){
+    return axios.get(hostName + '/api/accounts?offset=' + offset + '&count=' + count, { params: {...filters}, ...addAuth() });
 }
 
 export {
