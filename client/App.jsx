@@ -41,7 +41,7 @@ function App() {
         return () => unsubscribeStatus(handleAccountStatus);
     })
 
-    var application = loading ? null :
+    var application = loading ? <div className="pageloader is-active"><span className="title">Loading...</span></div> :
         <Router>
             <Sidebar />
             <span id="content">
