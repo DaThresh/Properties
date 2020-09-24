@@ -3,3 +3,4 @@
 * Fix reference data service on UI, fetching before usage
 * Pull out default page size
 * convert _id calls to .id calls
+* Look into webpack historyApiFallback
