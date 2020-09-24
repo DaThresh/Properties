@@ -6,7 +6,7 @@ var subscriptions = [];
 function pushNotification(title, message, type, extraInfo = {}){
     if(!notificationTypes.includes(type)) return;
     var notification = {title, message, type};
-    notification.duration = extraInfo.duration ? extraInfo.duration : defaultDuration;
+    notification.duration = extraInfo.duration || defaultDuration;
     notification.createdAt = new Date().getTime();
     deliver(notification);
 }

@@ -15,7 +15,7 @@ import { apiError } from '../utilities/apiError';
 function SetContact(props){
     var getInitial = (fieldName) => {
         if(!props.contact) return '';
-        return props.contact[fieldName] ? props.contact[fieldName] : '';
+        return props?.contact[fieldName] || '';
     }
 
     const businessTypes = getReferenceData('businessTypes', 'array');
@@ -26,7 +26,7 @@ function SetContact(props){
     const [email, setEmail] = useState(getInitial('email'));
     const [phoneNumber, setPhoneNumber] = useState(getInitial('phoneNumber'));
     const [title, setTitle] = useState(getInitial('title'));
-    const [business, setBusiness] = useState(props.contact ? props.contact.business.name : 'add');
+    const [business, setBusiness] = useState(props?.contact?.business?.name ?? 'add');
     const [name, setName] = useState('');
     const [businessType, setBusinessType] = useState('');
     // Add hook set methods for form fields into this object
