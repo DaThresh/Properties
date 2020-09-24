@@ -41,7 +41,7 @@ function App() {
         return () => unsubscribeStatus(handleAccountStatus);
     })
 
-    var application = loading ? <div className="pageloader is-active"><span className="title">Loading...</span></div> :
+    var application = loading ? null :
         <Router>
             <Sidebar />
             <span id="content">
@@ -69,11 +69,21 @@ function App() {
                     </Switch>
                 </section>
             </span>
-            <Modal />
-            <Notifications />
         </Router>;
 
-    return loggedIn ? application : <Lock />;
+    return (
+        <span>
+            {loggedIn ? application : <Lock />}
+            {loggedIn && loading ? 
+                <section className="hero is-primary is-fullheight"></section>
+            : null}
+            <div id="pageloader" className={'pageloader ' + (loading && loggedIn ? 'is-active' : '')}>
+                <span className="title">Loading...</span>
+            </div>
+            <Modal />
+            <Notifications />
+        </span>   
+    )
 }
 
 export default hot(App);
