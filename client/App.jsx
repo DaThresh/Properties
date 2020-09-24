@@ -19,9 +19,17 @@ import Notifications from './Notifications';
 import { getToken, subscribeStatus, unsubscribeStatus } from './services/account';
 import { fetchReferenceData } from './services/reference';
 
+// Utilities
+import { apiError } from './utilities/apiError';
+
 function App() {
     const [loggedIn, setLoggedIn] = useState(getToken());
-    if(loggedIn) fetchReferenceData();
+    const [loading, setLoading] = useState(true);
+    if(loggedIn && loading){
+        fetchReferenceData()
+        .then(() => setLoading(false))
+        .catch(error => apiError(error));
+    }
 
     var handleAccountStatus = (data) => {
         if(data.event === 'login') setLoggedIn(true);
@@ -33,7 +41,7 @@ function App() {
         return () => unsubscribeStatus(handleAccountStatus);
     })
 
-    var application = 
+    var application = loading ? null :
         <Router>
             <Sidebar />
             <span id="content">

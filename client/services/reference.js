@@ -1,14 +1,15 @@
 import { getBusinessTypes, getPropertyStatuses } from './http';
 
-import { apiError } from '../utilities/apiError';
-
 var referenceData = {};
 
 function fetchReferenceData(){
-    getBusinessTypes()
-    .then(response => handleResponse(response, getPropertyStatuses))
-    .then(response => handleResponse(response))
-    .catch(error => apiError(error));
+    return new Promise((resolve, reject) => {
+        getBusinessTypes()
+        .then(response => handleResponse(response, getPropertyStatuses))
+        .then(response => handleResponse(response))
+        .then(() => resolve())
+        .catch(error => reject(error));
+    })
 }
 
 function handleResponse(response, chain){
