@@ -6,7 +6,8 @@ import { Switch, Route, BrowserRouter as Router } from 'react-router-dom';
 import Navbar from './Navbar';
 import Sidebar from './Sidebar';
 import Dashboard from './Dashboard';
-import Properties from './Properties';
+import Properties from './Properties/Properties';
+import Property from './Properties/Property';
 import Settings from './Settings';
 import Contacts from './Contacts';
 import Users from './Users';
@@ -41,6 +42,9 @@ function App() {
                     <Switch>
                         <Route path="/settings">
                             <Settings />
+                        </Route>
+                        <Route path="/properties/:propertyId">
+                            <Property />
                         </Route>
                         <Route path="/properties">
                             <Properties />

@@ -2,19 +2,20 @@ import React, { useState, useEffect } from 'react';
 import { differenceInDays } from 'date-fns';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
+import { Link } from 'react-router-dom';
 
 // Components
-import SetProperty from './modals/SetProperty';
-import Pagination from './shared/Pagination';
+import SetProperty from '../modals/SetProperty';
+import Pagination from '../shared/Pagination';
 
 // Services
-import { getProperties, getPropertiesCount, updatePropertyStatus } from './services/properties';
-import { pushNotification } from './services/notifications';
-import { openModal, subscribe, unsubscribe } from './services/modal';
-import { getReferenceData } from './services/reference';
+import { getProperties, getPropertiesCount, updatePropertyStatus } from '../services/properties';
+import { pushNotification } from '../services/notifications';
+import { openModal, subscribe, unsubscribe } from '../services/modal';
+import { getReferenceData } from '../services/reference';
 
 // Utilities
-import { apiError } from './utilities/apiError';
+import { apiError } from '../utilities/apiError';
 
 function Properties(props){
     const statuses = getReferenceData('statuses', 'array');
@@ -126,7 +127,7 @@ function Properties(props){
                         {properties.map(property => {
                             return (
                                 <tr key={property._id}>
-                                    <td>{property.address}</td>
+                                    <td><Link to={'/properties/' + property.id}>{property.address}</Link></td>
                                     <td>{property.city}</td>
                                     <td>{statusTag(property)}</td>
                                     <td>{differenceInDays(new Date, new Date(property.purchaseDate))}</td>
