@@ -29,7 +29,7 @@ function unsubscribe(callback){
 
 function notify(event, extraInfo = {}){
     subscriptions.forEach(callback => {
-        callback(Object.assign({event}, extraInfo));
+        callback({ ...{event}, ...extraInfo });
     })
 }
 
