@@ -28,7 +28,7 @@ function SetContact(props){
     const [title, setTitle] = useState(getInitial('title'));
     const [business, setBusiness] = useState(props?.contact?.business?.name ?? 'add');
     const [name, setName] = useState('');
-    const [businessType, setBusinessType] = useState('');
+    const [businessType, setBusinessType] = useState(businessTypes[0].name);
     // Add hook set methods for form fields into this object
     const setMethods = {setFirstName, setLastName, setEmail, setPhoneNumber, setTitle, setBusiness, setName, setBusinessType};
 
@@ -39,12 +39,8 @@ function SetContact(props){
     }, []);
 
     useEffect(() => {
-        setBusinessType(businessTypes[0]?.name ?? '');
-    }, []);
-
-    useEffect(() => {
         if(business === 'add' && name !== '') setName('');
-        if(business === 'add' && businessType !== '') setBusinessType('');
+        if(business === 'add') setBusinessType(businessTypes[0].name);
         adjustSize(business !== 'add');
     }, [business]);
 
