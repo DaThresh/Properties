@@ -13,7 +13,7 @@ module.exports = (req, res) => {
     .then(account => {
         if(!account) return Promise.reject(rejection);
         if(!bcrypt.compareSync(String(req.body.password), account.password)) return Promise.reject(rejection);
-        accountId = account._id;
+        accountId = account.id;
         return account.updateOne({lastLogin: new Date()})
     })
     .then(() => success(res, {token: jwt.sign({accountId}, TOKEN['KEY'], {expiresIn: calculateExpiry(req)})}))

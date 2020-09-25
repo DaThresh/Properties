@@ -54,7 +54,7 @@ function SetContact(props){
         setSubmitting(true);
         var success = false;
         if(props.contact){
-            updateContact(props.contact._id, firstName, lastName, email, phoneNumber, title, business, name, businessType)
+            updateContact(props.contact.id, firstName, lastName, email, phoneNumber, title, business, name, businessType)
             .then(() => success = true)
             .catch(error => apiError(error))
             .finally(() => end());
@@ -162,7 +162,7 @@ function SetContact(props){
                                             <select name="business" value={business} onChange={handleChange}>
                                                 {businesses.map(business => {
                                                     return (
-                                                        <option key={business._id} value={business.name}>{business.name}</option>
+                                                        <option key={business.id} value={business.name}>{business.name}</option>
                                                     )
                                                 })}
                                                 <option value="add">Add</option>
@@ -204,7 +204,7 @@ function SetContact(props){
                                                 <select name="businessType" value={businessType} onChange={handleChange}>
                                                     {businessTypes.map(businessType => {
                                                         return (
-                                                            <option key={businessType._id} value={businessType.name}>{businessType.name}</option>
+                                                            <option key={businessType.id} value={businessType.name}>{businessType.name}</option>
                                                         )
                                                     })}
                                                 </select>

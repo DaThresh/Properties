@@ -52,7 +52,7 @@ function Contacts(){
         let extraProps = {};
         if(event.currentTarget.dataset.new !== 'true'){
             let contactId = event.currentTarget.dataset.contact;
-            extraProps.contact = contacts.find(contact => contact._id === contactId);
+            extraProps.contact = contacts.find(contact => contact.id === contactId);
         }
         openModal(<SetContact {...extraProps} />);
     }
@@ -60,7 +60,7 @@ function Contacts(){
     var openBusinessModal = (event) => {
         let props = {};
         let contactId = event.currentTarget.dataset.contact;
-        props.business = contacts.find(contact => contact._id === contactId).business;
+        props.business = contacts.find(contact => contact.id === contactId).business;
         openModal(<SetBusiness {...props} />);
     }
 
@@ -109,7 +109,7 @@ function Contacts(){
                     <tbody>
                         {contacts.map(contact => {
                             return (
-                                <tr key={contact._id}>
+                                <tr key={contact.id}>
                                     <td>
                                         <ConditionalWrapper condition={contact.email} wrapper={children => (<a href={'mailto:' + contact.email}>{children}</a>)}>
                                             {contact.fullName}
@@ -117,11 +117,11 @@ function Contacts(){
                                     </td>
                                     <td><a href={'tel:' + contact.phoneNumber}>{phoneNumber(contact.phoneNumber)}</a></td>
                                     <td>{contact.title}</td>
-                                    <td data-contact={contact._id} onClick={openBusinessModal}>
+                                    <td data-contact={contact.id} onClick={openBusinessModal}>
                                         {contact.business.name}
                                     </td>
                                     <td>
-                                        <button className="button" data-contact={contact._id} data-new={false} onClick={openContactModal}>Edit</button>
+                                        <button className="button" data-contact={contact.id} data-new={false} onClick={openContactModal}>Edit</button>
                                     </td>
                                 </tr>
                             )

@@ -65,10 +65,10 @@ function Properties(props){
     var updateStatus = (event) => {
         if(updatingStatus) return;
         setUpdatingStatus(true);
-        let property = properties.find(property => property._id === event.currentTarget.dataset.property);
+        let property = properties.find(property => property.id === event.currentTarget.dataset.property);
         let status = event.currentTarget.dataset.status;
         let success = false;
-        updatePropertyStatus(property._id, status)
+        updatePropertyStatus(property.id, status)
         .then(() => success = true)
         .catch(error => apiError(error))
         .finally(() => {
@@ -90,7 +90,7 @@ function Properties(props){
             <div className="tags has-addons">
                 <span className={'tag is-' + statusObj.color}>{statusObj.name}</span>
                 {typeof nextObj !== 'undefined' ?
-                    <span className="tag has-tooltip" onClick={updateStatus} data-property={property._id} data-status={nextObj.name}>
+                    <span className="tag has-tooltip" onClick={updateStatus} data-property={property.id} data-status={nextObj.name}>
                         <FontAwesomeIcon icon={faChevronRight} />
                         <span className="tooltip has-text-centered">
                             <p>Promote to</p>
@@ -125,7 +125,7 @@ function Properties(props){
                     <tbody>
                         {properties.map(property => {
                             return (
-                                <tr key={property._id}>
+                                <tr key={property.id}>
                                     <td><Link to={'/properties/' + property.id}>{property.address}</Link></td>
                                     <td>{property.city}</td>
                                     <td>{statusTag(property)}</td>

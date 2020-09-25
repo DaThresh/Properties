@@ -5,7 +5,7 @@ const success = require('../success');
 module.exports = (req, res) => {
     fields(req.params, ['accountId'])
     .then(() => {
-        if(req.account._id != req.params.accountId) return Promise.reject({invalid: 'You cannot delete another account'});
+        if(req.account.id != req.params.accountId) return Promise.reject({invalid: 'You cannot delete another account'});
         return Account.findByIdAndRemove(req.params.accountId)
     })
     .then(() => success(res))

@@ -29,7 +29,7 @@ function SetBusiness(props){
         if(submitting) return;
         setSubmitting(true);
         let success = false;
-        updateBusiness(business._id, name, businessType)
+        updateBusiness(business.id, name, businessType)
         .then(() => success = true)
         .catch(error => apiError(error))
         .finally(() => {
@@ -70,7 +70,7 @@ function SetBusiness(props){
                                     <select name="businessType" value={businessType} onChange={handleChange}>
                                         {businessTypes.map(businessType => {
                                             return (
-                                                <option key={businessType._id} value={businessType.name}>{businessType.name}</option>
+                                                <option key={businessType.id} value={businessType.name}>{businessType.name}</option>
                                             )
                                         })}
                                     </select>
