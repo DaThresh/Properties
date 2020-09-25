@@ -15,6 +15,7 @@ const fetch = require(DIR + '/services/fetch');
 const Fetch = {
     fetch: fetch.fetch,
     count: fetch.count,
+    fetchId: fetch.fetchId,
     properties: (req, res, next) => { req.model = Property; req.supportFilters = true; next() },
     statuses: (req, res, next) => { req.model = Status; next() },
 }
@@ -24,6 +25,7 @@ module.exports = (app) => {
     app.get('/api/properties', Middleware.verifyAccount, Fetch.properties, Fetch.fetch);
     app.get('/api/properties/count', Middleware.verifyAccount, Fetch.properties, Fetch.count);
     app.get('/api/properties/statuses', Middleware.verifyAccount, Fetch.statuses, Fetch.fetch);
+    app.get('/api/properties/:propertyId', Middleware.verifyAccount, Fetch.properties, Fetch.fetchId);
 
     // Post routes
     app.post('/api/properties', Middleware.verifyAccount, PropertyServices.create);
