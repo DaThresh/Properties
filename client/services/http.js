@@ -22,6 +22,10 @@ function getProperties(offset, count, filters){
     return axios.get(hostName + '/api/properties?offset=' + offset + '&count=' + count, { params: {...filters}, ...addAuth() });
 }
 
+function getProperty(id){
+    return axios.get(hostName + '/api/properties/' + id, addAuth());
+}
+
 function getPropertiesCount(filters){
     return axios.get(hostName + '/api/properties/count', { params: {...filters}, ...addAuth() });
 }
@@ -91,6 +95,7 @@ export {
     postLogin,
     getRole,
     getProperties,
+    getProperty,
     getPropertiesCount,
     postProperty,
     putPropertyStatus,

@@ -83,7 +83,6 @@ function Properties(props){
 
     var statusTag = (property) => {
         var status = property.status;
-        if(statuses.length === 0) return status;
         let index = statuses.findIndex(data => data.name === status);
         let statusObj = statuses[index];
         if(index + 1 !== statuses.length) var nextObj = statuses[index + 1];

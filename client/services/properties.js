@@ -1,4 +1,5 @@
 import { getProperties as fetch,
+        getProperty as fetchId,
         getPropertiesCount as fetchCount,
         postProperty,
         putPropertyStatus
@@ -8,6 +9,10 @@ import responseHandler from '../utilities/responseHandler';
 
 function getProperties(offset = 0, count = 10, filters = {}){
     return responseHandler(fetch, 200, 'properties', offset, count, {filters});
+}
+
+function getProperty(id){
+    return responseHandler(fetchId, 200, 'property', id);
 }
 
 function getPropertiesCount(filters = {}){
@@ -24,6 +29,7 @@ function updatePropertyStatus(propertyId, status){
 
 export {
     getProperties,
+    getProperty,
     getPropertiesCount,
     createProperty,
     updatePropertyStatus,
