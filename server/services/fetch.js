@@ -13,7 +13,7 @@ module.exports = {
     },
     fetchId: (req, res) => {
         var {model, select = ''} = req;
-        var name = model.collection.name;
+        var name = Format.lowercase(model.modelName);
         model.findById(Object.values(req.params)[0]).select(select)
         .then(data => success(res, {[name]: data}))
         .catch(error => Errors.response(res, error));

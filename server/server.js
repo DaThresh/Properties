@@ -4,6 +4,7 @@ const app = express();
 global.DIR = __dirname;
 global.Errors = require(DIR + '/utilities/Errors');
 global.Logger = require(DIR + '/utilities/Logger');
+global.Format = require(DIR + '/utilities/Format');
 Logger.log('Loaded universal utilities');
 
 require(DIR + '/load/config');
