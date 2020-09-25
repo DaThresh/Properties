@@ -6,6 +6,7 @@ function capitalize(string){
 }
 
 function phoneNumber(phoneNumber){
+    if(!phoneNumber) return '';
     let string = String(phoneNumber);
     let array = string.split('');
     array.splice(3,0,'-');

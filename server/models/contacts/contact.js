@@ -44,6 +44,7 @@ contactSchema.virtual('fullName').get(function(){
 
 function isEmailReal(param){
     return new Promise((resolve, reject) => {
+        if(param === '') return resolve();
         let regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         if(!regex.test(String(param))) reject(new Error('Invalid email address given'));
         else resolve();

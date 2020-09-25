@@ -26,11 +26,11 @@ function buildContact(body, object){
         var contact = new Contact();
         contact.firstName = String(body.firstName);
         if(body.lastName) contact.lastName = String(body.lastName);
-        if(body.phoneNumber) contact.phoneNumber = Number(body.phoneNumber);
+        if(body.phoneNumber) contact.phoneNumber = Number(body.phoneNumber) || null;
         if(body.title) contact.title = String(body.title);
         if(body.email) contact.email = String(body.email);
         // Check to see if the passed object is a businessType or a Business
-        if(object.constructor.modelName == Business.modelName){
+        if(object instanceof Business){
             contact.business = object;
             resolve(contact);
         }

@@ -27,12 +27,12 @@ module.exports = (req, res) => {
 function updateContact(contact, body, object){
     return new Promise((resolve, reject) => {
         contact.firstName = String(body.firstName);
-        if(body.lastName) contact.lastName = String(body.lastName);
-        if(body.phoneNumber) contact.phoneNumber = Number(body.phoneNumber);
-        if(body.title) contact.title = String(body.title);
-        if(body.email) contact.email = String(body.email);
+        if(body.lastName != null) contact.lastName = String(body.lastName);
+        if(body.phoneNumber != null) contact.phoneNumber = Number(body.phoneNumber) || null;
+        if(body.title != null) contact.title = String(body.title);
+        if(body.email != null) contact.email = String(body.email);
         // Check to see if the passed object is a businessType or a Business
-        if(object.constructor.modelName == Business.modelName){
+        if(object instanceof Business){
             contact.business = object;
             resolve(contact);
         }

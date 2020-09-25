@@ -15,7 +15,7 @@ import { apiError } from '../utilities/apiError';
 function SetContact(props){
     var getInitial = (fieldName) => {
         if(!props.contact) return '';
-        return props?.contact[fieldName] || '';
+        return props?.contact[fieldName] ?? '';
     }
 
     const businessTypes = getReferenceData('businessTypes', 'array');
