@@ -78,10 +78,10 @@ function SetContact(props){
     
     return (
         <span id="SetContact">
-            <div className="columns">
-                <div className="column">
-                    <h4 className="title is-4 has-text-centered">New Contact</h4>
-                    <form autoComplete="off" onSubmit={submit}>
+            <form autoComplete="off" onSubmit={submit}>
+                <div className="columns">
+                    <div className="column">
+                        <h4 className="title is-4 has-text-centered">New Contact</h4>
                         <div className="field is-horizontal">
                             <div className="field-label is-normal">
                                 <label className="label">First name</label>
@@ -175,12 +175,10 @@ function SetContact(props){
                                 </div>
                             </div>
                         </div>
-                    </form>
-                </div>
-                {business == 'add' ? (
-                    <div className="column">
-                        <h4 className="title is-4 has-text-centered">New Business</h4>
-                        <form autoComplete="off" onSubmit={submit}>
+                    </div>
+                    {business == 'add' ? (
+                        <div className="column">
+                            <h4 className="title is-4 has-text-centered">New Business</h4>
                             <div className="field is-horizontal">
                                 <div className="field-label is-normal">
                                     <label className="label">Name</label>
@@ -188,7 +186,7 @@ function SetContact(props){
                                 <div className="field-body">
                                     <div className="field">
                                         <div className="control">
-                                            <input className="input" type="text" name="name" value={name} onChange={handleChange} placeholder="Incorporated LLC" />
+                                            <input className="input" type="text" name="name" value={name} onChange={handleChange} placeholder="Incorporated LLC" required />
                                         </div>
                                     </div>
                                 </div>
@@ -216,15 +214,15 @@ function SetContact(props){
                                     </div>
                                 </div>
                             </div>
-                        </form>
-                    </div>
-                ) : null}
-            </div>
-            <div className="field">
-                <div className="control has-text-centered">
-                    <button className={'button is-primary' + (submitting ? ' is-loading' : '')} onClick={submit}>Submit</button>
+                        </div>
+                    ) : null}
                 </div>
-            </div>
+                <div className="field">
+                    <div className="control has-text-centered">
+                        <button className={'button is-primary' + (submitting ? ' is-loading' : '')} type="submit">Submit</button>
+                    </div>
+                </div>
+            </form>
         </span>
     )
 }

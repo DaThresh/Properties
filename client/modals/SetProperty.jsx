@@ -60,7 +60,7 @@ function SetProperty(props){
                     <div className="field-body">
                         <div className="field">
                             <div className="control">
-                                <input className="input" type="text" name="address" value={address} onChange={handleChange} placeholder="6839 Coronado Ave" />
+                                <input className="input" type="text" name="address" value={address} onChange={handleChange} placeholder="6839 Coronado Ave" required />
                             </div>
                         </div>
                     </div>
@@ -72,7 +72,7 @@ function SetProperty(props){
                     <div className="field-body">
                         <div className="field">
                             <div className="control">
-                                <input className="input" type="number" name="zipcode" value={zipcode} onChange={handleChange} placeholder="75214" />
+                                <input className="input" type="number" name="zipcode" value={zipcode} onChange={handleChange} placeholder="75214" required />
                             </div>
                         </div>
                     </div>
@@ -108,7 +108,7 @@ function SetProperty(props){
                     <div className="field-body">
                         <div className="field is-grouped">
                             <div className="control">
-                                <DatePicker className="date-picker" name="purchaseDate" value={purchaseDate} onChange={handleChange} clearIcon={null} minDetail="year" />
+                                <DatePicker className="date-picker" name="purchaseDate" value={purchaseDate} onChange={handleChange} clearIcon={null} minDetail="year" required={true} />
                             </div>
                             <div className="control">
                                 <button className="button is-info" type="button" name="today" onClick={datePreset}>Today</button>
@@ -121,7 +121,7 @@ function SetProperty(props){
                 </div>
                 <div className="field">
                     <div className="control has-text-centered">
-                        <button className={'button is-primary' + (submitting ? ' is-loading' : '')} onClick={submit}>Submit</button>
+                        <button className={'button is-primary' + (submitting ? ' is-loading' : '')} type="submit">Submit</button>
                     </div>
                 </div>
             </form>

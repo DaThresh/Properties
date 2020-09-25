@@ -64,7 +64,7 @@ function Lock(){
                         <form onSubmit={handleSubmit}>
                             <div className="field">
                                 <div className="control has-icons-left">
-                                    <input className="input" type="email" name="email" placeholder="Email" value={email} onChange={handleChange} />
+                                    <input className="input" type="email" name="email" placeholder="Email" value={email} onChange={handleChange} required />
                                     <span className="icon is-small is-left">
                                         <FontAwesomeIcon icon={faAt} />
                                     </span>
@@ -72,7 +72,7 @@ function Lock(){
                             </div>
                             <div className="field">
                                 <div className="control has-icons-left">
-                                    <input className="input" type="password" name="password" placeholder="Password" value={password} onChange={handleChange} />
+                                    <input className="input" type="password" name="password" placeholder="Password" value={password} onChange={handleChange} required />
                                     <span className="icon is-small is-left">
                                         <FontAwesomeIcon icon={faKey} />
                                     </span>

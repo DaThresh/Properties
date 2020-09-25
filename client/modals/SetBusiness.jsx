@@ -54,7 +54,7 @@ function SetBusiness(props){
                     <div className="field-body">
                         <div className="field">
                             <div className="control">
-                                <input className="input" type="text" name="name" value={name} onChange={handleChange} placeholder="Incorporated LLC" />
+                                <input className="input" type="text" name="name" value={name} onChange={handleChange} placeholder="Incorporated LLC" required />
                             </div>
                         </div>
                     </div>
@@ -84,7 +84,7 @@ function SetBusiness(props){
                 </div>
                 <div className="field">
                     <div className="control has-text-centered">
-                        <button className={'button is-primary' + (submitting ? ' is-loading' : '')} onClick={submit}>Submit</button>
+                        <button className={'button is-primary' + (submitting ? ' is-loading' : '')} type="submit">Submit</button>
                     </div>
                 </div>
             </form>
