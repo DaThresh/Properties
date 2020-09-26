@@ -1,5 +1,5 @@
 const Schema = mongoose.Schema;
-const Query = require('./utilities/query');
+const Query = require('../utilities/query');
 const defaultQuery = Query.defaultQuery;
 const defaultUpdate = Query.defaultUpdate;
 
@@ -12,6 +12,11 @@ var organizationSchema = Schema({
         type: Boolean,
         default: false,
         required: true,
+    },
+    role: {
+        type: Number,
+        default: 1,
+        required: true,
     }
 }, { timestamps: true, toJSON: { virtuals: true } });
 
@@ -23,6 +28,18 @@ organizationSchema.pre('findOne', function(next){ defaultQuery(this, next) });
 organizationSchema.pre('update', function(next){ defaultUpdate(this, next) });
 organizationSchema.pre('updateOne', function(next){ defaultUpdate(this, next) });
 organizationSchema.pre('findOneAndUpdate', function(next){ defaultUpdate(this, next) });
+
+organizationSchema.statics.insertDefaults = function(){
+    return new Promise((resolve, reject) => {
+        Organization.countDocuments()
+        .then(count => {
+            if(count !== 0) return;
+            return Organization.insertMany([{name: 'Admin', active: true, role: 10}])
+        })
+        .then(() => resolve())
+        .catch(error => reject(error));
+    })
+}
 
 organizationSchema.virtual('accounts', {
     ref: 'Account',
