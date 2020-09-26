@@ -25,6 +25,7 @@ function buildContact(body, object){
     return new Promise((resolve, reject) => {
         var contact = new Contact();
         contact.firstName = String(body.firstName);
+        contact.organization = req.account.organization;
         if(body.lastName) contact.lastName = String(body.lastName);
         if(body.phoneNumber) contact.phoneNumber = Number(body.phoneNumber) || null;
         if(body.title) contact.title = String(body.title);

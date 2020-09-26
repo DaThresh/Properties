@@ -14,6 +14,7 @@ function buildProperty(body){
     property.address = String(body.address);
     property.zipcode = String(body.zipcode);
     property.purchaseDate = new Date(body.purchaseDate);
+    property.organization = req.account.organization;
     if(body.lotWidth) property.lotWidth = Number(body.lotWidth);
     if(body.lotDepth) property.lotDepth = Number(body.lotDepth);
     return property;
