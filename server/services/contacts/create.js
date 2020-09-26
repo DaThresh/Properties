@@ -13,7 +13,7 @@ module.exports = (req, res) => {
     })
     .then(object => {
         if(object == null) return Promise.reject(rejection(req.body));
-        return buildContact(req.body, object)
+        return buildContact(req, object)
     })
     .then(contact => contact.save())
     .then(contact => success(res, {contact}, 201))
@@ -21,11 +21,12 @@ module.exports = (req, res) => {
 }
 
 // This function attaches an existing business to a new contact or creates a new business and then attaches it to the new contact.
-function buildContact(body, object){
+function buildContact(request, object){
+    var { body, account } = request;
     return new Promise((resolve, reject) => {
         var contact = new Contact();
         contact.firstName = String(body.firstName);
-        contact.organization = req.account.organization;
+        contact.organization = account.organization;
         if(body.lastName) contact.lastName = String(body.lastName);
         if(body.phoneNumber) contact.phoneNumber = Number(body.phoneNumber) || null;
         if(body.title) contact.title = String(body.title);
