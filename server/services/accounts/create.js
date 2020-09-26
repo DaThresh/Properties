@@ -27,6 +27,7 @@ function buildAccount(body, first = false){
     var account = new Account();
     let rawPassword = String(body.password);
     account.email = String(body.email);
+    account.organization = first ? global.adminOrganization : req.account.organization;
     account.firstName = String(body.firstName);
     account.lastName = String(body.lastName);
     account.password = bcrypt.hashSync(rawPassword, 10);

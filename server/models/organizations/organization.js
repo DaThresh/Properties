@@ -33,10 +33,10 @@ organizationSchema.statics.insertDefaults = function(){
     return new Promise((resolve, reject) => {
         Organization.countDocuments()
         .then(count => {
-            if(count !== 0) return;
-            return Organization.insertMany([{name: 'Admin', active: true, role: 10}])
+            if(count !== 0) return Organization.findOne({role: 10})
+            return Organization.create([{name: 'Admin', active: true, role: 10}])
         })
-        .then(() => resolve())
+        .then(organization => resolve(organization.id))
         .catch(error => reject(error));
     })
 }
