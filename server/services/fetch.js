@@ -5,6 +5,7 @@ module.exports = {
         var {model, select = '', supportFilters = false} = req;
         var name = model.collection.name;
         var filters = req.query.filters ? JSON.parse(req.query.filters) : {};
+        filters = {...filters, ...{organization: req.account.organization}}
         let offset = req.query.offset ? Number(req.query.offset) : 0;
         let count = req.query.count ? Number(req.query.count) : 10;
         model.find(supportFilters ? filters : {}).skip(offset).limit(count).select(select)
@@ -21,6 +22,7 @@ module.exports = {
     count: (req, res) => {
         var {model, supportFilters = false} = req;
         var filters = req.query.filters ? JSON.parse(req.query.filters) : {};
+        filters = {...filters, ...{organization: req.account.organization}}
         model.countDocuments(supportFilters ? filters : {})
         .then(count => success(res, {count}))
         .catch(error => Errors.response(res, error));

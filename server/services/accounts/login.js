@@ -9,7 +9,7 @@ var rejection = {invalid: 'Invalid login credentials'};
 module.exports = (req, res) => {
     var accountId;
     fields(req.body, ['email', 'password', 'remember'])
-    .then(() => Account.findOne({email: String(req.body.email)})).populate('organization')
+    .then(() => Account.findOne({email: String(req.body.email)}).populate('organization'))
     .then(account => {
         if(!account) return Promise.reject(rejection);
         if(!account.organization.active) return Promise.reject({activation: true});
