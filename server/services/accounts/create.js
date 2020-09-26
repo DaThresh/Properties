@@ -4,7 +4,7 @@ const bcrypt = require('bcrypt');
 const success = require('../success');
 
 module.exports = (req, res) => {
-    fields(req.body, ['email', 'password'])
+    fields(req.body, ['email', 'password', 'firstName', 'lastName'])
     .then(() => Account.countDocuments())
     .then(count => {
         if(count === 0){
@@ -27,6 +27,8 @@ function buildAccount(body, first = false){
     var account = new Account();
     let rawPassword = String(body.password);
     account.email = String(body.email);
+    account.firstName = String(body.firstName);
+    account.lastName = String(body.lastName);
     account.password = bcrypt.hashSync(rawPassword, 10);
     account.role = first ? 900 : 100;
     return account;

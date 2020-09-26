@@ -6,7 +6,16 @@ const defaultUpdate = Query.defaultUpdate;
 var accountSchema = Schema({
     email: {
         type: String,
+        required: true,
         validate: [{validator: isEmailReal}, {validator: isEmailUnique}],
+    },
+    firstName: {
+        type: String,
+        required: true,
+    },
+    lastName: {
+        type: String,
+        required: true,
     },
     password: String,
     lastLogin: Date,
@@ -21,6 +30,10 @@ accountSchema.pre('findOne', function(next){ defaultQuery(this, next) });
 accountSchema.pre('update', function(next){ defaultUpdate(this, next) });
 accountSchema.pre('updateOne', function(next){ defaultUpdate(this, next) });
 accountSchema.pre('fineOneAndUpdate', function(next){ defaultUpdate(this, next) });
+
+accountSchema.virtual('fullName').get(function(){
+    return this.lastName ? this.firstName + ' ' + this.lastName : this.firstName;
+});
 
 function isEmailUnique(param){
     return new Promise((resolve, reject) => {
