@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHome, faInfoCircle, faWallet } from '@fortawesome/free-solid-svg-icons';
+import { faCalendar, faHome, faInfoCircle, faWallet } from '@fortawesome/free-solid-svg-icons';
 
 // Services
 import { getProperty } from '../services/properties';
@@ -49,6 +49,12 @@ function Property(props){
                                     <FontAwesomeIcon icon={faWallet} />
                                 </span>
                                 Financials
+                            </a>
+                            <a className="panel-block">
+                                <span className="panel-icon">
+                                    <FontAwesomeIcon icon={faCalendar} />
+                                </span>
+                                Dates
                             </a>
                         </nav>
                     </div>
