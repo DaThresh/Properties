@@ -17,6 +17,10 @@ var accountSchema = Schema({
         type: String,
         required: true,
     },
+    organization: {
+        type: Schema.Types.ObjectId,
+        ref: 'Organization',
+    },
     password: String,
     lastLogin: Date,
     role: Number,

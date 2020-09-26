@@ -11,6 +11,11 @@ var propertySchema = Schema({
         required: true,
         validate: isAddressUnique,
     },
+    organization: {
+        type: Schema.Types.ObjectId,
+        ref: 'Organization',
+        required: true,
+    },
     zipcode: String,
     salePrice: Number,
     anticipatedSalePriceLow: Number,

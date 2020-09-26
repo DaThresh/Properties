@@ -13,6 +13,11 @@ var businessSchema = Schema({
         type: String,
         required: true,
     },
+    organization: {
+        type: Schema.Types.ObjectId,
+        ref: 'Organization',
+        required: true,
+    },
 }, { timestamps: true, toJSON: { virtuals: true } });
 
 // Apply default query
