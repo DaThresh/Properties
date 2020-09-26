@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const Account = require(DIR + '/models/account');
+const Account = require(DIR + '/models/organizations/account');
 
 // Makes available req.account if valid
 

@@ -1,4 +1,4 @@
-const Account = require(DIR + '/models/account');
+const Account = require(DIR + '/models/organizations/account');
 
 const AccountServices = {
     fetchRole: require(DIR + '/services/accounts/fetchRole'),

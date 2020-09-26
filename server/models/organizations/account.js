@@ -1,5 +1,5 @@
 const Schema = mongoose.Schema;
-const Query = require('./utilities/query');
+const Query = require('../utilities/query');
 const defaultQuery = Query.defaultQuery;
 const defaultUpdate = Query.defaultUpdate;
 
@@ -20,6 +20,7 @@ var accountSchema = Schema({
     organization: {
         type: Schema.Types.ObjectId,
         ref: 'Organization',
+        required: true,
     },
     password: String,
     lastLogin: Date,
