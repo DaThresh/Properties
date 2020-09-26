@@ -1,6 +1,6 @@
 import React from 'react';
 
-function Dates(props){
+function People(props){
     return (
         <div className="box">
             
@@ -8,4 +8,4 @@ function Dates(props){
     )
 }
 
-export default Dates;
+export default People;

@@ -2,13 +2,13 @@ import React, { useState, useEffect } from 'react';
 import DatePicker from 'react-date-picker';
 
 // Services
-import { createProperty } from '../services/properties';
-import { pushNotification } from '../services/notifications';
-import { closeModal, adjustSize } from '../services/modal';
+import { createProperty } from '../../services/properties';
+import { pushNotification } from '../../services/notifications';
+import { closeModal, adjustSize } from '../../services/modal';
 
 // Utilities
-import { capitalize } from '../utilities/format';
-import { apiError } from '../utilities/apiError';
+import { capitalize } from '../../utilities/format';
+import { apiError } from '../../utilities/apiError';
 
 function SetProperty(props){
     const [address, setAddress] = useState('');

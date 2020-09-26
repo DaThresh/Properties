@@ -5,7 +5,7 @@ import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 
 // Components
-import SetProperty from '../modals/SetProperty';
+import SetProperty from '../modals/Properties/SetProperty';
 import Pagination from '../shared/Pagination';
 
 // Services
