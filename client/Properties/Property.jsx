@@ -43,7 +43,7 @@ function Property(props){
         <span id="Property">
             <div className="container is-fluid is-sectioned">
                 <div className="columns">
-                    <div className="column is-4">
+                    <div className="column is-4 is-3-desktop">
                         <div className="box">
                             <FontAwesomeIcon icon={faHome} size="10x" />
                         </div>
