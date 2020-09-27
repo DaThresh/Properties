@@ -17,7 +17,7 @@ import Notifications from './Notifications';
 
 // Services
 import { getToken, subscribeStatus, unsubscribeStatus } from './services/account';
-import { fetchReferenceData } from './services/reference';
+import { fetchReferenceData, getReferenceData } from './services/reference';
 
 // Utilities
 import { apiError } from './utilities/apiError';
@@ -25,6 +25,7 @@ import { apiError } from './utilities/apiError';
 function App() {
     const [loggedIn, setLoggedIn] = useState(getToken());
     const [loading, setLoading] = useState(true);
+    const [isAdmin, setIsAdmin] = useState(false);
     if(loggedIn && loading){
         fetchReferenceData()
         .then(() => setLoading(false))
@@ -33,13 +34,18 @@ function App() {
 
     var handleAccountStatus = (data) => {
         if(data.event === 'login') setLoggedIn(true);
-        if(data.event === 'logout') setLoggedIn(false);
+        if(data.event === 'logout') setLoggedIn(false); setLoading(true);
     }
 
     useEffect(() => {
         subscribeStatus(handleAccountStatus);
         return () => unsubscribeStatus(handleAccountStatus);
     })
+
+    useEffect(() => {
+        if(loading) return;
+        setIsAdmin(getReferenceData('admin'));
+    }, [loading])
 
     var application = loading ? null :
         <Router>

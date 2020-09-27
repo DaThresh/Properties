@@ -1,6 +1,6 @@
-import { postLogin, getRole as fetchRole } from './http';
-import responseHandler from '../utilities/responseHandler';
+import { postLogin } from './http';
 import { fetchReferenceData } from './reference';
+import responseHandler from '../utilities/responseHandler';
 
 // Milliseconds until expire for new tokens
 const expire = 4 * 60 * 60 * 1000; // 4 Hours
@@ -9,7 +9,6 @@ const rememberExpire = 7 * 24 * 60 * 60 * 1000; // 7 Days
 let subscriptions = {
     status: []
 }
-let cache = {};
 
 function login(email, password, remember){
     return responseHandler(postLogin, 200, null, email, password, remember);
@@ -56,23 +55,6 @@ function unsubscribeStatus(callback){
     }
 }
 
-function getRole(){
-    return new Promise((resolve, reject) => {
-        if(cache?.role) resolve(cache.role);
-        else if(!getToken()) resolve(0);
-        else {
-            fetchRole()
-            .then(response => {
-                if(response.status === 200){
-                    cache.role = response.data.role;
-                    resolve(cache.role);
-                } else return Promise.reject({error: 'An unexpected error occurred'})
-            })
-            .catch(error => reject(error));
-        }
-    })
-}
-
 export {
     setToken,
     getToken,
@@ -80,5 +62,4 @@ export {
     logout,
     subscribeStatus,
     unsubscribeStatus,
-    getRole,
 }

@@ -1,6 +1,6 @@
 @import 'sizes';
 @import 'colors';
-@import '../../node_modules//bulma/sass/utilities/initial-variables.sass';
+@import '../../node_modules/bulma/sass/utilities/initial-variables.sass';
 
 @media (min-width: $tablet){
     #sidebar{
@@ -19,7 +19,7 @@
             position: relative;
             color: $grey-white-text;
             vertical-align: middle;
-            display: inline-block;
+            display: inline;
             opacity: 0%;
             margin-left: 10px;
         }
@@ -58,9 +58,13 @@
             .sidebar-icon{
                 vertical-align: middle;
                 display: inline-block;
-                margin: 3px auto;
+                margin: 0;
                 height: 38px;
                 color: $grey-white-text;
+            }
+
+            .sidebar-icon svg{
+                font-size: 200%;
             }
         }
 
@@ -68,6 +72,11 @@
             .sidebar-icon, .sidebar-text {
                 color: white;
             }
+        }
+
+        hr{
+            margin: 0.25rem 0 0.5rem 0;
+            background-color: $grey-light;
         }
     }
     
