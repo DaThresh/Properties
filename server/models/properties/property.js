@@ -73,7 +73,7 @@ function isAddressUnique(param){
         } else compareRecords()
 
         function compareRecords(){
-            Property.find({address: { $regex: new RegExp(param, 'i') }})
+            Property.find({address: { $regex: new RegExp('^' + param + '$', 'i') }})
             .then(properties => {
                 if(properties.length === 0) return resolve();
                 if(properties.length === 1 && properties[0].id === self.id) return resolve();

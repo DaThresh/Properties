@@ -47,7 +47,7 @@ function isNameUnique(param){
         } else compareRecords()
 
         function compareRecords(){
-            Business.find({name: { $regex: new RegExp(param, 'i') }})
+            Business.find({name: { $regex: new RegExp('^' + param + '$', 'i') }})
             .then(businesses => {
                 if(businesses.length === 0) resolve();
                 if(businesses.length === 1 && businesses[0].id === self.id) resolve();
