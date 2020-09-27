@@ -49,8 +49,10 @@ function isNameUnique(param){
         function compareRecords(){
             Business.find({name: { $regex: new RegExp('^' + param + '$', 'i') }})
             .then(businesses => {
-                if(businesses.length === 0) resolve();
-                if(businesses.length === 1 && businesses[0].id === self.id) resolve();
+                if(businesses.length === 0) return resolve();
+                if(businesses.length === 1 && businesses[0].id === self.id) return resolve();
+                var organizationId = self.organization.toLocaleString();
+                if(businesses.every(business => business.organization.toLocaleString() !== organizationId)) return resolve();
                 reject(new Error('Name must be unique'));
             }).catch(error => reject(error));
         }

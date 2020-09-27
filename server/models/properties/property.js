@@ -77,6 +77,8 @@ function isAddressUnique(param){
             .then(properties => {
                 if(properties.length === 0) return resolve();
                 if(properties.length === 1 && properties[0].id === self.id) return resolve();
+                var organizationId = self.organization.toLocaleString();
+                if(properties.every(property => property.organization.toLocaleString() !== organizationId)) return resolve();
                 reject(new Error('Address must be unique'));
             }).catch(error => reject(error));
         }
