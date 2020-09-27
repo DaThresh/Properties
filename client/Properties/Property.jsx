@@ -30,7 +30,7 @@ function Property(props){
     }, []);
 
     var statusColor = (status) => {
-        let statusObj = statuses.find(obj => obj.name === status);
+        let statusObj = statuses.find(obj => obj.value === status);
         return statusObj?.color ?? '';
     }
 

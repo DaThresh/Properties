@@ -32,8 +32,8 @@ var propertySchema = Schema({
     bedrooms: Number,
     bathrooms: Number,
     status: {
-        type: String,
-        default: 'Planning',
+        type: Number,
+        default: 1,
         validate: isStatusValid,
     },
     publicVisible: {
@@ -85,7 +85,7 @@ function isAddressUnique(param){
 
 function isStatusValid(param){
     return new Promise((resolve, reject) => {
-        Status.findOne({name: param})
+        Status.findOne({value: param})
         .then(status => {
             if(!status) reject(new Error('Status not valid'));
             resolve();

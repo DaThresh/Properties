@@ -66,7 +66,7 @@ function Properties(props){
         if(updatingStatus) return;
         setUpdatingStatus(true);
         let property = properties.find(property => property.id === event.currentTarget.dataset.property);
-        let status = event.currentTarget.dataset.status;
+        let status = Number(event.currentTarget.dataset.status);
         let success = false;
         updatePropertyStatus(property.id, status)
         .then(() => success = true)
@@ -74,7 +74,8 @@ function Properties(props){
         .finally(() => {
             if(!success) pushNotification('Error', 'Failed to progress status', 'danger');
             else{
-                pushNotification('Success', 'Promoted ' + property.address + ' to ' + status, 'info', {duration: 7.5 * 1000});
+                let { name } = statuses.find(data => data.value === status);
+                pushNotification('Success', 'Promoted ' + property.address + ' to ' + name, 'info', {duration: 7.5 * 1000});
                 fetch();
             }
             setUpdatingStatus(false);
@@ -83,14 +84,14 @@ function Properties(props){
 
     var statusTag = (property) => {
         var status = property.status;
-        let index = statuses.findIndex(data => data.name === status);
+        let index = statuses.findIndex(data => data.value === status);
         let statusObj = statuses[index];
         if(index + 1 !== statuses.length) var nextObj = statuses[index + 1];
         return (
             <div className="tags has-addons">
                 <span className={'tag is-' + statusObj.color}>{statusObj.name}</span>
                 {typeof nextObj !== 'undefined' ?
-                    <span className="tag has-tooltip" onClick={updateStatus} data-property={property.id} data-status={nextObj.name}>
+                    <span className="tag has-tooltip" onClick={updateStatus} data-property={property.id} data-status={nextObj.value}>
                         <FontAwesomeIcon icon={faChevronRight} />
                         <span className="tooltip has-text-centered">
                             <p>Promote to</p>
