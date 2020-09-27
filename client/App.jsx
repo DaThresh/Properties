@@ -14,6 +14,7 @@ import Users from './Users';
 import Lock from './Lock';
 import Modal from './Modal';
 import Notifications from './Notifications';
+import NotFound from './NotFound';
 
 // Services
 import { getToken, subscribeStatus, unsubscribeStatus } from './services/account';
@@ -69,8 +70,11 @@ function App() {
                         <Route path="/users">
                             <Users />
                         </Route>
-                        <Route path="/">
+                        <Route path="/" exact>
                             <Dashboard />
+                        </Route>
+                        <Route>
+                            <NotFound />
                         </Route>
                     </Switch>
                 </section>
