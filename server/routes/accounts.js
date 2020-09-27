@@ -11,7 +11,7 @@ const AccountServices = {
 const Middleware = {
     addAccount: require(DIR + '/middleware/addAccount'),
     verifyAccount: require(DIR + '/middleware/verifyAccount'),
-    verifyAdmin: require(DIR + '/middleware/verifyAdmin'),
+    verifyManager: require(DIR + '/middleware/verifyManager'),
 }
 
 const fetch = require(DIR + '/services/fetch');
@@ -23,7 +23,7 @@ const Fetch = {
 module.exports = (app) => {
     // Get routes
     app.get('/api/accounts/role', Middleware.verifyAccount, AccountServices.fetchRole);
-    app.get('/api/accounts', Middleware.verifyAccount, Middleware.verifyAdmin, Fetch.accounts, Fetch.fetch);
+    app.get('/api/accounts', Middleware.verifyAccount, Middleware.verifyManager, Fetch.accounts, Fetch.fetch);
 
     // Post routes
     app.post('/api/accounts', Middleware.addAccount, AccountServices.create);

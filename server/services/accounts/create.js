@@ -32,6 +32,6 @@ function buildAccount(request, first = false){
     account.firstName = String(body.firstName);
     account.lastName = String(body.lastName);
     account.password = bcrypt.hashSync(rawPassword, 10);
-    account.role = first ? 900 : 100;
+    account.role = first ? 9 : 1;
     return account;
 }

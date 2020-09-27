@@ -15,9 +15,9 @@ function Sidebar(){
     const [showUsers, setShowUsers] = useState(false);
 
     useEffect(() => {
-        var adminRole = getReferenceData('adminRole') ?? 600;
+        var managerRole = getReferenceData('managerRole') ?? 5;
         getRole()
-        .then(role => setShowUsers(role > adminRole))
+        .then(role => setShowUsers(role > managerRole))
         .catch(error => {
             apiError(error);
             pushNotification('Error', 'Failed to obtain user role', 'danger');

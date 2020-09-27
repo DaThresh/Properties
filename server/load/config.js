@@ -8,7 +8,7 @@ try {
     global.PORT = data.port;
     global.ENVIRONMENT = data.environment;
 
-    global.ADMINROLE = data.adminRole;
+    global.managerRole = data.managerRole;
 
     let token = data.token;
     global.TOKEN = {
