@@ -51,8 +51,7 @@ function isNameUnique(param){
             .then(businesses => {
                 if(businesses.length === 0) return resolve();
                 if(businesses.length === 1 && businesses[0].id === self.id) return resolve();
-                var organizationId = self.organization.toLocaleString();
-                if(businesses.every(business => business.organization.toLocaleString() !== organizationId)) return resolve();
+                if(businesses.every(business => !business.organization.equals(self.organization))) return resolve();
                 reject(new Error('Name must be unique'));
             }).catch(error => reject(error));
         }
