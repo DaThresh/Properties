@@ -3,6 +3,7 @@ class Errors {
         if(error instanceof Error) error = error.message;
         if(error instanceof Object && error.authorization) return this.responseAuth(response);
         if(error instanceof Object && error.activation) return this.responseActivation(response);
+        if(error instanceof Object && error.notFound) code = 404;
         response.status(code).json({
             message: 'error',
             error: error
