@@ -14,6 +14,7 @@ import Users from './Users';
 import Lock from './Lock';
 import Modal from './Modal';
 import Notifications from './Notifications';
+import Organizations from './Admin/Organizations';
 import NotFound from './NotFound';
 
 // Services
@@ -35,7 +36,10 @@ function App() {
 
     var handleAccountStatus = (data) => {
         if(data.event === 'login') setLoggedIn(true);
-        if(data.event === 'logout') setLoggedIn(false); setLoading(true);
+        if(data.event === 'logout'){
+            setLoggedIn(false);
+            setLoading(true);
+        }
     }
 
     useEffect(() => {
@@ -55,6 +59,11 @@ function App() {
                 <Navbar />
                 <section className="section" style={{paddingTop: '24px'}}>
                     <Switch>
+                        {isAdmin ? 
+                            <Route path="/admin">
+                                <Organizations />
+                            </Route>
+                        : null}
                         <Route path="/settings">
                             <Settings />
                         </Route>
