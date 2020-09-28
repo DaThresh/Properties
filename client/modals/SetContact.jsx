@@ -18,7 +18,7 @@ function SetContact(props){
         return props?.contact[fieldName] ?? '';
     }
 
-    const businessTypes = getReferenceData('businessTypes', 'array');
+    const businessTypes = getReferenceData('businessTypes');
     const [submitting, setSubmitting] = useState(false);
     const [businesses, setBusinesses] = useState([]);
     const [firstName, setFirstName] = useState(getInitial('firstName'));

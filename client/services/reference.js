@@ -26,9 +26,7 @@ function handleResponse(response, chain){
     if(chain) return chain();
 }
 
-function getReferenceData(key, voidReturnType = 'null'){
-    if(voidReturnType === 'array') return referenceData[key] ? referenceData[key] : [];
-    if(voidReturnType === 'string') return referenceData[key] ? referenceData[key] : '';
+function getReferenceData(key){
     return referenceData[key];
 }
 

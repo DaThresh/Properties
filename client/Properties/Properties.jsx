@@ -18,7 +18,7 @@ import { getReferenceData } from '../services/reference';
 import { apiError } from '../utilities/apiError';
 
 function Properties(props){
-    const statuses = getReferenceData('statuses', 'array');
+    const statuses = getReferenceData('statuses');
     const [fetching, setFetching] = useState(false);
     const [properties, setProperties] = useState([]);
     const [page, setPage] = useState(1);
