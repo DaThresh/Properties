@@ -91,6 +91,14 @@ function getUsers(offset, count, filters){
     return axios.get(hostName + '/api/accounts?offset=' + offset + '&count=' + count, { params: {...filters}, ...addAuth() });
 }
 
+function getOrganizations(offset, count, filters){
+    return axios.get(hostName + '/api/organizations?offset=' + offset + '&count=' + count, { params: {...filters}, ...addAuth() });
+}
+
+function getOrganizationsCount(filters){
+    return axios.get(hostName + '/api/organizations/count', { params: {...filters}, ...addAuth() });
+}
+
 export {
     postLogin,
     getRole,
@@ -106,6 +114,8 @@ export {
     putContact,
     putBusiness,
     getUsers,
+    getOrganizations,
+    getOrganizationsCount,
     
     // Reference data only below
     getBusinessTypes,
