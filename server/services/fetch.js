@@ -1,5 +1,9 @@
 const Organization = require(DIR + '/models/organizations/organization');
+const BusinessType = require(DIR + '/models/contacts/businessType');
+const Status = require(DIR + '/models/properties/status');
 const success = require('./success');
+
+const skipOrganizationModels = [Organization, BusinessType, Status];
 
 module.exports = {
     fetch: (req, res) => {
@@ -8,7 +12,7 @@ module.exports = {
         var filters = req.query.filters ? JSON.parse(req.query.filters) : {};
         if(body.filters) filters = body.filters;
         if(!supportFilters) filters = {};
-        if(model !== Organization) filters = {...filters, ...{organization: account.organization}}
+        if(!skipOrganizationModels.includes(model)) filters = {...filters, ...{organization: account.organization}}
         let offset = req.query.offset ? Number(req.query.offset) : 0;
         let count = req.query.count ? Number(req.query.count) : 10;
         model.find(filters).skip(offset).limit(count).select(select).populate(populate)
