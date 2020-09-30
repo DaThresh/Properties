@@ -1,5 +1,5 @@
 const Schema = mongoose.Schema;
-const Query = require('./utilities/query');
+const Query = require('../utilities/query');
 const defaultQuery = Query.defaultQuery;
 const defaultUpdate = Query.defaultUpdate;
 
@@ -15,6 +15,11 @@ var accountSchema = Schema({
     },
     lastName: {
         type: String,
+        required: true,
+    },
+    organization: {
+        type: Schema.Types.ObjectId,
+        ref: 'Organization',
         required: true,
     },
     password: String,
@@ -47,7 +52,7 @@ function isEmailUnique(param){
         } else compareRecords()
 
         function compareRecords(){
-            Account.find({email: { $regex: new RegExp(param, 'i') }})
+            Account.find({email: { $regex: new RegExp('^' + param + '$', 'i') }})
             .then(accounts => {
                 if(accounts.length === 0) return resolve();
                 if(accounts.length === 1 && accounts[0].id === self.id) return resolve();

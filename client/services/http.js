@@ -10,26 +10,11 @@ function addAuth(){
     }}
 }
 
-function postLogin(email, password, remember){
-    return axios.post(hostName + '/api/accounts/login', {email, password, remember});
-}
-
-function getRole(){
-    return axios.get(hostName + '/api/accounts/role', addAuth());
-}
-
-function getProperties(offset, count, filters){
-    return axios.get(hostName + '/api/properties?offset=' + offset + '&count=' + count, { params: {...filters}, ...addAuth() });
-}
-
-function getProperty(id){
-    return axios.get(hostName + '/api/properties/' + id, addAuth());
-}
-
-function getPropertiesCount(filters){
-    return axios.get(hostName + '/api/properties/count', { params: {...filters}, ...addAuth() });
-}
-
+// Properties
+const getProperties = (offset, count, filters) => axios.get(hostName + '/api/properties?offset=' + offset + '&count=' + count, { params: {...filters}, ...addAuth() });
+const getProperty = (id) => axios.get(hostName + '/api/properties/' + id, addAuth());
+const getPropertiesCount = (filters) => axios.get(hostName + '/api/properties/count', { params: {...filters}, ...addAuth() });
+const putPropertyStatus = (id, status) => axios.put(hostName + '/api/properties/' + id + '/status', {status}, addAuth());
 function postProperty(address, zipcode, lotWidth, lotDepth, purchaseDate){
     return axios.post(hostName + '/api/properties',
         {address, zipcode, lotWidth, lotDepth, purchaseDate},
@@ -37,33 +22,11 @@ function postProperty(address, zipcode, lotWidth, lotDepth, purchaseDate){
     )
 }
 
-function putPropertyStatus(propertyId, status){
-    return axios.put(hostName + '/api/properties/' + propertyId + '/status',
-        {status},
-        addAuth()
-    )
-}
-
-function getPropertyStatuses(){
-    return axios.get(hostName + '/api/properties/statuses', addAuth());
-}
-
-function getContacts(offset, count, filters){
-    return axios.get(hostName + '/api/contacts?offset=' + offset + '&count=' + count, { params: {...filters}, ...addAuth() });
-}
-
-function getContactsCount(filters){
-    return axios.get(hostName + '/api/contacts/count', { params: {...filters}, ...addAuth() });
-}
-
-function getBusinesses(filters){
-    return axios.get(hostName + '/api/contacts/businesses', { params: {...filters}, ...addAuth() });
-}
-
-function getBusinessTypes(){
-    return axios.get(hostName + '/api/contacts/businessTypes', addAuth());
-}
-
+// Contacts
+const getContacts = (offset, count, filters) => axios.get(hostName + '/api/contacts?offset=' + offset + '&count=' + count, { params: {...filters}, ...addAuth() });
+const getContactsCount = (filters) => axios.get(hostName + '/api/contacts/count', { params: {...filters}, ...addAuth() });
+const getBusinesses = (filters) => axios.get(hostName + '/api/contacts/businesses', { params: {...filters}, ...addAuth() });
+const putBusiness = (id, name, type)  => axios.put(hostName + '/api/contacts/businesses/' + id, {name, type}, addAuth());
 function postContact(firstName, lastName, email, phoneNumber, title, business, name, businessType){
     return axios.post(hostName + '/api/contacts',
         {firstName, lastName, email, phoneNumber, title, name, businessType,
@@ -71,7 +34,6 @@ function postContact(firstName, lastName, email, phoneNumber, title, business, n
         addAuth()
     )
 }
-
 function putContact(contactId, firstName, lastName, email, phoneNumber, title, business, name, businessType){
     return axios.put(hostName + '/api/contacts/' + contactId,
         {firstName, lastName, email, phoneNumber, title, name, businessType,
@@ -80,34 +42,47 @@ function putContact(contactId, firstName, lastName, email, phoneNumber, title, b
     )
 }
 
-function putBusiness(businessId, name, type){
-    return axios.put(hostName + '/api/contacts/businesses/' + businessId,
-        {name, type},
-        addAuth()
-    )
-}
+// Users
+const getUsers = (offset, count, filters) => axios.get(hostName + '/api/accounts?offset=' + offset + '&count=' + count, { params: {...filters}, ...addAuth() });
 
-function getUsers(offset, count, filters){
-    return axios.get(hostName + '/api/accounts?offset=' + offset + '&count=' + count, { params: {...filters}, ...addAuth() });
-}
+// Organizations
+const getOrganizations = (offset, count, filters) => axios.get(hostName + '/api/organizations?offset=' + offset + '&count=' + count, { params: {...filters}, ...addAuth() });
+const getOrganizationsCount = (filters) => axios.get(hostName + '/api/organizations/count', { params: {...filters}, ...addAuth() });
+const getOrganization = (id) => axios.get(hostName + '/api/organizations/' + id, addAuth());
+
+// Account + Reference
+const postLogin = (email, password, remember) => axios.post(hostName + '/api/accounts/login', {email, password, remember});
+const getRole = () => axios.get(hostName + '/api/accounts/role', addAuth());
+const getBusinessTypes = () => axios.get(hostName + '/api/contacts/businessTypes', addAuth());
+const getPropertyStatuses = () => axios.get(hostName + '/api/properties/statuses', addAuth());
 
 export {
-    postLogin,
-    getRole,
+    // Property exports
     getProperties,
     getProperty,
     getPropertiesCount,
     postProperty,
     putPropertyStatus,
+
+    // Contact exports
     getContacts,
     getContactsCount,
     getBusinesses,
     postContact,
     putContact,
     putBusiness,
+
+    // Users exports
     getUsers,
-    
-    // Reference data only below
+
+    // Organization exports
+    getOrganizations,
+    getOrganizationsCount,
+    getOrganization,
+
+    // Account + Reference exports
+    postLogin,
+    getRole,
     getBusinessTypes,
     getPropertyStatuses,
 }

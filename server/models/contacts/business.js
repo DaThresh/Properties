@@ -13,6 +13,11 @@ var businessSchema = Schema({
         type: String,
         required: true,
     },
+    organization: {
+        type: Schema.Types.ObjectId,
+        ref: 'Organization',
+        required: true,
+    },
 }, { timestamps: true, toJSON: { virtuals: true } });
 
 // Apply default query
@@ -42,10 +47,11 @@ function isNameUnique(param){
         } else compareRecords()
 
         function compareRecords(){
-            Business.find({name: { $regex: new RegExp(param, 'i') }})
+            Business.find({name: { $regex: new RegExp('^' + param + '$', 'i') }})
             .then(businesses => {
-                if(businesses.length === 0) resolve();
-                if(businesses.length === 1 && businesses[0].id === self.id) resolve();
+                if(businesses.length === 0) return resolve();
+                if(businesses.length === 1 && businesses[0].id === self.id) return resolve();
+                if(businesses.every(business => !business.organization.equals(self.organization))) return resolve();
                 reject(new Error('Name must be unique'));
             }).catch(error => reject(error));
         }

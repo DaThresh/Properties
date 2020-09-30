@@ -4,16 +4,20 @@ const defaultQuery = Query.defaultQuery;
 
 // Name of status, color corresponding with Bulma color
 const defaults = [
-    {name: 'Planning', color: 'warning'},
-    {name: 'Design', color: 'info'},
-    {name: 'Building', color: 'primary'},
-    {name: 'On Market', color: 'success'},
-    {name: 'Sold', color: 'danger'}
+    {name: 'Planning', value: 1, color: 'warning'},
+    {name: 'Design', value: 2, color: 'info'},
+    {name: 'Building', value: 3, color: 'primary'},
+    {name: 'On Market', value: 4, color: 'success'},
+    {name: 'Sold', value: 5, color: 'danger'}
 ];
 
 var statusSchema = Schema({
     name: {
         type: String,
+        required: true,
+    },
+    value: {
+        type: Number,
         required: true,
     },
     color: {

@@ -1,4 +1,5 @@
 global.mongoose = require('mongoose');
+const Organization = require(DIR + '/models/organizations/organization');
 const BusinessType = require(DIR + '/models/contacts/businessType');
 const Status = require(DIR + '/models/properties/status');
 
@@ -43,5 +44,9 @@ mongoose.connect(mongostring, {useNewUrlParser: true, useUnifiedTopology: true, 
 function insertDefaults(){
     BusinessType.insertDefaults()
     .then(() => Status.insertDefaults())
+    .then(() => Organization.insertDefaults())
+    .then(adminOrganizationId => {
+        global.adminOrganization = adminOrganizationId;
+    })
     .catch(error => Errors.error(error, 'Failed to insert all of the default reference data'));
 }

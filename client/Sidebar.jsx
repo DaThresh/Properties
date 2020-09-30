@@ -1,28 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { Fragment } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChartLine, faHome, faCog, faUsers, faAddressCard } from '@fortawesome/free-solid-svg-icons';
+import { faChartLine, faHome, faCog, faUsers, faAddressCard, faBuilding } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 
 // Services
-import { getRole } from './services/account';
-import { pushNotification } from './services/notifications';
 import { getReferenceData } from './services/reference';
 
-// Utilities
-import { apiError } from './utilities/apiError';
-
 function Sidebar(){
-    const [showUsers, setShowUsers] = useState(false);
-
-    useEffect(() => {
-        var adminRole = getReferenceData('adminRole') ?? 600;
-        getRole()
-        .then(role => setShowUsers(role > adminRole))
-        .catch(error => {
-            apiError(error);
-            pushNotification('Error', 'Failed to obtain user role', 'danger');
-        });
-    }, []);
+    const managerRole = getReferenceData('managerRole');
+    const isAdmin = getReferenceData('admin');
+    const role = getReferenceData('role');
+    const showUsers = role >= managerRole;
 
     return (
         <div id="sidebar">
@@ -30,18 +18,31 @@ function Sidebar(){
                 <img id="sidebar-brand-logo" src="https://picsum.photos/200" />
                 <strong className="sidebar-text">Gramercy Homes</strong>
             </div>
-            <Link to ="/">
+            {isAdmin ? 
+                <Fragment>
+                    <Link to="/organizations">
+                        <div className="sidebar-item">
+                            <span className="sidebar-icon">
+                                <FontAwesomeIcon icon={faBuilding} fixedWidth />
+                            </span>
+                            <span className="sidebar-text">Organizations</span>
+                        </div>
+                    </Link>
+                    <hr />
+                </Fragment>
+            : null}
+            <Link to="/">
                 <div className="sidebar-item">
                     <span className="sidebar-icon">
-                        <FontAwesomeIcon icon={faChartLine} size="2x" />
+                        <FontAwesomeIcon icon={faChartLine} fixedWidth />
                     </span>
                     <span className="sidebar-text">Dashboard</span>
                 </div>
             </Link>
-            <Link to ="/properties">
+            <Link to="/properties">
                 <div className="sidebar-item">
                     <span className="sidebar-icon">
-                        <FontAwesomeIcon icon={faHome} size="2x" />
+                        <FontAwesomeIcon icon={faHome} fixedWidth />
                     </span>
                     <span className="sidebar-text">Properties</span>
                 </div>
@@ -49,7 +50,7 @@ function Sidebar(){
             <Link to="/contacts">
                 <div className="sidebar-item">
                     <span className="sidebar-icon">
-                        <FontAwesomeIcon icon={faAddressCard} size="2x" />
+                        <FontAwesomeIcon icon={faAddressCard} fixedWidth />
                     </span>
                     <span className="sidebar-text">Contacts</span>
                 </div>
@@ -58,16 +59,16 @@ function Sidebar(){
                 <Link to="/users">
                     <div className="sidebar-item">
                         <span className="sidebar-icon">
-                            <FontAwesomeIcon icon={faUsers} size="2x" />
+                            <FontAwesomeIcon icon={faUsers} fixedWidth />
                         </span>
                         <span className="sidebar-text">Users</span>
                     </div>
                 </Link>
             ) : null}
-            <Link to ="/settings">
+            <Link to="/settings">
                 <div className="sidebar-item">
                     <span className="sidebar-icon">
-                        <FontAwesomeIcon icon={faCog} size="2x" />
+                        <FontAwesomeIcon icon={faCog} fixedWidth />
                     </span>
                     <span className="sidebar-text">Settings</span>
                 </div>

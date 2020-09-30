@@ -1,4 +1,4 @@
-import { getBusinessTypes, getPropertyStatuses } from './http';
+import { getBusinessTypes, getPropertyStatuses, getRole } from './http';
 
 var referenceData = {};
 
@@ -6,6 +6,7 @@ function fetchReferenceData(){
     return new Promise((resolve, reject) => {
         getBusinessTypes()
         .then(response => handleResponse(response, getPropertyStatuses))
+        .then(response => handleResponse(response, getRole))
         .then(response => handleResponse(response))
         .then(() => resolve())
         .catch(error => reject(error));
@@ -25,9 +26,7 @@ function handleResponse(response, chain){
     if(chain) return chain();
 }
 
-function getReferenceData(key, voidReturnType = 'null'){
-    if(voidReturnType === 'array') return referenceData[key] ? referenceData[key] : [];
-    if(voidReturnType === 'string') return referenceData[key] ? referenceData[key] : '';
+function getReferenceData(key){
     return referenceData[key];
 }
 

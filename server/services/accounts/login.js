@@ -1,4 +1,4 @@
-const Account = require(DIR + '/models/account');
+const Account = require(DIR + '/models/organizations/account');
 const fields = require(DIR + '/validations/fields');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
@@ -9,9 +9,10 @@ var rejection = {invalid: 'Invalid login credentials'};
 module.exports = (req, res) => {
     var accountId;
     fields(req.body, ['email', 'password', 'remember'])
-    .then(() => Account.findOne({email: String(req.body.email)}))
+    .then(() => Account.findOne({email: String(req.body.email)}).populate('organization'))
     .then(account => {
         if(!account) return Promise.reject(rejection);
+        if(!account.organization.active) return Promise.reject({activation: true});
         if(!bcrypt.compareSync(String(req.body.password), account.password)) return Promise.reject(rejection);
         accountId = account.id;
         return account.updateOne({lastLogin: new Date()})

@@ -14,7 +14,7 @@ import { faTag } from '@fortawesome/free-solid-svg-icons';
 
 function SetBusiness(props){
     const business = props.business;
-    const businessTypes = getReferenceData('businessTypes', 'array');
+    const businessTypes = getReferenceData('businessTypes');
     const [name, setName] = useState(business.name);
     const [businessType, setBusinessType] = useState(business.type);
     const [submitting, setSubmitting] = useState(false);

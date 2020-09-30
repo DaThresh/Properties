@@ -18,7 +18,7 @@ import { getReferenceData } from '../services/reference';
 import { apiError } from '../utilities/apiError';
 
 function Property(props){
-    const statuses = getReferenceData('statuses', 'array');
+    const statuses = getReferenceData('statuses');
     const { propertyId } = useParams();
     const [property, setProperty] = useState({});
     const [page, setPage] = useState(null);
@@ -30,7 +30,7 @@ function Property(props){
     }, []);
 
     var statusColor = (status) => {
-        let statusObj = statuses.find(obj => obj.name === status);
+        let statusObj = statuses.find(obj => obj.value === status);
         return statusObj?.color ?? '';
     }
 

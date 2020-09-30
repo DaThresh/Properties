@@ -11,6 +11,11 @@ var propertySchema = Schema({
         required: true,
         validate: isAddressUnique,
     },
+    organization: {
+        type: Schema.Types.ObjectId,
+        ref: 'Organization',
+        required: true,
+    },
     zipcode: String,
     salePrice: Number,
     anticipatedSalePriceLow: Number,
@@ -27,8 +32,8 @@ var propertySchema = Schema({
     bedrooms: Number,
     bathrooms: Number,
     status: {
-        type: String,
-        default: 'Planning',
+        type: Number,
+        default: 1,
         validate: isStatusValid,
     },
     publicVisible: {
@@ -68,10 +73,11 @@ function isAddressUnique(param){
         } else compareRecords()
 
         function compareRecords(){
-            Property.find({address: { $regex: new RegExp(param, 'i') }})
+            Property.find({address: { $regex: new RegExp('^' + param + '$', 'i') }})
             .then(properties => {
                 if(properties.length === 0) return resolve();
                 if(properties.length === 1 && properties[0].id === self.id) return resolve();
+                if(properties.every(property => !property.organization.equals(self.organization))) return resolve();
                 reject(new Error('Address must be unique'));
             }).catch(error => reject(error));
         }
@@ -80,7 +86,7 @@ function isAddressUnique(param){
 
 function isStatusValid(param){
     return new Promise((resolve, reject) => {
-        Status.findOne({name: param})
+        Status.findOne({value: param})
         .then(status => {
             if(!status) reject(new Error('Status not valid'));
             resolve();

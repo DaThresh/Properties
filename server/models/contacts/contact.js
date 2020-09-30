@@ -8,6 +8,11 @@ var contactSchema = Schema({
         type: String,
         required: true,
     },
+    organization: {
+        type: Schema.Types.ObjectId,
+        ref: 'Organization',
+        required: true,
+    },
     lastName: String,
     phoneNumber: Number,
     title: String,
