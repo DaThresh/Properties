@@ -9,7 +9,7 @@ module.exports = (req, res) => {
     .then(() => fields(req.body, (req.body.business ? ['business'] : ['name', 'businessType'])))
     .then(() => {
         if(req.body.business) return Business.findOne({name: { $regex: new RegExp('^' + String(req.body.business) + '$', 'i') }})
-        else return BusinessType.findOne({name: { $regex: new RegExp('$' + String(req.body.businessType) + '$', 'i') }})
+        else return BusinessType.findOne({name: { $regex: new RegExp('^' + String(req.body.businessType) + '$', 'i') }})
     })
     .then(object => {
         if(object == null) return Promise.reject(rejection(req.body));
@@ -40,6 +40,7 @@ function buildContact(request, object){
             var business = new Business();
             business.name = String(body.name);
             business.type = String(body.businessType);
+            business.organization = account.organization;
             business.save()
             .then(business => {
                 contact.business = business;
