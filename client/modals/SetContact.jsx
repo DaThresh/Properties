@@ -1,6 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import React, { useState, useEffect, Fragment } from 'react';
 import { faBriefcase, faBuilding, faPhone, faEnvelope, faTag } from '@fortawesome/free-solid-svg-icons';
+
+// Components
+import HorizontalField from '../shared/Forms/HorizontalField';
 
 // Services
 import { getBusinesses, createContact, updateContact } from '../services/contacts';
@@ -78,138 +80,27 @@ function SetContact(props){
                 <div className="columns">
                     <div className="column">
                         <h4 className="title is-4 has-text-centered">New Contact</h4>
-                        <div className="field is-horizontal">
-                            <div className="field-label is-normal">
-                                <label className="label">First name</label>
-                            </div>
-                            <div className="field-body">
-                                <div className="field">
-                                    <div className="control">
-                                        <input className="input" type="text" name="firstName" value={firstName} onChange={handleChange} placeholder="Enter first name..." required />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="field is-horizontal">
-                            <div className="field-label is-normal">
-                                <label className="label">Last name</label>
-                            </div>
-                            <div className="field-body">
-                                <div className="field">
-                                    <div className="control">
-                                        <input className="input" type="text" name="lastName" value={lastName} onChange={handleChange} placeholder="Enter last name..." />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="field is-horizontal">
-                            <div className="field-label is-normal">
-                                <label className="label">Email</label>
-                            </div>
-                            <div className="field-body">
-                                <div className="field">
-                                    <div className="control has-icons-left">
-                                        <input className="input" type="email" name="email" value={email} onChange={handleChange} placeholder="joe@doe.com" />
-                                        <div className="icon is-small is-left">
-                                            <FontAwesomeIcon icon={faEnvelope} />
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="field is-horizontal">
-                            <div className="field-label is-normal">
-                                <label className="label">Phone number</label>
-                            </div>
-                            <div className="field-body">
-                                <div className="field">
-                                    <div className="control has-icons-left">
-                                        <input className="input" type="tel" name="phoneNumber" value={phoneNumber} onChange={handleChange} placeholder="2149008000" maxLength="10" />
-                                        <div className="icon is-small is-left">
-                                            <FontAwesomeIcon icon={faPhone} />
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="field is-horizontal">
-                            <div className="field-label is-normal">
-                                <label className="label">Title</label>
-                            </div>
-                            <div className="field-body">
-                                <div className="field">
-                                    <div className="control has-icons-left">
-                                        <input className="input" type="text" name="title" value={title} onChange={handleChange} placeholder="Manager" />
-                                        <div className="icon is-small is-left">
-                                            <FontAwesomeIcon icon={faBriefcase} />
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="field is-horizontal">
-                            <div className="field-label is-normal">
-                                <label className="label">Business</label>
-                            </div>
-                            <div className="field-body">
-                                <div className="field">
-                                    <div className="control has-icons-left">
-                                        <div className="select">
-                                            <select name="business" value={business} onChange={handleChange}>
-                                                {businesses.map(business => {
-                                                    return (
-                                                        <option key={business.id} value={business.name}>{business.name}</option>
-                                                    )
-                                                })}
-                                                <option value="add">Add</option>
-                                            </select>
-                                        </div>
-                                        <div className="icon is-small is-left">
-                                            <FontAwesomeIcon icon={faBuilding} />
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <HorizontalField name="firstName" type="text" label="First name" handleChange={handleChange} value={firstName} placeholder="Enter first name..." attributes={{required: true}} />
+                        <HorizontalField name="lastName" type="text" label="Last name" handleChange={handleChange} value={lastName} placeholder="Enter last name..." />
+                        <HorizontalField name="email" type="email" label="Email" handleChange={handleChange} value={email} placeholder="joe@doe.com" icon={faEnvelope} />
+                        <HorizontalField name="phoneNumber" type="tel" label="Phone number" handleChange={handleChange} value={phoneNumber} placeholder="2149008000" icon={faPhone} attributes={{maxLength: 10}} />
+                        <HorizontalField name="title" type="text" label="Title" handleChange={handleChange} value={title} placeholder="Manager" icon={faBriefcase} />
+                        <HorizontalField name="business" type="select" label="Business" handleChange={handleChange} value={business} icon={faBuilding}
+                            options={
+                                <Fragment>
+                                    {businesses.map(business => <option key={business.id} value={business.name}>{business.name}</option>)}
+                                    <option value="add">Add</option>
+                                </Fragment>
+                            }
+                        />
                     </div>
                     {business == 'add' ? (
                         <div className="column">
                             <h4 className="title is-4 has-text-centered">New Business</h4>
-                            <div className="field is-horizontal">
-                                <div className="field-label is-normal">
-                                    <label className="label">Name</label>
-                                </div>
-                                <div className="field-body">
-                                    <div className="field">
-                                        <div className="control">
-                                            <input className="input" type="text" name="name" value={name} onChange={handleChange} placeholder="Incorporated LLC" required />
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="field is-horizontal">
-                                <div className="field-label is-normal">
-                                    <label className="label">Business type</label>
-                                </div>
-                                <div className="field-body">
-                                    <div className="field">
-                                        <div className="control has-icons-left">
-                                            <div className="select">
-                                                <select name="businessType" value={businessType} onChange={handleChange}>
-                                                    {businessTypes.map(businessType => {
-                                                        return (
-                                                            <option key={businessType.id} value={businessType.name}>{businessType.name}</option>
-                                                        )
-                                                    })}
-                                                </select>
-                                            </div>
-                                            <div className="icon is-small is-left">
-                                                <FontAwesomeIcon icon={faTag} />
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            <HorizontalField name="name" type="text" label="Name" handleChange={handleChange} value={name} placeholder="Incorporated LLC" attributes={{required: true}} />
+                            <HorizontalField name="businessType" type="select" label="Business type" handleChange={handleChange} value={businessType} icon={faTag}
+                                options={businessTypes.map(businessType => <option key={businessType.id} value={businessType.name}>{businessType.name}</option>)}
+                            />
                         </div>
                     ) : null}
                 </div>

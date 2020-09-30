@@ -1,4 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import { faTag } from '@fortawesome/free-solid-svg-icons';
+
+// Components
+import HorizontalField from '../shared/Forms/HorizontalField';
 
 // Services
 import { getReferenceData } from '../services/reference';
@@ -9,8 +13,6 @@ import { closeModal, adjustSize } from '../services/modal';
 // Utilities
 import { capitalize } from '../utilities/format';
 import { apiError } from '../utilities/apiError';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTag } from '@fortawesome/free-solid-svg-icons';
 
 function SetBusiness(props){
     const business = props.business;
@@ -47,41 +49,10 @@ function SetBusiness(props){
         <span id="SetContact">
             <h4 className="title is-4 has-text-centered">Edit Business</h4>
             <form autoComplete="off" onSubmit={submit}>
-                <div className="field is-horizontal">
-                    <div className="field-label is-normal">
-                        <label className="label">Name</label>
-                    </div>
-                    <div className="field-body">
-                        <div className="field">
-                            <div className="control">
-                                <input className="input" type="text" name="name" value={name} onChange={handleChange} placeholder="Incorporated LLC" required />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div className="field is-horizontal">
-                    <div className="field-label is-normal">
-                        <label className="label">Business type</label>
-                    </div>
-                    <div className="field-body">
-                        <div className="field">
-                            <div className="control has-icons-left">
-                                <div className="select">
-                                    <select name="businessType" value={businessType} onChange={handleChange}>
-                                        {businessTypes.map(businessType => {
-                                            return (
-                                                <option key={businessType.id} value={businessType.name}>{businessType.name}</option>
-                                            )
-                                        })}
-                                    </select>
-                                </div>
-                                <div className="icon is-small is-left">
-                                    <FontAwesomeIcon icon={faTag} />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <HorizontalField name="name" type="text" label="Name" handleChange={handleChange} value={name} placeholder="Incorporated LLC" attributes={{required: true}} />
+                <HorizontalField name="businessType" type="select" label="Business type" handleChange={handleChange} value={businessType} icon={faTag}
+                    options={businessTypes.map(businessType => <option key={businessType.id} value={businessType.name}>{businessType.name}</option>)}
+                />
                 <div className="field">
                     <div className="control has-text-centered">
                         <button className={'button is-primary' + (submitting ? ' is-loading' : '')} type="submit">Submit</button>

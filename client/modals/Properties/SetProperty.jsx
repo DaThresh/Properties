@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import DatePicker from 'react-date-picker';
 
+// Components
+import HorizontalField from '../../shared/Forms/HorizontalField';
+
 // Services
 import { createProperty } from '../../services/properties';
 import { pushNotification } from '../../services/notifications';
@@ -53,54 +56,10 @@ function SetProperty(props){
         <span id="SetProperty">
             <h4 className="title is-4 has-text-centered">Create Property</h4>
             <form autoComplete="off" onSubmit={submit}>
-                <div className="field is-horizontal">
-                    <div className="field-label is-normal">
-                        <label className="label">Address</label>
-                    </div>
-                    <div className="field-body">
-                        <div className="field">
-                            <div className="control">
-                                <input className="input" type="text" name="address" value={address} onChange={handleChange} placeholder="6839 Coronado Ave" required />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div className="field is-horizontal">
-                    <div className="field-label is-normal">
-                        <label className="label">Zipcode</label>
-                    </div>
-                    <div className="field-body">
-                        <div className="field">
-                            <div className="control">
-                                <input className="input" type="number" name="zipcode" value={zipcode} onChange={handleChange} placeholder="75214" required />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div className="field is-horizontal">
-                    <div className="field-label is-normal">
-                        <label className="label">Lot Width</label>
-                    </div>
-                    <div className="field-body">
-                        <div className="field">
-                            <div className="control">
-                                <input className="input" type="number" name="lotWidth" value={lotWidth} onChange={handleChange} placeholder="55" />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div className="field is-horizontal">
-                    <div className="field-label is-normal">
-                        <label className="label">Lot Depth</label>
-                    </div>
-                    <div className="field-body">
-                        <div className="field">
-                            <div className="control">
-                                <input className="input" type="number" name="lotDepth" value={lotDepth} onChange={handleChange} placeholder="142" />
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <HorizontalField name="address" type="text" label="Address" handleChange={handleChange} value={address} placeholder="6839 Coronado Ave" attributes={{required: true}} />
+                <HorizontalField name="zipcode" type="number" label="Zipcode" handleChange={handleChange} value={zipcode} placeholder="75214" attributes={{required: true}} />
+                <HorizontalField name="lotWidth" type="number" label="Lot Width" handleChange={handleChange} value={lotWidth} placeholder="55" />
+                <HorizontalField name="lotDepth" type="number" label="Lot Depth" handleChange={handleChange} value={lotDepth} placeholder="142" />
                 <div className="field is-horizontal">
                     <div className="field-label is-normal">
                         <label className="label">Purchase Date</label>
