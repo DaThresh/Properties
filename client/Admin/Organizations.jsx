@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+import { Link } from 'react-router-dom';
 
 // Components
 import List from '../shared/List';
@@ -13,7 +14,7 @@ function Organizations(props){
     var displayRow = (organization) => {
         return (
             <tr key={organization.id}>
-                <td>{organization.name}</td>
+                <td><Link to={'/organizations/' + organization.id}>{organization.name}</Link></td>
                 <td>{capitalize(JSON.stringify(organization.active))}</td>
                 <td>Actions</td>
             </tr>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Fragment } from 'react';
 import { hot } from 'react-hot-loader/root';
 import { Switch, Route, BrowserRouter as Router } from 'react-router-dom';
 
@@ -15,6 +15,7 @@ import Lock from './Lock';
 import Modal from './Modal';
 import Notifications from './Notifications';
 import Organizations from './Admin/Organizations';
+import Organization from './Admin/Organization';
 import NotFound from './NotFound';
 
 // Services
@@ -58,11 +59,16 @@ function App() {
             <span id="content">
                 <Navbar />
                 <section className="section" style={{paddingTop: '24px'}}>
-                    <Switch>
+                    <FragmentSupportingSwitch>
                         {isAdmin ? 
-                            <Route path="/organizations">
-                                <Organizations />
-                            </Route>
+                            <Fragment>
+                                <Route path="/organizations/:organizationId">
+                                    <Organization />
+                                </Route>
+                                <Route path="/organizations">
+                                    <Organizations />
+                                </Route>
+                            </Fragment>
                         : null}
                         <Route path="/settings">
                             <Settings />
@@ -85,7 +91,7 @@ function App() {
                         <Route>
                             <NotFound />
                         </Route>
-                    </Switch>
+                    </FragmentSupportingSwitch>
                 </section>
             </span>
         </Router>;
@@ -106,3 +112,25 @@ function App() {
 }
 
 export default hot(App);
+
+// Thanks to @bripkens for the below code
+// https://github.com/ReactTraining/react-router/issues/5785#issuecomment-359427800
+//
+// Default <Switch> does not have support for Fragments, routes must be first level children
+function FragmentSupportingSwitch({children}) {
+    const flattenedChildren = [];
+    flatten(flattenedChildren, children);
+    return React.createElement.apply(React, [Switch, null].concat(flattenedChildren));
+}
+  
+function flatten(target, children) {
+    React.Children.forEach(children, child => {
+        if (React.isValidElement(child)) {
+            if (child.type === Fragment) {
+                flatten(target, child.props.children);
+            } else {
+                target.push(child);
+            }
+        }
+    });
+}
