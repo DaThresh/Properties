@@ -1,26 +1,24 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+
+// Components
+import List from './shared/List';
 
 // Services
-import { getUsers } from './services/users';
-import { pushNotification } from './services/notifications';
-
-// Utilities
-import { apiError } from './utilities/apiError';
+import { getUsers, getUsersCount } from './services/users';
 
 function Users(){
-    const [users, setUsers] = useState([]);
-
-    useEffect(() => {
-        getUsers()
-        .then(users => setUsers(users))
-        .catch(error => {
-            apiError(error);
-            pushNotification('Error', 'Failed to load users', 'danger');
-        });
-    }, []);
+    var displayRow = (user) => {
+        return (
+            <tr key={user.id}>
+                <td>{user.fullName}</td>
+                <td>{user.email}</td>
+                <td>{user.role}</td>
+            </tr>
+        )
+    }
 
     return (
-        <div>Users</div>
+        <List tableHeaders={['Name', 'Email', 'Role']} fetchFunction={getUsers} fetchCountFunction={getUsersCount} displayRow={displayRow} />
     )
 }
 

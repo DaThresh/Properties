@@ -44,6 +44,7 @@ function putContact(contactId, firstName, lastName, email, phoneNumber, title, b
 
 // Users
 const getUsers = (offset, count, filters) => axios.get(hostName + '/api/accounts?offset=' + offset + '&count=' + count, { params: {...filters}, ...addAuth() });
+const getUsersCount = (filters) => axios.get(hostName + '/api/accounts/count', { params: {...filters}, ...addAuth() });
 
 // Organizations
 const getOrganizations = (offset, count, filters) => axios.get(hostName + '/api/organizations?offset=' + offset + '&count=' + count, { params: {...filters}, ...addAuth() });
@@ -75,6 +76,7 @@ export {
 
     // Users exports
     getUsers,
+    getUsersCount,
 
     // Organization exports
     getOrganizations,

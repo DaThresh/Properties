@@ -17,12 +17,14 @@ const Middleware = {
 const fetch = require(DIR + '/services/fetch');
 const Fetch = {
     fetch: fetch.fetch,
+    count: fetch.count,
     accounts: (req, res, next) => { req.model = Account; req.supportFilters = true; req.select = '-password -__v'; next() },
 }
 
 module.exports = (app) => {
     // Get routes
     app.get('/api/accounts/role', Middleware.verifyAccount, AccountServices.fetchRole);
+    app.get('/api/accounts/count', Middleware.verifyAccount, Middleware.verifyManager, Fetch.accounts, Fetch.count);
     app.get('/api/accounts', Middleware.verifyAccount, Middleware.verifyManager, Fetch.accounts, Fetch.fetch);
 
     // Post routes
