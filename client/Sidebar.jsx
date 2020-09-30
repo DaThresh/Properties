@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChartLine, faHome, faCog, faUsers, faAddressCard, faShieldAlt } from '@fortawesome/free-solid-svg-icons';
+import { faChartLine, faHome, faCog, faUsers, faAddressCard, faBuilding } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 
 // Services
@@ -20,12 +20,12 @@ function Sidebar(){
             </div>
             {isAdmin ? 
                 <Fragment>
-                    <Link to="/admin">
+                    <Link to="/organizations">
                         <div className="sidebar-item">
                             <span className="sidebar-icon">
-                                <FontAwesomeIcon icon={faShieldAlt} fixedWidth />
+                                <FontAwesomeIcon icon={faBuilding} fixedWidth />
                             </span>
-                            <span className="sidebar-text">Test</span>
+                            <span className="sidebar-text">Organizations</span>
                         </div>
                     </Link>
                     <hr />

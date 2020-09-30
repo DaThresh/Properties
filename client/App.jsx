@@ -60,7 +60,7 @@ function App() {
                 <section className="section" style={{paddingTop: '24px'}}>
                     <Switch>
                         {isAdmin ? 
-                            <Route path="/admin">
+                            <Route path="/organizations">
                                 <Organizations />
                             </Route>
                         : null}
