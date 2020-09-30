@@ -12,6 +12,7 @@ module.exports = (req, res) => {
     })
     .then(business => {
         if(business == null) return Promise.reject({invalid: 'Business does not exist'});
+        if(!req.account.organization.equals(business.organization) && !req.account.organization.equals(global.adminOrganization)) return Promise.reject({authorization: true});
         return updateBusiness(business, req.body).save()
     })
     .then(business => success(res, {business}))
