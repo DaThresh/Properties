@@ -18,6 +18,13 @@ import { fetch } from '../services/list';
 // Utilities
 import { apiError } from '../utilities/apiError';
 
+const tableHeaders = [
+    {name: 'Address', sort: 'address'},
+    {name: 'Status', sort: 'status'},
+    {name: 'City'},
+    {name: 'Days Held'},
+]
+
 function Properties(props){
     const statuses = getReferenceData('statuses');
     const [updatingStatus, setUpdatingStatus] = useState(false);
@@ -65,8 +72,8 @@ function Properties(props){
         return (
             <tr key={property.id}>
                 <td><Link to={'/properties/'+ property.id}>{property.address}</Link></td>
-                <td>{property.city}</td>
                 <td>{statusTag(property)}</td>
+                <td>{property.city}</td>
                 <td>{differenceInDays(new Date, new Date(property.purchaseDate))}</td>
             </tr>
         )
@@ -77,7 +84,7 @@ function Properties(props){
             <div className="container is-fluid is-sectioned">
                 <button onClick={newProperty} className="button is-primary">New Property</button>
             </div>
-            <List tableHeaders={['Address', 'City', 'Status', 'Days Held']} fetchFunction={getProperties} fetchCountFunction={getPropertiesCount} displayRow={displayRow} />
+            <List tableHeaders={tableHeaders} fetchFunction={getProperties} fetchCountFunction={getPropertiesCount} displayRow={displayRow} />
         </span>
     )
 }

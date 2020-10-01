@@ -6,6 +6,12 @@ import List from './shared/List';
 // Services
 import { getUsers, getUsersCount } from './services/users';
 
+const tableHeaders = [
+    {name: 'Name', sort: 'firstName'},
+    {name: 'Email', sort: 'email'},
+    {name: 'Role', sort: 'role'},
+]
+
 function Users(){
     var displayRow = (user) => {
         return (
@@ -18,7 +24,7 @@ function Users(){
     }
 
     return (
-        <List tableHeaders={['Name', 'Email', 'Role']} fetchFunction={getUsers} fetchCountFunction={getUsersCount} displayRow={displayRow} />
+        <List tableHeaders={tableHeaders} fetchFunction={getUsers} fetchCountFunction={getUsersCount} displayRow={displayRow} />
     )
 }
 

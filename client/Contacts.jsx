@@ -15,6 +15,14 @@ import { openModal } from './services/modal';
 // Utilities
 import { phoneNumber } from './utilities/format';
 
+const tableHeaders = [
+    {name: 'Name', sort: 'firstName'},
+    {name: 'Phone Number', sort: 'phoneNumber'},
+    {name: 'Title', sort: 'title'},
+    {name: 'Business'},
+    {name: 'Actions'},
+]
+
 function Contacts(){
     const [fetching, setFetching] = useState(false);
 
@@ -77,7 +85,7 @@ function Contacts(){
                     </div>
                 </div>
             </div>
-            <List tableHeaders={['Name', 'Phone Number', 'Title', 'Business', 'Actions']} fetchFunction={getContacts} fetchCountFunction={getContactsCount} displayRow={displayRow} />
+            <List tableHeaders={tableHeaders} fetchFunction={getContacts} fetchCountFunction={getContactsCount} displayRow={displayRow} />
         </span>
     )
 }

@@ -1,4 +1,8 @@
 import React, { useState, useEffect, useRef, Fragment } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faSort, faSortUp, faSortDown } from '@fortawesome/free-solid-svg-icons';
+library.add(faSort, faSortUp, faSortDown);
 
 // Components
 import Pagination from './Pagination';
@@ -13,6 +17,7 @@ import { apiError } from '../utilities/apiError';
 
 function List(props){
     const { tableHeaders, fetchFunction, fetchCountFunction, displayRow } = props;
+    const [sorts, setSorts] = useState({});
     const [fetching, setFetching] = useState(false);
     const [items, setItems] = useState([]);
     const [page, setPage] = useState(1);
@@ -23,7 +28,7 @@ function List(props){
     useEffect(() => {
         fetch(firstRender.current);
         if(firstRender.current) firstRender.current = false;
-    }, [page]);
+    }, [page, sorts]);
 
     useEffect(() => {
         fetchingUpdate(fetching);
@@ -50,7 +55,7 @@ function List(props){
         if(fetching) return;
         setFetching(true);
         var newItems, newCount;
-        fetchFunction(10 * (page - 1), 10)
+        fetchFunction(10 * (page - 1), 10, {}, sorts)
         .then(data => {
             newItems = data;
             return fetchCount ? fetchCountFunction() : count;
@@ -72,13 +77,28 @@ function List(props){
         if(num !== NaN) setPage(num);
     }
 
+    var changeSorts = (event) => {
+        var sortName = event.currentTarget.dataset.sort;
+        let obj = {};
+        if(!sorts[sortName]) obj[sortName] = 1;
+        else if(sorts[sortName] === 1) obj[sortName] = -1;
+        setSorts(obj);
+    }
+
+    var sortIcon = (sort) => {
+        if(!sorts[sort]) return 'sort';
+        return sorts[sort] === 1 ? 'sort-down' : 'sort-up';
+    }
+
     return (
         <Fragment>
             <div className="container is-fluid is-sectioned">
                 <table className="table is-hoverable is-bordered is-fullwidth">
                     <thead>
                         <tr className="is-left">
-                            {tableHeaders.map((header, index) => <th key={index}>{header}</th>)}
+                            {tableHeaders.map((header, index) => 
+                                <th key={index}>{header.name} {header.sort ? <FontAwesomeIcon onClick={changeSorts} icon={sortIcon(header.sort)} data-sort={header.sort} /> : null}</th>
+                            )}
                         </tr>
                     </thead>
                     <tbody>

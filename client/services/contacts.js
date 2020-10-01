@@ -9,8 +9,8 @@ import {
 
 import responseHandler from '../utilities/responseHandler';
 
-function getContacts(offset = 0, count = 10, filters = {}){
-    return responseHandler(fetch, 200, 'contacts', offset, count, {filters});
+function getContacts(offset = 0, count = 10, filters = {}, sorts = {}){
+    return responseHandler(fetch, 200, 'contacts', offset, count, {filters}, {sorts});
 }
 
 function getContactsCount(filters = {}){

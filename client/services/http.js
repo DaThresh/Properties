@@ -11,7 +11,7 @@ function addAuth(){
 }
 
 // Properties
-const getProperties = (offset, count, filters) => axios.get(hostName + '/api/properties?offset=' + offset + '&count=' + count, { params: {...filters}, ...addAuth() });
+const getProperties = (offset, count, filters, sorts) => axios.get(hostName + '/api/properties?offset=' + offset + '&count=' + count, { params: {...filters, ...sorts}, ...addAuth() });
 const getProperty = (id) => axios.get(hostName + '/api/properties/' + id, addAuth());
 const getPropertiesCount = (filters) => axios.get(hostName + '/api/properties/count', { params: {...filters}, ...addAuth() });
 const putPropertyStatus = (id, status) => axios.put(hostName + '/api/properties/' + id + '/status', {status}, addAuth());
@@ -23,7 +23,7 @@ function postProperty(address, zipcode, lotWidth, lotDepth, purchaseDate){
 }
 
 // Contacts
-const getContacts = (offset, count, filters) => axios.get(hostName + '/api/contacts?offset=' + offset + '&count=' + count, { params: {...filters}, ...addAuth() });
+const getContacts = (offset, count, filters, sorts) => axios.get(hostName + '/api/contacts?offset=' + offset + '&count=' + count, { params: {...filters, ...sorts}, ...addAuth() });
 const getContactsCount = (filters) => axios.get(hostName + '/api/contacts/count', { params: {...filters}, ...addAuth() });
 const getBusinesses = (filters) => axios.get(hostName + '/api/contacts/businesses', { params: {...filters}, ...addAuth() });
 const putBusiness = (id, name, type)  => axios.put(hostName + '/api/contacts/businesses/' + id, {name, type}, addAuth());
@@ -43,11 +43,11 @@ function putContact(contactId, firstName, lastName, email, phoneNumber, title, b
 }
 
 // Users
-const getUsers = (offset, count, filters) => axios.get(hostName + '/api/accounts?offset=' + offset + '&count=' + count, { params: {...filters}, ...addAuth() });
+const getUsers = (offset, count, filters, sorts) => axios.get(hostName + '/api/accounts?offset=' + offset + '&count=' + count, { params: {...filters, ...sorts}, ...addAuth() });
 const getUsersCount = (filters) => axios.get(hostName + '/api/accounts/count', { params: {...filters}, ...addAuth() });
 
 // Organizations
-const getOrganizations = (offset, count, filters) => axios.get(hostName + '/api/organizations?offset=' + offset + '&count=' + count, { params: {...filters}, ...addAuth() });
+const getOrganizations = (offset, count, filters, sorts) => axios.get(hostName + '/api/organizations?offset=' + offset + '&count=' + count, { params: {...filters, ...sorts}, ...addAuth() });
 const getOrganizationsCount = (filters) => axios.get(hostName + '/api/organizations/count', { params: {...filters}, ...addAuth() });
 const getOrganization = (id) => axios.get(hostName + '/api/organizations/' + id, addAuth());
 const postOrganization = (name) => axios.post(hostName + '/api/organizations', {name}, addAuth());

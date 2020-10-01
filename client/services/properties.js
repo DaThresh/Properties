@@ -7,8 +7,8 @@ import { getProperties as fetch,
 
 import responseHandler from '../utilities/responseHandler';
 
-function getProperties(offset = 0, count = 10, filters = {}){
-    return responseHandler(fetch, 200, 'properties', offset, count, {filters});
+function getProperties(offset = 0, count = 10, filters = {}, sorts = {}){
+    return responseHandler(fetch, 200, 'properties', offset, count, {filters}, {sorts});
 }
 
 function getProperty(id){

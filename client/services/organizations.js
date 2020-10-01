@@ -7,8 +7,8 @@ import {
 
 import responseHandler from '../utilities/responseHandler';
 
-function getOrganizations(offset = 0, count = 10, filters = {}){
-    return responseHandler(fetch, 200, 'organizations', offset, count, filters);
+function getOrganizations(offset = 0, count = 10, filters = {}, sorts = {}){
+    return responseHandler(fetch, 200, 'organizations', offset, count, {filters}, {sorts});
 }
 
 function getOrganizationsCount(filters = {}){

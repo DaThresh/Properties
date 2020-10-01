@@ -3,3 +3,4 @@
 * Pull out default page size
 * Organization users so we can test the uniqueness validations cross organization
 * Add actions to organization list view
+* Address brief not found page bug on Organization

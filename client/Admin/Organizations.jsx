@@ -12,6 +12,12 @@ import { openModal } from '../services/modal';
 // Utilities
 import { capitalize } from '../utilities/format';
 
+const tableHeaders = [
+    {name: 'Name', sort: 'name'},
+    {name: 'Active', sort: 'active'},
+    {name: 'Actions'},
+]
+
 function Organizations(props){
     var createModal = () => openModal(<SetOrganization />);
 
@@ -30,7 +36,7 @@ function Organizations(props){
             <div className="container is-fluid is-sectioned">
                 <button className="button is-primary" onClick={createModal}>Create Organization</button>
             </div>
-            <List tableHeaders={['Name', 'Active', 'Actions']} fetchFunction={getOrganizations} fetchCountFunction={getOrganizationsCount} displayRow={displayRow} />
+            <List tableHeaders={tableHeaders} fetchFunction={getOrganizations} fetchCountFunction={getOrganizationsCount} displayRow={displayRow} />
         </Fragment>
     )
 }
