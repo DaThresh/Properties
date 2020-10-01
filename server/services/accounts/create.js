@@ -1,22 +1,15 @@
 const Account = require(DIR + '/models/organizations/account');
 const fields = require(DIR + '/validations/fields');
-const bcrypt = require('bcrypt');
 const success = require('../success');
 
 module.exports = (req, res) => {
-    fields(req.body, ['email', 'password', 'firstName', 'lastName'])
+    fields(req.body, ['email', 'firstName', 'lastName'])
     .then(() => Account.countDocuments())
     .then(count => {
-        if(count === 0){
-            var newAccount = buildAccount(req, true);
-        } else {
-            if(!req.account) return Promise.reject({authorization: true})
-            if(!req.body.confirmPassword) return Promise.reject({required: 'confirmPassword is required'})
-            if(req.body.password.length < 6) return Promise.reject({invalid: 'Password must be at least 6 characters long'})
-            if(req.body.password != req.body.confirmPassword) return Promise.reject({invalid: "Passwords don't match"})
-            var newAccount = buildAccount(req);
-        }
-        return newAccount.save()
+        let first = false;
+        if(count === 0) first = true;
+        else if(!req.account || req.account.role < global.managerRole) return Promise.reject({authorization: true})
+        return buildAccount(req, first).save();
     })
     .then(() => success(res, {}, 201))
     .catch(error => Errors.response(res, error));
@@ -24,14 +17,14 @@ module.exports = (req, res) => {
 
 // First account will always have role 900 (root account)
 function buildAccount(request, first = false){
-    var { body, account } = request;
+    var { body } = request;
     var account = new Account();
-    let rawPassword = String(body.password);
     account.email = String(body.email);
-    account.organization = first ? global.adminOrganization : req.account.organization;
+    account.organization = first ? global.adminOrganization : request.account.organization;
     account.firstName = String(body.firstName);
     account.lastName = String(body.lastName);
-    account.password = bcrypt.hashSync(rawPassword, 10);
     account.role = first ? 9 : 1;
+    if(!first) account.accessCode = Account.generateAccessCode();
+    if(!first && request.account.organization.equals(global.adminOrganization) && body.organization) account.organization = body.organization;
     return account;
 }

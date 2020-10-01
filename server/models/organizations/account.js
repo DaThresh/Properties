@@ -24,6 +24,7 @@ var accountSchema = Schema({
     },
     password: String,
     lastLogin: Date,
+    accessCode: String,
     role: Number,
 }, { timestamps: true, toJSON: { virtuals: true } });
 
@@ -39,6 +40,13 @@ accountSchema.pre('fineOneAndUpdate', function(next){ defaultUpdate(this, next) 
 accountSchema.virtual('fullName').get(function(){
     return this.lastName ? this.firstName + ' ' + this.lastName : this.firstName;
 });
+
+accountSchema.statics.generateAccessCode = function(){
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz123456789';
+    let result = '';
+    for(var x = 0; x < 10; x++) result += characters.charAt(Math.floor(Math.random() * characters.length));
+    return result;
+}
 
 function isEmailUnique(param){
     return new Promise((resolve, reject) => {
