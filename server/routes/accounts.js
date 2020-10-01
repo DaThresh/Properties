@@ -4,6 +4,7 @@ const AccountServices = {
     fetchRole: require(DIR + '/services/accounts/fetchRole'),
     create: require(DIR + '/services/accounts/create'),
     login: require(DIR + '/services/accounts/login'),
+    checkAccessCode: require(DIR + '/services/accounts/checkAccessCode'),
     changePassword: require(DIR + '/services/accounts/changePassword'),
     delete: require(DIR + '/services/accounts/delete'),
 }
@@ -30,6 +31,7 @@ module.exports = (app) => {
     // Post routes
     app.post('/api/accounts', Middleware.addAccount, AccountServices.create);
     app.post('/api/accounts/login', AccountServices.login);
+    app.post('/api/accounts/accessCode', AccountServices.checkAccessCode);
 
     // Put routes
     app.put('/api/accounts/password', Middleware.verifyAccount, AccountServices.changePassword);
