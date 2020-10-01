@@ -61,6 +61,11 @@ organizationSchema.virtual('businesses', {
     localField: '_id',
     foreignField: 'organization',
 });
+organizationSchema.virtual('payments', {
+    ref: 'Payment',
+    localFeild: '_id',
+    foreignField: 'organization',
+});
 
 var Organization = mongoose.model('Organization', organizationSchema);
 
