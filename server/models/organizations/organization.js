@@ -63,7 +63,7 @@ organizationSchema.virtual('businesses', {
 });
 organizationSchema.virtual('payments', {
     ref: 'Payment',
-    localFeild: '_id',
+    localField: '_id',
     foreignField: 'organization',
 });
 

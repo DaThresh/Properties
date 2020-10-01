@@ -10,12 +10,14 @@ module.exports = {
         var {model, body, account, supportFilters = false, select = '', populate = ''} = req;
         var name = model.collection.name;
         var filters = req.query.filters ? JSON.parse(req.query.filters) : {};
+        var sorts = req.query.sorts ? JSON.parse(req.query.sorts) : {};
         if(body.filters) filters = body.filters;
+        if(body.sorts) sorts = body.sorts;
         if(!supportFilters) filters = {};
-        if(!skipOrganizationModels.includes(model)) filters = {...filters, ...{organization: account.organization}}
+        if(!skipOrganizationModels.includes(model) && (!account.organization.equals(global.adminOrganization) || !filters.organization)) filters = {...filters, ...{organization: account.organization}}
         let offset = req.query.offset ? Number(req.query.offset) : 0;
         let count = req.query.count ? Number(req.query.count) : 10;
-        model.find(filters).skip(offset).limit(count).select(select).populate(populate)
+        model.find(filters).skip(offset).limit(count).sort(sorts).select(select).populate(populate)
         .then(data => success(res, {[name]: data}))
         .catch(error => Errors.response(res, error));
     },
@@ -37,7 +39,7 @@ module.exports = {
         var filters = req.query.filters ? JSON.parse(req.query.filters) : {};
         if(body.filters) filters = body.filters;
         if(!supportFilters) filters = {};
-        if(model !== Organization) filters = {...filters, ...{organization: account.organization}}
+        if(!skipOrganizationModels.includes(model) && (!req.account.organization.equals(global.adminOrganization) || !filters.organization)) filters = {...filters, ...{organization: account.organization}}
         model.countDocuments(filters)
         .then(count => success(res, {count}))
         .catch(error => Errors.response(res, error));
