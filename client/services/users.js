@@ -1,4 +1,4 @@
-import { getUsers as fetch, getUsersCount as fetchCount } from './http';
+import { getUsers as fetch, getUsersCount as fetchCount, postUser } from './http';
 
 import responseHandler from '../utilities/responseHandler';
 
@@ -10,7 +10,12 @@ function getUsersCount(filters){
     return responseHandler(fetchCount, 200, 'count', {filters});
 }
 
+function createUser(firstName, lastName, email, organization){
+    return responseHandler(postUser, 201, 'account', firstName, lastName, email, organization);
+}
+
 export {
     getUsers,
     getUsersCount,
+    createUser,
 }
