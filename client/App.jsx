@@ -11,7 +11,7 @@ import Property from './Properties/Property';
 import Settings from './Settings';
 import Contacts from './Contacts';
 import Users from './Users';
-import Lock from './Lock';
+import Lock from './Lock/Lock';
 import Modal from './Modal';
 import Notifications from './Notifications';
 import Organizations from './Admin/Organizations';

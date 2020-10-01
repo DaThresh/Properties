@@ -1,4 +1,4 @@
-import { postLogin } from './http';
+import { postLogin, postAccessCode } from './http';
 import { fetchReferenceData } from './reference';
 import responseHandler from '../utilities/responseHandler';
 
@@ -12,6 +12,10 @@ let subscriptions = {
 
 function login(email, password, remember){
     return responseHandler(postLogin, 200, null, email, password, remember);
+}
+
+function checkAccessCode(email, accessCode){
+    return responseHandler(postAccessCode, 200, 'valid', email, accessCode);
 }
 
 function setToken(token, remember){
@@ -59,6 +63,7 @@ export {
     setToken,
     getToken,
     login,
+    checkAccessCode,
     logout,
     subscribeStatus,
     unsubscribeStatus,

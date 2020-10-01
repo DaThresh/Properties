@@ -55,6 +55,7 @@ const postOrganization = (name) => axios.post(hostName + '/api/organizations', {
 
 // Account + Reference
 const postLogin = (email, password, remember) => axios.post(hostName + '/api/accounts/login', {email, password, remember});
+const postAccessCode = (email, accessCode) => axios.post(hostName + '/api/accounts/accessCode', {email, accessCode});
 const getRole = () => axios.get(hostName + '/api/accounts/role', addAuth());
 const getBusinessTypes = () => axios.get(hostName + '/api/contacts/businessTypes', addAuth());
 const getPropertyStatuses = () => axios.get(hostName + '/api/properties/statuses', addAuth());
@@ -88,6 +89,7 @@ export {
 
     // Account + Reference exports
     postLogin,
+    postAccessCode,
     getRole,
     getBusinessTypes,
     getPropertyStatuses,
