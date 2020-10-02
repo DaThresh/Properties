@@ -6,6 +6,7 @@ const AccountServices = {
     login: require(DIR + '/services/accounts/login'),
     checkAccessCode: require(DIR + '/services/accounts/checkAccessCode'),
     changePassword: require(DIR + '/services/accounts/changePassword'),
+    createPassword: require(DIR + '/services/accounts/createPassword'),
     delete: require(DIR + '/services/accounts/delete'),
 }
 
@@ -35,6 +36,7 @@ module.exports = (app) => {
 
     // Put routes
     app.put('/api/accounts/password', Middleware.verifyAccount, AccountServices.changePassword);
+    app.put('/api/accounts/accessCode', AccountServices.createPassword);
 
     // Delete routes
     app.delete('/api/accounts/:accountId', Middleware.verifyAccount, AccountServices.delete);
