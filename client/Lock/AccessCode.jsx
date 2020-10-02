@@ -19,19 +19,22 @@ function AccessCode(props){
         event.preventDefault();
         if(loading) return;
         setLoading(true);
-        let isValid = false;
+        var isValid = false, name;
         checkAccessCode(email, accessCode)
-        .then(valid => isValid = valid)
+        .then(data => {
+            isValid = data.active;
+            name = data.name;
+        })
         .catch(error => apiError(error))
         .finally(() => {
-            if(isValid){
-                setLoading(false);
-                changePage('Setup');
-            }
+            console.log(isValid, name, email, accessCode);
+            setLoading(false);
+            if(isValid) changePage('Setup', {name, email, accessCode});
         })
     }
 
     var handleChange = (event) => {
+        if(loading) return;
         let setFunction = 'set' + capitalize(event.currentTarget.name);
         if(setFunctions[setFunction]) setFunctions[setFunction](event.currentTarget.value);
     }

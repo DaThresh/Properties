@@ -15,7 +15,7 @@ function login(email, password, remember){
 }
 
 function checkAccessCode(email, accessCode){
-    return responseHandler(postAccessCode, 200, 'valid', email, accessCode);
+    return responseHandler(postAccessCode, 200, null, email, accessCode);
 }
 
 function setToken(token, remember){

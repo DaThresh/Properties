@@ -7,7 +7,8 @@ module.exports = (req, res) => {
     .then(() => Account.findOne({email: { $regex: new RegExp('^' + String(req.body.email) + '$', 'i') }, accessCode: String(req.body.accessCode)}))
     .then(account => {
         if(!account) return Promise.reject({notFound: true});
+        return account;
     })
-    .then(() => success(res, {active: true}))
+    .then(account => success(res, {active: true, name: account.firstName}))
     .catch(error => Errors.response(res, error));
 }

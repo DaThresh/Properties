@@ -7,10 +7,10 @@ import Setup from './Setup';
 const components = {Login, AccessCode, Setup};
 
 function Lock(){
-    var changePage = (event) => {
+    var changePage = (event, props = {}) => {
         if(loading) return;
         let Component = components[event?.currentTarget?.dataset?.page ?? event];
-        setPage(<Component loading={loading} setLoading={setLoading} changePage={changePage} />);
+        setPage(<Component loading={loading} setLoading={setLoading} changePage={changePage} {...props} />);
     }
 
     const [loading, setLoading] = useState(false);
