@@ -4,9 +4,11 @@ import { faAngleDoubleRight, faAngleDoubleLeft, faSignOutAlt, faBell } from '@fo
 
 // Services
 import { subscribe, unsubscribe, isOpen, openSidebar, closeSidebar } from './services/sidebar';
+import { getReferenceData } from './services/reference';
 import { logout } from './services/account';
 
 function Navbar() {
+    const userName = getReferenceData('userName');
     const [sidebarOpen, setSidebarOpen] = useState(isOpen());
 
     var handleSidebarUpdate = data => {
@@ -39,7 +41,7 @@ function Navbar() {
                 </div>
                 <div className="navbar-end">
                     <div className="navbar-item">
-                        <p>Andrew Thresher</p>
+                        <p>{userName}</p>
                     </div>
                     <div className="navbar-item">
                         <FontAwesomeIcon icon={faBell} />
