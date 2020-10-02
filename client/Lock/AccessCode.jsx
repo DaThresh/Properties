@@ -27,7 +27,6 @@ function AccessCode(props){
         })
         .catch(error => apiError(error))
         .finally(() => {
-            console.log(isValid, name, email, accessCode);
             setLoading(false);
             if(isValid) changePage('Setup', {name, email, accessCode});
         })

@@ -1,4 +1,4 @@
-import { postLogin, postAccessCode } from './http';
+import { postLogin, postAccessCode, putAccessCode } from './http';
 import { fetchReferenceData } from './reference';
 import responseHandler from '../utilities/responseHandler';
 
@@ -16,6 +16,10 @@ function login(email, password, remember){
 
 function checkAccessCode(email, accessCode){
     return responseHandler(postAccessCode, 200, null, email, accessCode);
+}
+
+function useAccessCode(email, accessCode, password, confirmPassword){
+    return responseHandler(putAccessCode, 200, null, email, accessCode, password, confirmPassword);
 }
 
 function setToken(token, remember){
@@ -64,6 +68,7 @@ export {
     getToken,
     login,
     checkAccessCode,
+    useAccessCode,
     logout,
     subscribeStatus,
     unsubscribeStatus,

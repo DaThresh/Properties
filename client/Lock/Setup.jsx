@@ -2,8 +2,12 @@ import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faKey } from '@fortawesome/free-solid-svg-icons';
 
+// Services
+import { useAccessCode } from '../services/account';
+
 // Utilities
 import { capitalize } from '../utilities/format';
+import { apiError } from '../utilities/apiError';
 
 function Setup(props){
     const { loading, setLoading, changePage } = props;
@@ -15,7 +19,15 @@ function Setup(props){
     var submit = (event) => {
         event.preventDefault();
         if(loading) return;
-        
+        setLoading(true);
+        var success = false;
+        useAccessCode(email, accessCode, password, confirmPassword)
+        .then(() => success = true)
+        .catch(error => apiError(error))
+        .finally(() => {
+            setLoading(false);
+            if(success) changePage("Login");
+        })
     }
 
     var handleChange = (event) => {
