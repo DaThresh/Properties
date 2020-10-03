@@ -1,6 +1,6 @@
 {
    "name": "properties",
-   "version": "0.2.43",
+   "version": "0.2.44",
    "description": "A web application using MERN for managing properties",
    "private": true,
    "scripts": {
@@ -35,6 +35,7 @@
       "image-webpack-loader": "^6.0.0",
       "node-sass": "^4.14.1",
       "react": "^16.13.1",
+      "react-countup": "^4.3.3",
       "react-date-picker": "^8.0.3",
       "react-dom": "^16.13.1",
       "react-hot-loader": "^4.13.0",
