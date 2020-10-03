@@ -8,6 +8,7 @@ import { getReferenceData } from './services/reference';
 
 function Sidebar(){
     const managerRole = getReferenceData('managerRole');
+    const organization = getReferenceData('organizationName');
     const isAdmin = getReferenceData('admin');
     const role = getReferenceData('role');
     const showUsers = role >= managerRole;
@@ -16,7 +17,7 @@ function Sidebar(){
         <div id="sidebar">
             <div id="sidebar-top">
                 <img id="sidebar-brand-logo" src="https://picsum.photos/200" />
-                <strong className="sidebar-text">Gramercy Homes</strong>
+                <strong className="sidebar-text">{organization}</strong>
             </div>
             {isAdmin ? 
                 <Fragment>
