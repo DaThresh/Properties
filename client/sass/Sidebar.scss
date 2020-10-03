@@ -34,13 +34,16 @@
             transition-property: opacity;
             transition-duration: 500ms;
         }
-    
+        
         #sidebar-top{
             display: inline-block;
             width: 100%;
             height: 52px;
             background-color: $near-black-background;
             padding: 10px 15px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
     
             #sidebar-brand-logo{
                 display: inline-block;
