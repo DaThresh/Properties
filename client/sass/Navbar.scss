@@ -1,5 +1,43 @@
+@import 'colors';
+
 .navbar{
     box-shadow: 0 8px 6px -10px black;
     -webkit-box-shadow-box-shadow: 0 8px 6px -10px black;
     -moz-box-shadow: 0 8px 6px -10px black;
+}
+
+#mobile-menu{
+    position: fixed;
+    left: 0;
+    top: 52px;
+    visibility: hidden;
+    z-index: 2;
+    width: 100%;
+    display: block;
+
+    .mobile-menu-line{
+        background-color: $white-bis;
+        color: $grey-dark;
+        display: block;
+        padding: 10px 15px;
+        text-align: right;
+
+        .mobile-menu-name{
+            display: inline-block;
+            vertical-align: center;
+        }
+
+        .icon{
+            display: inline-block;
+            vertical-align: center;
+        }
+    }
+    
+    .mobile-menu-line:hover{
+        background-color: $grey-light;
+        zoom: 120%;
+    }
+    .mobile-menu-line:not(:last-of-type){
+        border-bottom: 1px solid $grey-light;
+    }
 }
