@@ -2,6 +2,7 @@ const Organization = require(DIR + '/models/organizations/organization');
 
 const OrganizationServices = {
     create: require(DIR + '/services/organizations/create'),
+    setActive: require(DIR + '/services/organizations/setActive'),
 }
 
 const Middleware = {
@@ -27,6 +28,7 @@ module.exports = (app) => {
     app.post('/api/organizations', Middleware.verifyAccount, Middleware.verifyAdmin, OrganizationServices.create);
 
     // Put routes
+    app.put('/api/organizations/:organizationId/active', Middleware.verifyAccount, Middleware.verifyAdmin, OrganizationServices.setActive);
 
     // Delete routes
 }
