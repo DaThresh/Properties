@@ -14,28 +14,28 @@ function Login(props){
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [remember, setRemember] = useState(false);
-    const [badCredentials, setBadCredentials] = useState(false);
+    const [message, setMessage] = useState(null);
     const setFunctions = {setEmail, setPassword};
 
     var submit = (event) => {
         event.preventDefault();
         if(loading) return;
         let token = null;
-        setBadCredentials(false);
+        setMessage(null);
         setLoading(true);
         login(email, password, remember)
         .then(data => token = data.token)
         .catch(error => apiError(error, {
             400: badCredentials,
+            402: requirePayment,
         }))
         .finally(() => {
             setLoading(false)
             if(token) setTimeout(() => setToken(token, remember), 0);
         });
 
-        var badCredentials = (error) => {
-            setBadCredentials(true);
-        }
+        var badCredentials = (error) => setMessage('Invalid login credentials');
+        var requirePayment = (error) => setMessage('Payment required');
     }
 
     var handleChange = (event) => {
@@ -54,9 +54,7 @@ function Login(props){
             </header>
             <div className="card-content" style={{paddingTop: '10px'}}>
                 <h2 className="is-size-3 has-text-weight-semibold has-text-centered">Sign in</h2>
-                {badCredentials ?
-                    <h4 className="is-size-6 has-text-centered has-text-danger">Invalid login credentials</h4>
-                : null}
+                <h4 className="is-size-6 has-text-centered has-text-danger">{message}</h4>
                 <form onSubmit={submit}>
                     <div className="field">
                         <div className="control has-icons-left">
