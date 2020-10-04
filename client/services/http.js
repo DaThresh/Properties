@@ -52,6 +52,7 @@ const getOrganizations = (offset, count, filters, sorts) => axios.get(hostName +
 const getOrganizationsCount = (filters) => axios.get(hostName + '/api/organizations/count', { params: {...filters}, ...addAuth() });
 const getOrganization = (id) => axios.get(hostName + '/api/organizations/' + id, addAuth());
 const postOrganization = (name) => axios.post(hostName + '/api/organizations', {name}, addAuth());
+const putOrganizationActive = (id, active) => axios.put(hostName + '/api/organizations/' + id + '/active', {active}, addAuth());
 
 // Account + Reference
 const postLogin = (email, password, remember) => axios.post(hostName + '/api/accounts/login', {email, password, remember});
@@ -87,6 +88,7 @@ export {
     getOrganizationsCount,
     getOrganization,
     postOrganization,
+    putOrganizationActive,
 
     // Account + Reference exports
     postLogin,

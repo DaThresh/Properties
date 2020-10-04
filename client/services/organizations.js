@@ -3,6 +3,7 @@ import {
     getOrganizationsCount as fetchCount,
     getOrganization as fetchId,
     postOrganization,
+    putOrganizationActive,
 } from './http';
 
 import responseHandler from '../utilities/responseHandler';
@@ -23,9 +24,14 @@ function createOrganization(name){
     return responseHandler(postOrganization, 201, 'organization', name);
 }
 
+function setOrganizationActive(id, active){
+    return responseHandler(putOrganizationActive, 200, 'organization', id, active);
+}
+
 export {
     getOrganizations,
     getOrganizationsCount,
     getOrganization,
     createOrganization,
+    setOrganizationActive,
 }
