@@ -4,4 +4,4 @@
 * Test uniqueness validations cross organization
 * Address brief not found page bug on Organization
 * Handle access code validation on UI
-* Handle access code errors on UI
+* Add SetUser modal button to users page for managers

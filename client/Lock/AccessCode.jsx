@@ -11,6 +11,7 @@ import { apiError } from '../utilities/apiError';
 
 function AccessCode(props){
     const { loading, setLoading, changePage } = props;
+    const [message, setMessage] = useState(null);
     const [email, setEmail] = useState('');
     const [accessCode, setAccessCode] = useState('');
     const setFunctions = {setAccessCode, setEmail};
@@ -18,6 +19,7 @@ function AccessCode(props){
     var submit = (event) => {
         event.preventDefault();
         if(loading) return;
+        setMessage(null);
         setLoading(true);
         var isValid = false, name;
         checkAccessCode(email, accessCode)
@@ -25,11 +27,15 @@ function AccessCode(props){
             isValid = data.active;
             name = data.name;
         })
-        .catch(error => apiError(error))
+        .catch(error => apiError(error, {
+            404: notFound,
+        }))
         .finally(() => {
             setLoading(false);
             if(isValid) changePage('Setup', {name, email, accessCode});
         })
+
+        var notFound = () => setMessage('Access code combination not found');
     }
 
     var handleChange = (event) => {
@@ -41,7 +47,8 @@ function AccessCode(props){
     return (
         <div className="card centered">
             <div className="card-content">
-                <h2 className="is-size-3 has-text-weight-semibold has-text-centered">Verify Access Code</h2>
+                <h2 className="is-size-3 has-text-weight-semibold has-text-centered mb-3">Verify Access Code</h2>
+                <h4 className="is-size-6 has-text-centered has-text-danger mb-2">{message}</h4>
                 <form onSubmit={submit}>
                     <div className="field">
                         <div className="control has-icons-left">
