@@ -41,55 +41,53 @@ function Property(props){
     }
 
     return (
-        <span id="Property">
-            <div className="container is-fluid is-sectioned">
-                <div className="columns">
-                    <div className="column is-4 is-3-desktop">
-                        <div className="box">
-                            <FontAwesomeIcon icon={faHome} size="10x" />
-                        </div>
-                        <nav className={'panel is-' + statusColor(property.status)}>
-                            <p className="panel-heading">
-                                {property.address}
-                            </p>
-                            <a className="panel-block" onClick={changePage} data-page="General">
-                                <span className="panel-icon">
-                                    <FontAwesomeIcon icon={faInfoCircle} />
-                                </span>
-                                General
-                            </a>
-                            <a className="panel-block" onClick={changePage} data-page="Financials">
-                                <span className="panel-icon">
-                                    <FontAwesomeIcon icon={faWallet} />
-                                </span>
-                                Financials
-                            </a>
-                            <a className="panel-block" onClick={changePage} data-page="Dates">
-                                <span className="panel-icon">
-                                    <FontAwesomeIcon icon={faCalendar} />
-                                </span>
-                                Dates
-                            </a>
-                            <a className="panel-block" onClick={changePage} data-page="People">
-                                <span className="panel-icon">
-                                    <FontAwesomeIcon icon={faUserFriends} />
-                                </span>
-                                People
-                            </a>
-                            <a className="panel-block" onClick={changePage} data-page="Photos">
-                                <span className="panel-icon">
-                                    <FontAwesomeIcon icon={faCamera} />
-                                </span>
-                                Photos
-                            </a>
-                        </nav>
+        <div className="container is-fluid is-sectioned">
+            <div className="columns">
+                <div className="column is-4 is-3-desktop">
+                    <div className="box has-text-centered">
+                        <FontAwesomeIcon icon={faHome} size="10x" />
                     </div>
-                    <div className="column is-8 is-9-desktop">
-                        {page}
-                    </div>
+                    <nav className={'panel is-' + statusColor(property.status)}>
+                        <p className="panel-heading">
+                            {property.address}
+                        </p>
+                        <a className="panel-block" onClick={changePage} data-page="General">
+                            <span className="panel-icon">
+                                <FontAwesomeIcon icon={faInfoCircle} />
+                            </span>
+                            General
+                        </a>
+                        <a className="panel-block" onClick={changePage} data-page="Financials">
+                            <span className="panel-icon">
+                                <FontAwesomeIcon icon={faWallet} />
+                            </span>
+                            Financials
+                        </a>
+                        <a className="panel-block" onClick={changePage} data-page="Dates">
+                            <span className="panel-icon">
+                                <FontAwesomeIcon icon={faCalendar} />
+                            </span>
+                            Dates
+                        </a>
+                        <a className="panel-block" onClick={changePage} data-page="People">
+                            <span className="panel-icon">
+                                <FontAwesomeIcon icon={faUserFriends} />
+                            </span>
+                            People
+                        </a>
+                        <a className="panel-block" onClick={changePage} data-page="Photos">
+                            <span className="panel-icon">
+                                <FontAwesomeIcon icon={faCamera} />
+                            </span>
+                            Photos
+                        </a>
+                    </nav>
+                </div>
+                <div className="column is-8 is-9-desktop">
+                    {page}
                 </div>
             </div>
-        </span>
+        </div>
     )
 }
 

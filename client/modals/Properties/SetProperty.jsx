@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Fragment } from 'react';
 import DatePicker from 'react-date-picker';
 
 // Components
@@ -53,7 +53,7 @@ function SetProperty(props){
     }
 
     return (
-        <span id="SetProperty">
+        <Fragment>
             <h4 className="title is-4 has-text-centered">Create Property</h4>
             <form autoComplete="off" onSubmit={submit}>
                 <HorizontalField name="address" type="text" label="Address" handleChange={handleChange} value={address} placeholder="6839 Coronado Ave" attributes={{required: true}} />
@@ -84,7 +84,7 @@ function SetProperty(props){
                     </div>
                 </div>
             </form>
-        </span>
+        </Fragment>
     )
 }
 

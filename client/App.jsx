@@ -97,7 +97,7 @@ function App() {
         </Router>;
 
     return (
-        <span>
+        <Fragment>
             {loggedIn ? application : <Lock />}
             {loggedIn && loading ? 
                 <section className="hero is-primary is-fullheight"></section>
@@ -107,7 +107,7 @@ function App() {
             </div>
             <Modal />
             <Notifications />
-        </span>   
+        </Fragment>
     )
 }
 

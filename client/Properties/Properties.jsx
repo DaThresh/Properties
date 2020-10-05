@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, Fragment } from 'react';
 import { differenceInDays } from 'date-fns';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
@@ -80,12 +80,12 @@ function Properties(props){
     }
 
     return (
-        <span id="Properties">
+        <Fragment>
             <div className="container is-fluid is-sectioned">
                 <button onClick={newProperty} className="button is-primary">New Property</button>
             </div>
             <List tableHeaders={tableHeaders} fetchFunction={getProperties} fetchCountFunction={getPropertiesCount} displayRow={displayRow} />
-        </span>
+        </Fragment>
     )
 }
 

@@ -75,42 +75,40 @@ function SetContact(props){
     }
     
     return (
-        <span id="SetContact">
-            <form autoComplete="off" onSubmit={submit}>
-                <div className="columns">
+        <form autoComplete="off" onSubmit={submit}>
+            <div className="columns">
+                <div className="column">
+                    <h4 className="title is-4 has-text-centered">New Contact</h4>
+                    <HorizontalField name="firstName" type="text" label="First name" handleChange={handleChange} value={firstName} placeholder="Enter first name..." attributes={{required: true}} />
+                    <HorizontalField name="lastName" type="text" label="Last name" handleChange={handleChange} value={lastName} placeholder="Enter last name..." />
+                    <HorizontalField name="email" type="email" label="Email" handleChange={handleChange} value={email} placeholder="joe@doe.com" icon={faEnvelope} />
+                    <HorizontalField name="phoneNumber" type="tel" label="Phone number" handleChange={handleChange} value={phoneNumber} placeholder="2149008000" icon={faPhone} attributes={{maxLength: 10}} />
+                    <HorizontalField name="title" type="text" label="Title" handleChange={handleChange} value={title} placeholder="Manager" icon={faBriefcase} />
+                    <HorizontalField name="business" type="select" label="Business" handleChange={handleChange} value={business} icon={faBuilding}
+                        options={
+                            <Fragment>
+                                {businesses.map(business => <option key={business.id} value={business.name}>{business.name}</option>)}
+                                <option value="add">Add</option>
+                            </Fragment>
+                        }
+                    />
+                </div>
+                {business == 'add' ? (
                     <div className="column">
-                        <h4 className="title is-4 has-text-centered">New Contact</h4>
-                        <HorizontalField name="firstName" type="text" label="First name" handleChange={handleChange} value={firstName} placeholder="Enter first name..." attributes={{required: true}} />
-                        <HorizontalField name="lastName" type="text" label="Last name" handleChange={handleChange} value={lastName} placeholder="Enter last name..." />
-                        <HorizontalField name="email" type="email" label="Email" handleChange={handleChange} value={email} placeholder="joe@doe.com" icon={faEnvelope} />
-                        <HorizontalField name="phoneNumber" type="tel" label="Phone number" handleChange={handleChange} value={phoneNumber} placeholder="2149008000" icon={faPhone} attributes={{maxLength: 10}} />
-                        <HorizontalField name="title" type="text" label="Title" handleChange={handleChange} value={title} placeholder="Manager" icon={faBriefcase} />
-                        <HorizontalField name="business" type="select" label="Business" handleChange={handleChange} value={business} icon={faBuilding}
-                            options={
-                                <Fragment>
-                                    {businesses.map(business => <option key={business.id} value={business.name}>{business.name}</option>)}
-                                    <option value="add">Add</option>
-                                </Fragment>
-                            }
+                        <h4 className="title is-4 has-text-centered">New Business</h4>
+                        <HorizontalField name="name" type="text" label="Name" handleChange={handleChange} value={name} placeholder="Incorporated LLC" attributes={{required: true}} />
+                        <HorizontalField name="businessType" type="select" label="Business type" handleChange={handleChange} value={businessType} icon={faTag}
+                            options={businessTypes.map(businessType => <option key={businessType.id} value={businessType.name}>{businessType.name}</option>)}
                         />
                     </div>
-                    {business == 'add' ? (
-                        <div className="column">
-                            <h4 className="title is-4 has-text-centered">New Business</h4>
-                            <HorizontalField name="name" type="text" label="Name" handleChange={handleChange} value={name} placeholder="Incorporated LLC" attributes={{required: true}} />
-                            <HorizontalField name="businessType" type="select" label="Business type" handleChange={handleChange} value={businessType} icon={faTag}
-                                options={businessTypes.map(businessType => <option key={businessType.id} value={businessType.name}>{businessType.name}</option>)}
-                            />
-                        </div>
-                    ) : null}
+                ) : null}
+            </div>
+            <div className="field">
+                <div className="control has-text-centered">
+                    <button className={'button is-primary' + (submitting ? ' is-loading' : '')} type="submit">Submit</button>
                 </div>
-                <div className="field">
-                    <div className="control has-text-centered">
-                        <button className={'button is-primary' + (submitting ? ' is-loading' : '')} type="submit">Submit</button>
-                    </div>
-                </div>
-            </form>
-        </span>
+            </div>
+        </form>
     )
 }
 

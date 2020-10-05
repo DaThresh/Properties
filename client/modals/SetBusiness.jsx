@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Fragment } from 'react';
 import { faTag } from '@fortawesome/free-solid-svg-icons';
 
 // Components
@@ -46,7 +46,7 @@ function SetBusiness(props){
     }
 
     return (
-        <span id="SetContact">
+        <Fragment>
             <h4 className="title is-4 has-text-centered">Edit Business</h4>
             <form autoComplete="off" onSubmit={submit}>
                 <HorizontalField name="name" type="text" label="Name" handleChange={handleChange} value={name} placeholder="Incorporated LLC" attributes={{required: true}} />
@@ -59,7 +59,7 @@ function SetBusiness(props){
                     </div>
                 </div>
             </form>
-        </span>
+        </Fragment>
     )
 }
 

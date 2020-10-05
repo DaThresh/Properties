@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Fragment } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserPlus, faSyncAlt } from '@fortawesome/free-solid-svg-icons';
 
@@ -69,7 +69,7 @@ function Contacts(){
     }
 
     return(
-        <span id="Contacts">
+        <Fragment>
             <div className="container is-fluid is-sectioned">
                 <div className="level">
                     <div className="level-left">
@@ -86,7 +86,7 @@ function Contacts(){
                 </div>
             </div>
             <List tableHeaders={tableHeaders} fetchFunction={getContacts} fetchCountFunction={getContactsCount} displayRow={displayRow} />
-        </span>
+        </Fragment>
     )
 }
 
