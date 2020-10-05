@@ -12,6 +12,7 @@ import './sass/SetProperty.scss';
 import './sass/tables.scss';
 import './sass/tooltips.scss';
 import './sass/containers.scss';
+import './sass/Photos.scss';
 
 import App from './App';
 

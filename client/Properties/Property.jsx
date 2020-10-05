@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCalendar, faHome, faInfoCircle, faUserFriends, faWallet } from '@fortawesome/free-solid-svg-icons';
+import { faCalendar, faCamera, faHome, faInfoCircle, faUserFriends, faWallet } from '@fortawesome/free-solid-svg-icons';
 
 // Components
 import General from './Pages/General';
 import Financials from './Pages/Financials';
 import Dates from './Pages/Dates';
 import People from './Pages/People';
-const components = {General, Financials, Dates, People};
+import Photos from './Pages/Photos';
+const components = {General, Financials, Dates, People, Photos};
 
 // Services
 import { getProperty } from '../services/properties';
@@ -75,9 +76,15 @@ function Property(props){
                                 </span>
                                 People
                             </a>
+                            <a className="panel-block" onClick={changePage} data-page="Photos">
+                                <span className="panel-icon">
+                                    <FontAwesomeIcon icon={faCamera} />
+                                </span>
+                                Photos
+                            </a>
                         </nav>
                     </div>
-                    <div className="column">
+                    <div className="column is-8 is-9-desktop">
                         {page}
                     </div>
                 </div>
