@@ -20,7 +20,7 @@ const fetch = require(DIR + '/services/fetch');
 const Fetch = {
     fetch: fetch.fetch,
     count: fetch.count,
-    accounts: (req, res, next) => { req.model = Account; req.supportFilters = true; req.select = '-password -__v'; next() },
+    accounts: (req, res, next) => { req.model = Account; req.supportFilters = true; req.select = '-password -__v -accessCode'; next() },
 }
 
 module.exports = (app) => {
