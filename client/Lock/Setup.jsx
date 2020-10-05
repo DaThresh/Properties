@@ -12,6 +12,7 @@ import { apiError } from '../utilities/apiError';
 function Setup(props){
     const { loading, setLoading, changePage } = props;
     const { name, email, accessCode } = props;
+    const [message, setMessage] = useState(null);
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const setFunctions = {setPassword, setConfirmPassword};
@@ -19,6 +20,7 @@ function Setup(props){
     var submit = (event) => {
         event.preventDefault();
         if(loading) return;
+        if(!passValidation()) return setMessage('Passwords must match and be longer than 8 characters');
         setLoading(true);
         var success = false;
         useAccessCode(email, accessCode, password, confirmPassword)
@@ -28,6 +30,12 @@ function Setup(props){
             setLoading(false);
             if(success) changePage("Login");
         })
+    }
+
+    var passValidation = () => {
+        if(password !== confirmPassword) return false;
+        if(password.length < 8) return false;
+        return true;
     }
 
     var handleChange = (event) => {
@@ -41,6 +49,7 @@ function Setup(props){
                 <form onSubmit={submit}>
                     <h2 className="is-size-3 has-text-weight-semibold has-text-centered">Welcome, {name}</h2>
                     <h3 className="is-size-5 has-text-centered mb-2">Create your password</h3>
+                    <h4 className="is-size-6 has-text-centered has-text-danger">{message}</h4>
                     <div className="field">
                         <div className="control has-icons-left">
                             <input type="password" className="input" name="password" value={password} onChange={handleChange} placeholder="Password..." required />
