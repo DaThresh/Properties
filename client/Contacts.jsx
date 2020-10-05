@@ -79,8 +79,8 @@ function Contacts(){
                         </div>
                     </div>
                     <div className="level-right">
-                        <div className="level-item" onClick={() => fetch(true)}>
-                            <FontAwesomeIcon icon={faSyncAlt} spin={fetching} />
+                        <div className="level-item">
+                            <FontAwesomeIcon icon={faSyncAlt} spin={fetching} onClick={() => fetch(true)} />
                         </div>
                     </div>
                 </div>

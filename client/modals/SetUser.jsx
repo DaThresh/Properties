@@ -45,6 +45,7 @@ function SetUser(props){
 
     return (
         <form onSubmit={submit}>
+            <h2 className="title is-3 has-text-centered">New User Details</h2>
             <HorizontalField name="firstName" type="text" label="First name" handleChange={handleChange} value={firstName} placeholder="Enter first name..." attributes={{required: true}} />
             <HorizontalField name="lastName" type="text" label="Last name" handleChange={handleChange} value={lastName} placeholder="Enter last name..." attributes={{required: true}} />
             <HorizontalField name="email" type="email" label="Email" handleChange={handleChange} value={email} placeholder="Enter email..." attributes={{required: true}} />

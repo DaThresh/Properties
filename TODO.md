@@ -2,4 +2,3 @@
 * Pull out default page size
 * Address brief not found page bug on Organization
 * Handle access code validation on UI
-* Add SetUser modal button to users page for managers
