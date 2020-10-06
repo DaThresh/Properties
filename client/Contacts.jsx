@@ -1,6 +1,6 @@
 import React, { useState, useEffect, Fragment } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUserPlus, faSyncAlt } from '@fortawesome/free-solid-svg-icons';
+import { faSyncAlt } from '@fortawesome/free-solid-svg-icons';
 
 // Components
 import List from './shared/List';
@@ -73,9 +73,8 @@ function Contacts(){
             <div className="container is-fluid is-sectioned">
                 <div className="level">
                     <div className="level-left">
-                        <div className="level-item" data-new={true} onClick={openContactModal}>
-                            <FontAwesomeIcon icon={faUserPlus} />
-                            <p>Add Contact</p>
+                        <div className="level-item">
+                            <button className="button is-primary is-small" onClick={openContactModal} data-new={true}>Create Contact</button>
                         </div>
                     </div>
                     <div className="level-right">

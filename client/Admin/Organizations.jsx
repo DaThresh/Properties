@@ -1,4 +1,6 @@
 import React, { Fragment } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSyncAlt } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 
 // Components
@@ -51,7 +53,18 @@ function Organizations(props){
     return (
         <Fragment>
             <div className="container is-fluid is-sectioned">
-                <button className="button is-primary" onClick={createModal}>Create Organization</button>
+                <div className="level">
+                    <div className="level-left">
+                        <div className="level-item">
+                            <button className="button is-primary is-small" onClick={createModal}>Create Organization</button>
+                        </div>
+                    </div>
+                    <div className="level-right">
+                        <div className="level-item">
+                            <FontAwesomeIcon icon={faSyncAlt} onClick={fetch} />
+                        </div>
+                    </div>
+                </div>
             </div>
             <List tableHeaders={tableHeaders} fetchFunction={getOrganizations} fetchCountFunction={getOrganizationsCount} displayRow={displayRow} />
         </Fragment>

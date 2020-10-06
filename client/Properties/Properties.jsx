@@ -1,7 +1,7 @@
 import React, { useState, Fragment } from 'react';
 import { differenceInDays } from 'date-fns';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
+import { faChevronRight, faSyncAlt } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 
 // Components
@@ -82,7 +82,18 @@ function Properties(props){
     return (
         <Fragment>
             <div className="container is-fluid is-sectioned">
-                <button onClick={newProperty} className="button is-primary">New Property</button>
+                <div className="level">
+                    <div className="level-left">
+                        <div className="level-item">
+                            <button onClick={newProperty} className="button is-primary is-small">New Property</button>
+                        </div>
+                    </div>
+                    <div className="level-right">
+                        <div className="level-item">
+                            <FontAwesomeIcon icon={faSyncAlt} onClick={fetch} />
+                        </div>
+                    </div>
+                </div>
             </div>
             <List tableHeaders={tableHeaders} fetchFunction={getProperties} fetchCountFunction={getPropertiesCount} displayRow={displayRow} />
         </Fragment>
