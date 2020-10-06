@@ -27,7 +27,7 @@ var accountSchema = Schema({
     accessCode: String,
     role: Number,
     settings: Schema({
-        pageSize: {type: Number, min: 1, max: 50},
+        pageSize: {type: Number, min: 5, max: 50},
     }, { _id: false }),
 }, { timestamps: true, toJSON: { virtuals: true } });
 
