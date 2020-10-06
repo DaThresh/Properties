@@ -26,6 +26,9 @@ var accountSchema = Schema({
     lastLogin: Date,
     accessCode: String,
     role: Number,
+    settings: Schema({
+        pageSize: {type: Number, min: 1, max: 50},
+    }, { _id: false }),
 }, { timestamps: true, toJSON: { virtuals: true } });
 
 // Apply default query
@@ -37,6 +40,14 @@ accountSchema.pre('update', function(next){ defaultUpdate(this, next) });
 accountSchema.pre('updateOne', function(next){ defaultUpdate(this, next) });
 accountSchema.pre('fineOneAndUpdate', function(next){ defaultUpdate(this, next) });
 
+accountSchema.pre('save', function(next){
+    if(!this.settings) return next();
+    for(var key in this.settings){
+        if(this.settings[key] === null) this.settings[key] = undefined;
+    }
+    next();
+});
+
 accountSchema.virtual('fullName').get(function(){
     return this.lastName ? this.firstName + ' ' + this.lastName : this.firstName;
 });
@@ -46,6 +57,12 @@ accountSchema.statics.generateAccessCode = function(){
     let result = '';
     for(var x = 0; x < 10; x++) result += characters.charAt(Math.floor(Math.random() * characters.length));
     return result;
+}
+
+accountSchema.statics.defaultSettings = function(){
+    return {
+        pageSize: 10,
+    }
 }
 
 function isEmailUnique(param){

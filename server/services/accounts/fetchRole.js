@@ -1,3 +1,4 @@
+const Account = require(DIR + '/models/organizations/account');
 const success = require('../success');
 
 module.exports = (req, res) => {
@@ -8,6 +9,7 @@ module.exports = (req, res) => {
         organizationName: account.organization.name,
         userName: account.fullName,
         managerRole: global.managerRole,
+        settings: {...Account.defaultSettings(), ...(account.settings ? account.settings.toJSON() : {})},
     }))
     .catch(error => Errors.response(res, error));
 }
