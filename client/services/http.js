@@ -58,6 +58,7 @@ const putOrganizationActive = (id, active) => axios.put(hostName + '/api/organiz
 const postLogin = (email, password, remember) => axios.post(hostName + '/api/accounts/login', {email, password, remember});
 const postAccessCode = (email, accessCode) => axios.post(hostName + '/api/accounts/accessCode', {email, accessCode});
 const putAccessCode = (email, accessCode, password, confirmPassword) => axios.put(hostName + '/api/accounts/accessCode', {email, accessCode, password, confirmPassword});
+const putSettings = (settings, values) => axios.put(hostName + '/api/accounts/settings', {settings, values}, addAuth());
 const getRole = () => axios.get(hostName + '/api/accounts/role', addAuth());
 const getBusinessTypes = () => axios.get(hostName + '/api/contacts/businessTypes', addAuth());
 const getPropertyStatuses = () => axios.get(hostName + '/api/properties/statuses', addAuth());
@@ -94,6 +95,7 @@ export {
     postLogin,
     postAccessCode,
     putAccessCode,
+    putSettings,
     getRole,
     getBusinessTypes,
     getPropertyStatuses,

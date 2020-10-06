@@ -9,10 +9,11 @@ import './sass/Navbar.scss';
 import './sass/Modal.scss';
 import './sass/Lock.scss';
 import './sass/SetProperty.scss';
+import './sass/Photos.scss';
 import './sass/tables.scss';
 import './sass/tooltips.scss';
 import './sass/containers.scss';
-import './sass/Photos.scss';
+import './sass/inputs.scss';
 
 import App from './App';
 

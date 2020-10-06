@@ -30,7 +30,14 @@ function getReferenceData(key){
     return referenceData[key];
 }
 
+function updateReferenceData(settings, values){
+    settings.forEach((key, index) => {
+        if(referenceData.settings[key]) referenceData.settings[key] = values[index];
+    })
+}
+
 export {
     fetchReferenceData,
     getReferenceData,
+    updateReferenceData,
 }
