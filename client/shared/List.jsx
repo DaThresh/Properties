@@ -11,19 +11,21 @@ import Pagination from './Pagination';
 import { pushNotification } from '../services/notifications';
 import { subscribe as modalSubscribe, unsubscribe as modalUnsubscribe } from '../services/modal';
 import { fetchingUpdate, subscribe as listSubscribe, unsubscribe as listUnsubscribe } from '../services/list';
+import { getReferenceData } from '../services/reference';
 
 // Utilities
 import { apiError } from '../utilities/apiError';
 
 function List(props){
     const { tableHeaders, fetchFunction, fetchCountFunction, displayRow } = props;
+    const pageSize = getReferenceData('settings').pageSize;
     const [sorts, setSorts] = useState({});
     const [fetching, setFetching] = useState(false);
     const [items, setItems] = useState([]);
     const [page, setPage] = useState(1);
-    const [count, setCount] = useState(10);
+    const [count, setCount] = useState(pageSize);
     const firstRender = useRef(true);
-    let pageCount = Math.ceil(count / 10);
+    let pageCount = Math.ceil(count / pageSize);
 
     useEffect(() => {
         fetch(firstRender.current);
@@ -55,7 +57,7 @@ function List(props){
         if(fetching) return;
         setFetching(true);
         var newItems, newCount;
-        fetchFunction(10 * (page - 1), 10, {}, sorts)
+        fetchFunction(pageSize * (page - 1), pageSize, {}, sorts)
         .then(data => {
             newItems = data;
             return fetchCount ? fetchCountFunction() : count;
