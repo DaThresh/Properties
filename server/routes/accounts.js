@@ -1,7 +1,7 @@
 const Account = require(DIR + '/models/organizations/account');
 
 const AccountServices = {
-    fetchRole: require(DIR + '/services/accounts/fetchRole'),
+    fetchAccount: require(DIR + '/services/accounts/fetchAccount'),
     create: require(DIR + '/services/accounts/create'),
     login: require(DIR + '/services/accounts/login'),
     checkAccessCode: require(DIR + '/services/accounts/checkAccessCode'),
@@ -26,7 +26,7 @@ const Fetch = {
 
 module.exports = (app) => {
     // Get routes
-    app.get('/api/accounts/role', Middleware.verifyAccount, AccountServices.fetchRole);
+    app.get('/api/accounts/reference', Middleware.verifyAccount, AccountServices.fetchAccount);
     app.get('/api/accounts/count', Middleware.verifyAccount, Middleware.verifyManager, Fetch.accounts, Fetch.count);
     app.get('/api/accounts', Middleware.verifyAccount, Middleware.verifyManager, Fetch.accounts, Fetch.fetch);
 
