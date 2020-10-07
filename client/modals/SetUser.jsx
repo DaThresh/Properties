@@ -2,9 +2,10 @@ import React, { useState, useEffect } from 'react';
 
 // Components
 import HorizontalField from '../shared/Forms/HorizontalField';
+import Display from './Display';
 
 // Services
-import { adjustSize, closeModal } from '../services/modal';
+import { adjustSize, closeModal, openModal } from '../services/modal';
 import { createUser } from '../services/users';
 import { pushNotification } from '../services/notifications';
 
@@ -28,13 +29,16 @@ function SetUser(props){
         event.preventDefault();
         if(loading) return;
         setLoading(true);
-        var success = false;
+        var accessCode = null;
         createUser(firstName, lastName, email, organization)
-        .then(() => success = true)
+        .then(data => accessCode = data)
         .catch(error => apiError(error))
         .finally(() => {
-            if(!success) pushNotification('Error', 'Failed to create user', 'danger');
-            closeModal(success);
+            if(!accessCode){
+                pushNotification('Error', 'Failed to create user', 'danger');
+                closeModal(false);
+            } else if(ENVIRONMENT === 'development') openModal(<Display data={firstName + ' ' + lastName + ' created with access code: ' + accessCode} />)
+            else closeModal(true);
         })
     }
 

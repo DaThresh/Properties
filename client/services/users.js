@@ -11,7 +11,7 @@ function getUsersCount(filters){
 }
 
 function createUser(firstName, lastName, email, organization){
-    return responseHandler(postUser, 201, 'account', firstName, lastName, email, organization);
+    return responseHandler(postUser, 201, 'accessCode', firstName, lastName, email, organization);
 }
 
 export {
