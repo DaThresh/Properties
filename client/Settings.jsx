@@ -92,6 +92,12 @@ function Settings(){
                         </form>
                     </div>
                 </div>
+                <div className="column is-4">
+                    <div className="box">
+                        <h2 className="title is-4 has-text-centered">Organization Settings</h2>
+                        
+                    </div>
+                </div>
             </div>
         </div>
     )

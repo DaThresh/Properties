@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 import { getReferenceData } from './services/reference';
 
 function Sidebar(){
+    const organizationPicture = getReferenceData('organizationPicture');
     const managerRole = getReferenceData('managerRole');
     const organization = getReferenceData('organizationName');
     const isAdmin = getReferenceData('admin');
@@ -16,7 +17,7 @@ function Sidebar(){
     return (
         <div id="sidebar">
             <div id="sidebar-top">
-                <img id="sidebar-brand-logo" src="https://picsum.photos/200" />
+                <img id="sidebar-brand-logo" src={organizationPicture} />
                 <strong className="sidebar-text">{organization}</strong>
             </div>
             {isAdmin ? 
