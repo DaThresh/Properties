@@ -12,7 +12,8 @@ require(DIR + '/load/mongoose');
 Logger.log('Loaded configuration');
 
 // Webpack middleware
-if(ENVIRONMENT === 'dev'){
+if(ENABLEHMR){
+  Logger.info('Enabling development HMR');
   const webpack = require('webpack');
   const webpackDevMiddleware = require('webpack-dev-middleware');
   const webpackHotMiddleware = require('webpack-hot-middleware');
@@ -26,7 +27,7 @@ if(ENVIRONMENT === 'dev'){
     log: console.log,
     path: '/__webpack_hmr'
   }));
-}
+} else Logger.info('Development HMR disabled');
 
 app.use(express.json());
 app.use(express.static(`${__dirname}/../public/`));

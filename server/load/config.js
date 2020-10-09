@@ -7,6 +7,7 @@ try {
 
     global.PORT = data.port;
     global.ENVIRONMENT = data.environment;
+    global.ENABLEHMR = data.hmr;
 
     global.managerRole = data.managerRole;
 

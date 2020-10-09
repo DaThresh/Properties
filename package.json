@@ -1,6 +1,6 @@
 {
    "name": "properties",
-   "version": "0.2.65",
+   "version": "0.2.66",
    "description": "A web application using MERN for managing properties",
    "private": true,
    "scripts": {
@@ -52,6 +52,7 @@
    },
    "dependencies": {
       "bcrypt": "^5.0.0",
+      "busboy": "^0.3.1",
       "chalk": "^4.1.0",
       "express": "^4.17.1",
       "js-yaml": "^3.14.0",
