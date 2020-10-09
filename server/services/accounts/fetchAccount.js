@@ -7,6 +7,7 @@ module.exports = (req, res) => {
         role: account.role,
         admin: account.organization._id.equals(global.adminOrganization),
         organizationName: account.organization.name,
+        organizationPicture: account.organization.images.profilePicture || 'https://via.placeholder.com/150',
         userName: account.fullName,
         managerRole: global.managerRole,
         settings: {...Account.defaultSettings(), ...(account.settings ? account.settings.toJSON() : {})},

@@ -17,8 +17,11 @@ var organizationSchema = Schema({
         type: Number,
         default: 1,
         required: true,
+    },
+    images: {
+        profilePicture: String,
     }
-}, { timestamps: true, toJSON: { virtuals: true } });
+}, { timestamps: true, toJSON: { virtuals: true }, minimize: false });
 
 // Apply default query
 organizationSchema.pre('find', function(next){ defaultQuery(this, next) });
