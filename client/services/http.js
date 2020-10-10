@@ -4,10 +4,14 @@ import { getToken } from './account';
 
 const hostName = 'http://' + window.location.host;
 
-function addAuth(){
-    return {headers: {
-        Authorization: getToken(),
-    }}
+function addAuth(fileUpload = false){
+    let options = {
+        headers: {
+            Authorization: getToken(),
+        }
+    };
+    if(fileUpload) options.headers['Content-Type'] = 'multipart/form-data';
+    return options;
 }
 
 // Properties
@@ -52,6 +56,7 @@ const getOrganizations = (offset, count, filters, sorts) => axios.get(hostName +
 const getOrganizationsCount = (filters) => axios.get(hostName + '/api/organizations/count', { params: {...filters}, ...addAuth() });
 const getOrganization = (id) => axios.get(hostName + '/api/organizations/' + id, addAuth());
 const postOrganization = (name) => axios.post(hostName + '/api/organizations', {name}, addAuth());
+const postOrganizationPicture = (id, formData) => axios.post(hostName + '/api/organizations/' + id + '/picture', formData, addAuth(true));
 const putOrganizationActive = (id, active) => axios.put(hostName + '/api/organizations/' + id + '/active', {active}, addAuth());
 
 // Account + Reference
@@ -89,6 +94,7 @@ export {
     getOrganizationsCount,
     getOrganization,
     postOrganization,
+    postOrganizationPicture,
     putOrganizationActive,
 
     // Account + Reference exports

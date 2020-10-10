@@ -7,5 +7,4 @@
 * Start implementing notifications
 * Add to README details about file uploads
 * Enable file size limitations on uploads
-* Enable organization profile picture uploads in UI
 * Convert sub schema in accounts settings to nested path without minimization

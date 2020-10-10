@@ -17,7 +17,7 @@ function Sidebar(){
     return (
         <div id="sidebar">
             <div id="sidebar-top">
-                <img id="sidebar-brand-logo" src={organizationPicture} />
+                <img id="sidebar-brand-logo" className="organization-logo" src={organizationPicture} />
                 <strong className="sidebar-text">{organization}</strong>
             </div>
             {isAdmin ? 
