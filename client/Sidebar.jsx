@@ -7,9 +7,9 @@ import { Link } from 'react-router-dom';
 import { getReferenceData } from './services/reference';
 
 function Sidebar(){
-    const organizationPicture = getReferenceData('organizationPicture');
+    const organizationPicture = getReferenceData('organization').images.profilePicture ?? 'https://via.placeholder.com/150';
     const managerRole = getReferenceData('managerRole');
-    const organization = getReferenceData('organizationName');
+    const organization = getReferenceData('organization').name;
     const isAdmin = getReferenceData('admin');
     const role = getReferenceData('role');
     const showUsers = role >= managerRole;

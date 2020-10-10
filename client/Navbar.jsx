@@ -9,7 +9,7 @@ import { getReferenceData } from './services/reference';
 import { logout } from './services/account';
 
 function Navbar() {
-    const organization = getReferenceData('organizationName');
+    const organization = getReferenceData('organization').name;
     const userName = getReferenceData('userName');
     const managerRole = getReferenceData('managerRole');
     const role = getReferenceData('role');
