@@ -39,8 +39,12 @@ var propertySchema = Schema({
     publicVisible: {
         type: Boolean,
         default: false,
-    }
-}, { timestamps: true, toJSON: { virtuals: true } });
+    },
+    images: {
+        public: [String],
+        private: [String],
+    },
+}, { timestamps: true, toJSON: { virtuals: true }, minimize: false });
 
 // Apply default query
 propertySchema.pre('find', function(next){ defaultQuery(this, next) });
