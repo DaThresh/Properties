@@ -9,7 +9,7 @@ import { getReferenceData } from './services/reference';
 import { logout } from './services/account';
 
 function Navbar() {
-    const organization = getReferenceData('organization').name;
+    const organization = getReferenceData('organization');
     const userName = getReferenceData('userName');
     const managerRole = getReferenceData('managerRole');
     const role = getReferenceData('role');
@@ -37,7 +37,10 @@ function Navbar() {
             <nav className="navbar" role="navigation" aria-label="main navigation">
                 <div className="navbar-brand">
                     <div className="navbar-item is-hidden-tablet">
-                        {organization}
+                        <img className="organization-logo" src={organization?.images?.profilePicture} />
+                    </div>
+                    <div className="navbar-item is-hidden-tablet pl-0">
+                        {organization?.name}
                     </div>
                     <a role="button" className="navbar-burger burger" aria-label="menu" aria-expanded="false" onClick={toggleNav}>
                         <span aria-hidden="true"></span>
