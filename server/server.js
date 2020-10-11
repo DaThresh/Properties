@@ -7,6 +7,7 @@ global.Logger = require(DIR + '/utilities/Logger');
 global.Format = require(DIR + '/utilities/Format');
 Logger.log('Loaded universal utilities');
 
+global.CONSTANTS = require(DIR + '/load/constants');
 require(DIR + '/load/config');
 require(DIR + '/load/mongoose');
 Logger.log('Loaded configuration');

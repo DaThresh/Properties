@@ -13,7 +13,7 @@ module.exports = (req, res) => {
     var busboy = new Busboy({ headers: req.headers, limits: { files: 1 } });
     busboy.on('file', (fieldName, file, _, __, mimeType) => {
         if(fieldName !== 'profilePicture') return file.resume();
-        if(!['image/png', 'image/jpg', 'image/jpeg'].includes(mimeType)) return file.resume();
+        if(!CONSTANTS.mimeTypes.images.includes(mimeType)) return file.resume();
         isValid = true;
         devDirectory.forEach((_, index) => {
             var arr = [];
