@@ -2,6 +2,7 @@ import { getProperties as fetch,
         getProperty as fetchId,
         getPropertiesCount as fetchCount,
         postProperty,
+        postPropertyPictures,
         putPropertyStatus
     } from './http';
 
@@ -23,6 +24,12 @@ function createProperty(address, zipcode, lotWidth, lotDepth, purchaseDate){
     return responseHandler(postProperty, 201, 'property', address, zipcode, lotWidth, lotDepth, purchaseDate);
 }
 
+function uploadPictures(id, type, files){
+    var formData = new FormData();
+    files.forEach(file => formData.append(type, file));
+    return responseHandler(postPropertyPictures, 200, null, id, formData);
+}
+
 function updatePropertyStatus(propertyId, status){
     return responseHandler(putPropertyStatus, 200, null, propertyId, status);
 }
@@ -32,5 +39,6 @@ export {
     getProperty,
     getPropertiesCount,
     createProperty,
+    uploadPictures,
     updatePropertyStatus,
 }

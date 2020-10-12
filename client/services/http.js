@@ -19,6 +19,7 @@ const getProperties = (offset, count, filters, sorts) => axios.get(hostName + '/
 const getProperty = (id) => axios.get(hostName + '/api/properties/' + id, addAuth());
 const getPropertiesCount = (filters) => axios.get(hostName + '/api/properties/count', { params: {...filters}, ...addAuth() });
 const putPropertyStatus = (id, status) => axios.put(hostName + '/api/properties/' + id + '/status', {status}, addAuth());
+const postPropertyPictures = (id, formData) => axios.post(hostName + '/api/properties/' + id + '/uploadPictures', formData, addAuth(true));
 function postProperty(address, zipcode, lotWidth, lotDepth, purchaseDate){
     return axios.post(hostName + '/api/properties',
         {address, zipcode, lotWidth, lotDepth, purchaseDate},
@@ -74,6 +75,7 @@ export {
     getProperty,
     getPropertiesCount,
     postProperty,
+    postPropertyPictures,
     putPropertyStatus,
 
     // Contact exports

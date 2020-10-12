@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCalendar, faCamera, faHome, faInfoCircle, faUserFriends, faWallet } from '@fortawesome/free-solid-svg-icons';
@@ -23,12 +23,23 @@ function Property(props){
     const { propertyId } = useParams();
     const [property, setProperty] = useState({});
     const [page, setPage] = useState(null);
+    const pageName = useRef('');
 
     useEffect(() => {
+        fetch();
+    }, []);
+
+    useEffect(() => {
+        if(pageName.current === '') return;
+        let Component = components[pageName.current];
+        setPage(<Component property={property} fetch={fetch} />);
+    }, [property]);
+
+    var fetch = () => {
         getProperty(propertyId)
         .then(property => setProperty(property))
         .catch(error => apiError(error));
-    }, []);
+    }
 
     var statusColor = (status) => {
         let statusObj = statuses.find(obj => obj.value === status);
@@ -36,8 +47,9 @@ function Property(props){
     }
 
     var changePage = (event) => {
+        pageName.current = event.currentTarget.dataset.page;
         let Component = components[event.currentTarget.dataset.page];
-        setPage(<Component property={property} />);
+        setPage(<Component property={property} fetch={fetch} />);
     }
 
     return (
