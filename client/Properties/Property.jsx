@@ -41,6 +41,8 @@ function Property(props){
         .catch(error => apiError(error));
     }
 
+    var hasPhoto = () => Boolean(property?.images?.public?.length > 0 || property?.images?.private?.length > 0);
+
     var statusColor = (status) => {
         let statusObj = statuses.find(obj => obj.value === status);
         return statusObj?.color ?? '';
@@ -56,8 +58,10 @@ function Property(props){
         <div className="container is-fluid is-sectioned">
             <div className="columns">
                 <div className="column is-4 is-3-desktop">
-                    <div className="box has-text-centered">
-                        <FontAwesomeIcon icon={faHome} size="10x" />
+                    <div className={'box has-text-centered is-clipped' + (hasPhoto() ? ' px-0 py-0' : '')} style={{lineHeight: '0'}}>
+                        {hasPhoto() ?
+                            <img src={property.images.public[0] || property.images.private[0]} />
+                        : <FontAwesomeIcon icon={faHome} size="10x" />}
                     </div>
                     <nav className={'panel is-' + statusColor(property.status)}>
                         <p className="panel-heading">
