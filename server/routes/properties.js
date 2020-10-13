@@ -5,6 +5,7 @@ const PropertyServices = {
     create: require(DIR + '/services/properties/create'),
     uploadPictures: require(DIR + '/services/properties/uploadPictures'),
     updateStatus: require(DIR + '/services/properties/updateStatus'),
+    reorderPictures: require(DIR + '/services/properties/reorderPictures'),
     delete: require(DIR + '/services/properties/delete'),
 }
 
@@ -34,6 +35,7 @@ module.exports = (app) => {
 
     // Put routes
     app.put('/api/properties/:propertyId/status', Middleware.verifyAccount, PropertyServices.updateStatus);
+    app.put('/api/properties/:propertyId/pictures', Middleware.verifyAccount, PropertyServices.reorderPictures);
 
     // Delete routes
     app.delete('/api/properties/:propertyId', Middleware.verifyAccount, PropertyServices.delete);
