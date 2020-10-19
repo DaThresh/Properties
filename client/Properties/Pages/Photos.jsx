@@ -43,7 +43,7 @@ function Photos(props){
     var orderModal = (event) => {
         event.preventDefault();
         let imageType = event.currentTarget.dataset.modal;
-        openModal(<SetPhotoOrder propertyId={property.id} setProperty={setProperty} type={imageType} srcs={property.images[imageType]} />);
+        openModal(<SetPhotoOrder property={property} setProperty={setProperty} type={imageType} srcs={property.images[imageType]} />);
     }
 
     return (

@@ -9,7 +9,7 @@ import { pushNotification } from '../../services/notifications';
 import { apiError } from '../../utilities/apiError';
 
 function SetPhotoOrder(props){
-    const { propertyId, setProperty, srcs, type } = props;
+    const { property, setProperty, srcs, type } = props;
     const [loading, setLoading] = useState(false);
     const srcsRef = useRef([...srcs]);
     const dragging = useRef(null);
@@ -22,7 +22,7 @@ function SetPhotoOrder(props){
         if(loading) return;
         setLoading(true);
         var data = null;
-        reorderPictures(propertyId, type, srcsRef.current)
+        reorderPictures(property.id, type, srcsRef.current)
         .then(property => data = property)
         .catch(error => apiError(error))
         .finally(() => {

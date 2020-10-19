@@ -10,4 +10,3 @@
 * Convert sub schema in accounts settings to nested path without minimization
 * Fix overlapping names with many image upload
 * Organization logo centered on desktop
-* Have change photo order get propertyId from URL params
