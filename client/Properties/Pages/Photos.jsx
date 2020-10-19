@@ -2,9 +2,13 @@ import React, { useState, useRef } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUpload } from '@fortawesome/free-solid-svg-icons';
 
+// Components
+import SetPhotoOrder from '../../modals/Properties/SetPhotoOrder';
+
 // Services
 import { uploadPictures } from '../../services/properties';
 import { pushNotification } from '../../services/notifications';
+import { openModal } from '../../services/modal';
 
 // Utilities
 import { apiError } from '../../utilities/apiError';
@@ -37,6 +41,12 @@ function Photos(props){
         })
     }
 
+    var orderModal = (event) => {
+        event.preventDefault();
+        let imageType = event.currentTarget.dataset.modal;
+        openModal(<SetPhotoOrder type={imageType} srcs={property.images[imageType]} />);
+    }
+
     return (
         <div className="box">
             <div className="container is-fluid is-sectioned">
@@ -48,7 +58,7 @@ function Photos(props){
                     </div>
                     <div className="level-right">
                         <div className="level-item">
-                            <button className="button is-primary is-small">Change order</button>
+                            <button className="button is-primary is-small" onClick={orderModal} data-modal="public">Change order</button>
                         </div>
                     </div>
                 </div>
@@ -66,7 +76,7 @@ function Photos(props){
                     </div>
                     <div className="level-right">
                         <div className="level-item">
-                            <button className="button is-primary is-small">Change order</button>
+                            <button className="button is-primary is-small" onClick={orderModal} data-modal="private">Change order</button>
                         </div>
                     </div>
                 </div>

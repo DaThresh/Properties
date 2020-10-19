@@ -24,3 +24,15 @@
         border-radius: $radius;
     }
 }
+
+.draggable-container{
+    .draggable{
+        display: inline-block;
+        padding: 5px;
+        max-height: 175px;
+        cursor: move;
+    }
+    .draggable.dragging{
+        opacity: 0.5;
+    }
+}
