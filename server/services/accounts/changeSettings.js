@@ -5,7 +5,6 @@ module.exports = (req, res) => {
     fields(req.body, ['settings', 'values'])
     .then(() => {
         if(!(req.body.settings instanceof Array) || !(req.body.values instanceof Array)) return Promise.reject({invalid: 'Invalid data types passed'})
-        if(req.account.settings === undefined) req.account.settings = {};
         req.body.settings.forEach((key, index) => {
             req.account.settings[String(key)] = req.body.values[index];
         })

@@ -9,7 +9,7 @@ module.exports = (req, res) => {
         organization: account.organization,
         userName: account.fullName,
         managerRole: global.managerRole,
-        settings: {...Account.defaultSettings(), ...(account.settings ? account.settings.toJSON() : {})},
+        settings: {...Account.defaultSettings(), ...account.settings.toJSON()},
     }))
     .catch(error => Errors.response(res, error));
 }

@@ -26,10 +26,10 @@ var accountSchema = Schema({
     lastLogin: Date,
     accessCode: String,
     role: Number,
-    settings: Schema({
+    settings: {
         pageSize: {type: Number, min: 5, max: 50},
-    }, { _id: false }),
-}, { timestamps: true, toJSON: { virtuals: true } });
+    },
+}, { timestamps: true, toJSON: { virtuals: true }, minimize: false });
 
 // Apply default query
 accountSchema.pre('find', function(next){ defaultQuery(this, next) });
@@ -41,9 +41,8 @@ accountSchema.pre('updateOne', function(next){ defaultUpdate(this, next) });
 accountSchema.pre('fineOneAndUpdate', function(next){ defaultUpdate(this, next) });
 
 accountSchema.pre('save', function(next){
-    if(!this.settings) return next();
     for(var key in this.settings){
-        if(this.settings[key] === null) this.settings[key] = undefined;
+        if(this.settings[key] === null || this.settings[key] === Account.defaultSettings()[key]) this.settings[key] = undefined;
     }
     next();
 });
