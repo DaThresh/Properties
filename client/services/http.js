@@ -20,6 +20,7 @@ const getProperty = (id) => axios.get(hostName + '/api/properties/' + id, addAut
 const getPropertiesCount = (filters) => axios.get(hostName + '/api/properties/count', { params: {...filters}, ...addAuth() });
 const putPropertyStatus = (id, status) => axios.put(hostName + '/api/properties/' + id + '/status', {status}, addAuth());
 const postPropertyPictures = (id, formData) => axios.post(hostName + '/api/properties/' + id + '/uploadPictures', formData, addAuth(true));
+const putPicturesOrder = (id, type, order) => axios.put(hostName + '/api/properties/' + id + '/pictures', {type, order}, addAuth());
 function postProperty(address, zipcode, lotWidth, lotDepth, purchaseDate){
     return axios.post(hostName + '/api/properties',
         {address, zipcode, lotWidth, lotDepth, purchaseDate},
@@ -77,6 +78,7 @@ export {
     postProperty,
     postPropertyPictures,
     putPropertyStatus,
+    putPicturesOrder,
 
     // Contact exports
     getContacts,

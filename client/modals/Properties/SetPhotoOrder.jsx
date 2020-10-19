@@ -1,10 +1,16 @@
-import React, { useEffect, useRef, Fragment } from 'react';
+import React, { useState, useEffect, useRef, Fragment } from 'react';
 
 // Services
-import { adjustSize } from '../../services/modal';
+import { adjustSize, closeModal } from '../../services/modal';
+import { reorderPictures } from '../../services/properties';
+import { pushNotification } from '../../services/notifications';
+
+// Utilities
+import { apiError } from '../../utilities/apiError';
 
 function SetPhotoOrder(props){
-    const { srcs, type } = props;
+    const { propertyId, srcs, type } = props;
+    const [loading, setLoading] = useState(false);
     const srcsRef = useRef([...srcs]);
     const dragging = useRef(null);
 
@@ -13,7 +19,16 @@ function SetPhotoOrder(props){
     }, []);
 
     var submit = (event) => {
-        console.log('Submitting...');
+        if(loading) return;
+        setLoading(true);
+        var success = false;
+        reorderPictures(propertyId, type, srcsRef.current)
+        .then(() => success = true)
+        .catch(error => apiError(error))
+        .finally(() => {
+            if(!success) pushNotification('Error', 'Failed to update picture order', 'danger');
+            closeModal(success);
+        })
     }
 
     var dragStart = (event) => {
@@ -51,7 +66,7 @@ function SetPhotoOrder(props){
             </div>
             <div className="field">
                 <div className="control has-text-centered">
-                    <button className="button is-primary" onClick={submit}>Submit</button>
+                    <button className={'button is-primary' + (loading ? ' is-loading' : '')} onClick={submit}>Submit</button>
                 </div>
             </div>
         </Fragment>

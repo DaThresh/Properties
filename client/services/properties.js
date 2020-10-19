@@ -3,7 +3,8 @@ import { getProperties as fetch,
         getPropertiesCount as fetchCount,
         postProperty,
         postPropertyPictures,
-        putPropertyStatus
+        putPropertyStatus,
+        putPicturesOrder,
     } from './http';
 
 import responseHandler from '../utilities/responseHandler';
@@ -34,6 +35,10 @@ function updatePropertyStatus(propertyId, status){
     return responseHandler(putPropertyStatus, 200, null, propertyId, status);
 }
 
+function reorderPictures(propertyId, type, order){
+    return responseHandler(putPicturesOrder, 200, null, propertyId, type, order);
+}
+
 export {
     getProperties,
     getProperty,
@@ -41,4 +46,5 @@ export {
     createProperty,
     uploadPictures,
     updatePropertyStatus,
+    reorderPictures,
 }
