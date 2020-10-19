@@ -14,7 +14,6 @@ const components = {General, Financials, Dates, People, Photos};
 // Services
 import { getProperty } from '../services/properties';
 import { getReferenceData } from '../services/reference';
-import { subscribe, unsubscribe } from '../services/modal';
 
 // Utilities
 import { apiError } from '../utilities/apiError';
@@ -31,24 +30,15 @@ function Property(props){
     }, []);
 
     useEffect(() => {
-        subscribe(receiveModalEvents);
-        return () => unsubscribe(receiveModalEvents);
-    })
-
-    useEffect(() => {
         if(pageName.current === '') return;
         let Component = components[pageName.current];
-        setPage(<Component property={property} fetch={fetch} />);
+        setPage(<Component property={property} setProperty={setProperty} />);
     }, [property]);
 
     var fetch = () => {
         getProperty(propertyId)
         .then(property => setProperty(property))
         .catch(error => apiError(error));
-    }
-
-    var receiveModalEvents = (data) => {
-        if(data.event === 'close' && data.actionTaken) fetch();
     }
 
     var hasPhoto = () => Boolean(property?.images?.public?.length > 0 || property?.images?.private?.length > 0);
@@ -61,7 +51,7 @@ function Property(props){
     var changePage = (event) => {
         pageName.current = event.currentTarget.dataset.page;
         let Component = components[event.currentTarget.dataset.page];
-        setPage(<Component property={property} fetch={fetch} />);
+        setPage(<Component property={property} setProperty={setProperty} />);
     }
 
     return (

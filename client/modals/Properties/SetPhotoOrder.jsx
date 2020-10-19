@@ -9,7 +9,7 @@ import { pushNotification } from '../../services/notifications';
 import { apiError } from '../../utilities/apiError';
 
 function SetPhotoOrder(props){
-    const { propertyId, srcs, type } = props;
+    const { propertyId, setProperty, srcs, type } = props;
     const [loading, setLoading] = useState(false);
     const srcsRef = useRef([...srcs]);
     const dragging = useRef(null);
@@ -21,13 +21,13 @@ function SetPhotoOrder(props){
     var submit = (event) => {
         if(loading) return;
         setLoading(true);
-        var success = false;
+        var data = null;
         reorderPictures(propertyId, type, srcsRef.current)
-        .then(() => success = true)
+        .then(property => data = property)
         .catch(error => apiError(error))
         .finally(() => {
-            if(!success) pushNotification('Error', 'Failed to update picture order', 'danger');
-            closeModal(success);
+            data ? setProperty(data) : pushNotification('Error', 'Failed to update picture order', 'danger');
+            closeModal(Boolean(data));
         })
     }
 

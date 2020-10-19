@@ -31,7 +31,7 @@ module.exports = (req, res) => {
             property.images.public = [...property.images.public, ...completed.public];
             property.images.private = [...property.images.private, ...completed.private];
             property.save()
-            .then(() => success(res))
+            .then(property => success(res, {property}))
             .catch(error => Errors.response(res, error));
         })
         req.pipe(busboy);

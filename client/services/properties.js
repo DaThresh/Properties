@@ -28,7 +28,7 @@ function createProperty(address, zipcode, lotWidth, lotDepth, purchaseDate){
 function uploadPictures(id, type, files){
     var formData = new FormData();
     files.forEach(file => formData.append(type, file));
-    return responseHandler(postPropertyPictures, 200, null, id, formData);
+    return responseHandler(postPropertyPictures, 200, 'property', id, formData);
 }
 
 function updatePropertyStatus(propertyId, status){
@@ -36,7 +36,7 @@ function updatePropertyStatus(propertyId, status){
 }
 
 function reorderPictures(propertyId, type, order){
-    return responseHandler(putPicturesOrder, 200, null, propertyId, type, order);
+    return responseHandler(putPicturesOrder, 200, 'property', propertyId, type, order);
 }
 
 export {

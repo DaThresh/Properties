@@ -14,7 +14,7 @@ import { openModal } from '../../services/modal';
 import { apiError } from '../../utilities/apiError';
 
 function Photos(props){
-    const { property, fetch } = props;
+    const { property, setProperty } = props;
     const [loading, setLoading] = useState(false);
     const publicInput = useRef(null);
     const privateInput = useRef(null);
@@ -30,13 +30,12 @@ function Photos(props){
         if(loading) return;
         setLoading(true);
         const files = event.currentTarget.files;
-        let type = event.currentTarget.name, success = false;
+        let type = event.currentTarget.name, data = null;
         uploadPictures(property.id, type, files)
-        .then(() => success = true)
+        .then(property => data = property)
         .catch(error => apiError(error))
         .finally(() => {
-            if(!success) pushNotification('Error', 'Failed to upload photos', 'danger');
-            if(success) fetch();
+            data ? setProperty(data) : pushNotification('Error', 'Failed to upload photos', 'danger');
             setLoading(false);
         })
     }
@@ -44,7 +43,7 @@ function Photos(props){
     var orderModal = (event) => {
         event.preventDefault();
         let imageType = event.currentTarget.dataset.modal;
-        openModal(<SetPhotoOrder propertyId={property.id} type={imageType} srcs={property.images[imageType]} />);
+        openModal(<SetPhotoOrder propertyId={property.id} setProperty={setProperty} type={imageType} srcs={property.images[imageType]} />);
     }
 
     return (
