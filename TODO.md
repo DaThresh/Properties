@@ -8,4 +8,3 @@
 * Add to README details about file uploads
 * Enable file size limitations on uploads
 * Fix overlapping names with many image upload
-* Organization logo centered on desktop
