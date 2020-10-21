@@ -29,6 +29,10 @@ try {
         OPTIONS: database.options ? database.options : {},
     }
 
+    global.FILES = {
+        LOCAL: data.files.local,
+    }
+
     let logging = data.logging;
     global.LOGGING = {
         SKIP: logging.skip ? logging.skip : [],

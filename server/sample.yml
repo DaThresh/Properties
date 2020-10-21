@@ -19,5 +19,8 @@ database:
   srv: false
   options:
 
+files:
+  local: true
+
 logging:
   skip:
