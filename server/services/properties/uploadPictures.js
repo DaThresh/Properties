@@ -23,6 +23,7 @@ module.exports = (req, res) => {
             });
             var fileExtension = '.' + (mimeType === 'image/png' ? 'png' : 'jpg');
             var fileName = new Date().getTime();
+            while(fs.existsSync(path.join(DIR + '/../public/' + devDirectory.join('/') + '/' + fileName + fileExtension))) fileName++;
             var fullSaveLocation = path.join(DIR + '/../public/' + devDirectory.join('/') + '/' + fileName + fileExtension);
             completed[fieldName].push('/' + devDirectory.join('/') + '/' + fileName + fileExtension);
             file.pipe(fs.createWriteStream(fullSaveLocation));
