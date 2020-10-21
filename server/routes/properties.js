@@ -7,6 +7,7 @@ const PropertyServices = {
     updateStatus: require(DIR + '/services/properties/updateStatus'),
     reorderPictures: require(DIR + '/services/properties/reorderPictures'),
     delete: require(DIR + '/services/properties/delete'),
+    deletePictures: require(DIR + '/services/properties/deletePictures'),
 }
 
 const Middleware = {
@@ -39,4 +40,5 @@ module.exports = (app) => {
 
     // Delete routes
     app.delete('/api/properties/:propertyId', Middleware.verifyAccount, PropertyServices.delete);
+    app.delete('/api/properties/:propertyId/pictures', Middleware.verifyAccount, PropertyServices.deletePictures);
 }
