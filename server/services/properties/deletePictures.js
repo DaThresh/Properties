@@ -1,18 +1,16 @@
 const Property = require(DIR + '/models/properties/property');
 const path = require('path');
 const fs = require('fs');
-const fields = require(DIR + '/validations/fields');
 const success = require('../success');
 
 module.exports = (req, res) => {
-    fields(req.body, ['urls', 'type'])
-    .then(() => Property.findById(req.params.propertyId))
+    Property.findById(req.params.propertyId)
     .then(property => {
-        var type = String(req.body.type), urls = Array(req.body.urls);
+        var type = String(req.body.type || req.query.type), urls = req.body.urls || req.query.urls;
         if(!property) return Promise.reject({notFound: true})
         if(!property.organization.equals(req.account.organization) && !req.account.organization.equals(global.adminOrganizaiton)) return Promise.reject({notFound: true});
         if(!['public','private'].includes(type)) return Promise.reject({invalid: 'Invalid type passed'});
-        if(!req.body.urls.every(url => property.images[type].includes(url))) return Promise.reject({invalid: 'Cannot delete not present URLs'});
+        if(!urls.every(url => property.images[type].includes(url))) return Promise.reject({invalid: 'Cannot delete not present URLs'});
         if(FILES.LOCAL){
             const pre = DIR + '/../public';
             urls.forEach(url => {
