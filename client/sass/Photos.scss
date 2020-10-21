@@ -8,12 +8,28 @@
     white-space: nowrap;
     line-height: 0;
 
-    img{
+    .img-container{
+        overflow: visible;
         display: inline-block;
         margin-right: 5px;
-        border-radius: $radius;
         max-height: 175px;
+        position: relative;
+
+        img{
+            max-height: 175px;
+            border-radius: $radius;
+        }
+
+        .delete{
+            background-color: $red;
+            position: absolute;
+            display: none;
+            z-index: 1;
+            right: 0;
+            top: 0;
+        }
     }
+    .img-container:hover .delete{display: inline-block}
 
     .upload{
         display: inline-block;
