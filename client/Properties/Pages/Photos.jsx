@@ -1,12 +1,12 @@
 import React, { useState, useRef, Fragment } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUpload } from '@fortawesome/free-solid-svg-icons';
+import { faArrowAltCircleDown, faArrowAltCircleUp, faUpload } from '@fortawesome/free-solid-svg-icons';
 
 // Components
 import SetPhotoOrder from '../../modals/Properties/SetPhotoOrder';
 
 // Services
-import { uploadPictures, removePictures } from '../../services/properties';
+import { uploadPictures, removePictures, movePicture } from '../../services/properties';
 import { pushNotification } from '../../services/notifications';
 import { openModal } from '../../services/modal';
 
@@ -17,6 +17,7 @@ function Photos(props){
     const { property, setProperty } = props;
     const [loading, setLoading] = useState(false);
     const [deleting, setDeleting] = useState(false);
+    const [moving, setMoving] = useState(false);
     const publicInput = useRef(null);
     const privateInput = useRef(null);
     const inputs = {publicInput, privateInput};
@@ -55,6 +56,20 @@ function Photos(props){
         })
     }
 
+    var movePhoto = (event) => {
+        if(moving) return;
+        setMoving(true);
+        let { type, index } = event.currentTarget.dataset;
+        let data = null;
+        movePicture(property.id, [property.images[type][Number(index)]])
+        .then(property => data = property)
+        .catch(error => apiError(error))
+        .finally(() => {
+            data ? setProperty(data) : pushNotification('Error', 'Failed to move picture type', 'danger');
+            setMoving(false);
+        })
+    }
+
     var orderModal = (event) => {
         event.preventDefault();
         let imageType = event.currentTarget.dataset.modal;
@@ -77,7 +92,7 @@ function Photos(props){
                     </div>
                 </div>
                 <div className="container container-photo is-fluid">
-                    <Images type="public" property={property} deletePhoto={deletePhoto} />
+                    <Images type="public" property={property} movePhoto={movePhoto} deletePhoto={deletePhoto} />
                     <Upload type="public" inputs={inputs} clickInput={clickInput} uploadFiles={uploadFiles} />
                 </div>
             </div>
@@ -95,7 +110,7 @@ function Photos(props){
                     </div>
                 </div>
                 <div className="container container-photo is-fluid">
-                    <Images type="private" property={property} deletePhoto={deletePhoto} />
+                    <Images type="private" property={property} movePhoto={movePhoto} deletePhoto={deletePhoto} />
                     <Upload type="private" inputs={inputs} clickInput={clickInput} uploadFiles={uploadFiles} />
                 </div>
             </div>
@@ -122,7 +137,7 @@ function Upload(props){
 }
 
 function Images(props){
-    const { property, type, deletePhoto } = props;
+    const { property, type, movePhoto, deletePhoto } = props;
 
     return (
         <Fragment>
@@ -130,6 +145,9 @@ function Images(props){
                 return (
                     <span className="img-container" key={index}>
                         <a className="delete is-medium" onClick={deletePhoto} data-type={type} data-index={index}></a>
+                        <span className="icon">
+                            <FontAwesomeIcon icon={type == "public" ? faArrowAltCircleDown : faArrowAltCircleUp} style={{width: '24px', height: '24px'}} fixedWidth onClick={movePhoto} data-type={type} data-index={index} />
+                        </span>
                         <img src={url} />
                     </span>
                 )

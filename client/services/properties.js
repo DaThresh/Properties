@@ -5,6 +5,7 @@ import { getProperties as fetch,
         postPropertyPictures,
         putPropertyStatus,
         putPicturesOrder,
+        putPictureType,
         deletePictures,
     } from './http';
 
@@ -44,6 +45,10 @@ function removePictures(propertyId, type, urls){
     return responseHandler(deletePictures, 200, 'property', propertyId, type, urls);
 }
 
+function movePicture(propertyId, url){
+    return responseHandler(putPictureType, 200, 'property', propertyId, url);
+}
+
 export {
     getProperties,
     getProperty,
@@ -52,5 +57,6 @@ export {
     uploadPictures,
     updatePropertyStatus,
     reorderPictures,
+    movePicture,
     removePictures,
 }
