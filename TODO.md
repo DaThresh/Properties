@@ -8,3 +8,4 @@
 * Add to README details about file uploads
 * Enable file size limitations on uploads
 * Fix sidebar text hover bug
+* Implement proper counts into gallery view

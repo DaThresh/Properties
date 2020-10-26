@@ -1,11 +1,12 @@
 import React, { useState, Fragment } from 'react';
 import { differenceInDays } from 'date-fns';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChevronRight, faSyncAlt } from '@fortawesome/free-solid-svg-icons';
+import { faBars, faChevronRight, faHome, faSyncAlt, faTh } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 
 // Components
 import List from '../shared/List';
+import Gallery from '../shared/Gallery';
 import SetProperty from '../modals/Properties/SetProperty';
 
 // Services
@@ -27,6 +28,7 @@ const tableHeaders = [
 
 function Properties(props){
     const statuses = getReferenceData('statuses');
+    const [view, setView] = useState('list');
     const [updatingStatus, setUpdatingStatus] = useState(false);
 
     var newProperty = () => openModal(<SetProperty />);
@@ -68,6 +70,10 @@ function Properties(props){
         )
     }
 
+    var changeView = (event) => setView(event.currentTarget.dataset.view);
+
+    var isView = (viewType) => view === viewType;
+
     var displayRow = (property) => {
         return (
             <tr key={property.id}>
@@ -76,6 +82,23 @@ function Properties(props){
                 <td>{property.city}</td>
                 <td>{differenceInDays(new Date, new Date(property.purchaseDate))}</td>
             </tr>
+        )
+    }
+
+    var displayGallery = (property) => {
+        return (
+            <div className="column is-3">
+                <div key={property.id} className="card">
+                    <div className="card-image has-text-centered">
+                        {Boolean(property?.images?.public?.length > 0 || property?.images?.private?.length > 0) ?
+                            <img src={property?.images?.public[0] || property?.images?.private[0]}></img> :
+                            <FontAwesomeIcon icon={faHome} size="10x" />}
+                    </div>
+                    <div className="card-content">
+                        <p className="title is-4"><Link to={'/properties/' + property.id}>{property.address}</Link></p>
+                    </div>
+                </div>
+            </div>
         )
     }
 
@@ -90,12 +113,19 @@ function Properties(props){
                     </div>
                     <div className="level-right">
                         <div className="level-item">
+                            <FontAwesomeIcon icon={faBars} onClick={changeView} data-view="list" className={(isView('list') ? 'has-text-info' : '')} />
+                        </div>
+                        <div className="level-item">
+                            <FontAwesomeIcon icon={faTh} onClick={changeView} data-view="gallery" className={(isView('gallery') ? 'has-text-info' : '')} />
+                        </div>
+                        <div className="level-item">
                             <FontAwesomeIcon icon={faSyncAlt} onClick={fetch} />
                         </div>
                     </div>
                 </div>
             </div>
-            <List tableHeaders={tableHeaders} fetchFunction={getProperties} fetchCountFunction={getPropertiesCount} displayRow={displayRow} />
+            {isView('list') ? <List tableHeaders={tableHeaders} fetchFunction={getProperties} fetchCountFunction={getPropertiesCount} displayRow={displayRow} /> : null}
+            {isView('gallery') ? <Gallery fetchFunction={getProperties} fetchCountFunction={getPropertiesCount} displayGallery={displayGallery} /> : null}
         </Fragment>
     )
 }
