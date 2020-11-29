@@ -1,6 +1,6 @@
 {
    "name": "properties",
-   "version": "0.2.93",
+   "version": "0.2.94",
    "description": "A web application using MERN for managing properties",
    "private": true,
    "scripts": {
