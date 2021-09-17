@@ -3,7 +3,7 @@ const fs = require('fs');
 
 try {
     let doc = fs.readFileSync(DIR + '/config.yml', 'utf8');
-    let data = yaml.safeLoad(doc);
+    let data = yaml.load(doc);
 
     global.PORT = data.port;
     global.ENVIRONMENT = data.environment;

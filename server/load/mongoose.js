@@ -32,7 +32,7 @@ if(optKeys.length > 0){
     mongostring += '?' + opts.join('&');
 }
 
-mongoose.connect(mongostring, {useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false})
+mongoose.connect(mongostring, {useNewUrlParser: true, useUnifiedTopology: true})
         .then(() => {
             Logger.info('Connected to MongoDB');
             insertDefaults();

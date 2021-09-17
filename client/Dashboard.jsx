@@ -39,7 +39,7 @@ function Dashboard(){
 
     const pieChartOptions = {
         labels: statuses.map(status => status.name),
-        colors: statuses.map(status => colors[status.color]),
+        colors: statuses.map(status => colors?.[status.color]),
         legend: {
             position: 'bottom',
             onItemClick: {

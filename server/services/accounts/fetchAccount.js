@@ -2,7 +2,7 @@ const Account = require(DIR + '/models/organizations/account');
 const success = require('../success');
 
 module.exports = (req, res) => {
-    req.account.populate('organization', 'name id images').execPopulate()
+    req.account.populate('organization', 'name id images')
     .then(account => success(res, {
         role: account.role,
         admin: account.organization._id.equals(global.adminOrganization),
